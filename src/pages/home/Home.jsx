@@ -18,7 +18,7 @@ import {
 import { Link } from 'react-router-dom';
 import HamburgerBanner from '../../assets/images/hamburger-banner.jpg';
 import {
-  Wrapper,
+  HeaderWrapper,
   NewProductsWrapper,
   BlogsRecentlyWrapper,
   MenuListWrapper,
@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <>
-      <Wrapper>
+      <HeaderWrapper>
         {/* header */}
         <Header toggleMenu={toggleMenu}>
           <Link to="/" className="logo-wrapper">
@@ -96,7 +96,7 @@ export default function Home() {
           </div>
           <RightOutlined />
         </div>
-      </Wrapper>
+      </HeaderWrapper>
 
       <NewProductsWrapper className="container">
         <div className="title-wrapper">
@@ -450,9 +450,6 @@ export default function Home() {
 
       <FooterWrapper>
         <div className="top">
-          <Link to="/" className="logo-wrapper">
-            <img src={Logo} alt="logo" />
-          </Link>
           <div className="container">
             <Row gutter={[16, 32]}>
               <Col xl={8} lg={8} md={12} sm={24} xs={24} className="quick-link">

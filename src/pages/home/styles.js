@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import HamburgerBanner from '../../assets/images/hamburger-banner.jpg';
 import { Button } from 'antd';
 
-export const Wrapper = styled.div`
+export const HeaderWrapper = styled.div`
   background: url(${HamburgerBanner}) no-repeat center;
   background-size: cover;
   height: 100vh;
@@ -57,6 +57,28 @@ export const Wrapper = styled.div`
       }
     }
   }
+  @media screen and (max-width: 767.5px) {
+    .banner .content-wrapper {
+      .content {
+        max-width: 500px;
+        font-size: 18px;
+      }
+    }
+  }
+  @media screen and (max-width: 575.5px) {
+    .banner {
+      padding: 0 20px;
+      .content-wrapper {
+        .title {
+          font-size: 40px;
+        }
+        .content {
+          max-width: 350px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
 `;
 
 export const Header = styled.div`
@@ -67,6 +89,7 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   .logo-wrapper {
+    display: block;
     width: 80px;
     img {
       max-width: 100%;
@@ -129,6 +152,10 @@ export const Header = styled.div`
         }
         &-bars {
           display: none;
+          font-size: 36px;
+        }
+        &-close {
+          font-size: 36px;
         }
       }
     }
@@ -141,7 +168,7 @@ export const Header = styled.div`
         justify-content: flex-start;
         position: absolute;
         top: 110px;
-        right: ${({ toggleMenu }) => (toggleMenu ? 0 : '-100%')};
+        right: ${({ toggleMenu }) => (toggleMenu ? 0 : '-110%')};
         opacity: 1;
         transition: all 0.5s ease;
         width: 100vw;
@@ -165,6 +192,9 @@ export const Header = styled.div`
         }
       }
     }
+  }
+  @media screen and (max-width: 575.5px) {
+    padding: 0 20px;
   }
 `;
 
@@ -273,6 +303,15 @@ export const NewProductsWrapper = styled.div`
       }
     }
   }
+  @media screen and (max-width: 575.5px) {
+    .title-wrapper {
+      padding-left: 8px;
+      padding-right: 8px;
+      h4.ant-typography {
+        font-size: 42px;
+      }
+    }
+  }
 `;
 
 export const MenuListWrapper = styled.div`
@@ -332,6 +371,15 @@ export const MenuListWrapper = styled.div`
       }
       .ant-typography {
         font-size: 18px;
+      }
+    }
+  }
+  @media screen and (max-width: 575.5px) {
+    .title-wrapper {
+      padding-left: 8px;
+      padding-right: 8px;
+      h4.ant-typography {
+        font-size: 42px;
       }
     }
   }
@@ -395,6 +443,15 @@ export const BlogsRecentlyWrapper = styled.div`
       }
     }
   }
+  @media screen and (max-width: 575.5px) {
+    .title-wrapper {
+      padding-left: 8px;
+      padding-right: 8px;
+      h4.ant-typography {
+        font-size: 42px;
+      }
+    }
+  }
 `;
 
 export const FormContactWrapper = styled.div`
@@ -407,11 +464,13 @@ export const FormContactWrapper = styled.div`
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 10px;
+    align-items: center;
   }
   .description {
     font-size: 20px;
     color: var(--text-gray);
     margin-bottom: 10px;
+    align-items: center;
   }
   .input-wrapper {
     position: relative;
@@ -444,6 +503,34 @@ export const FormContactWrapper = styled.div`
       border-bottom-right-radius: 20px;
     }
   }
+  @media screen and (max-width: 991.5px) {
+    .title {
+      font-size: 28px;
+    }
+    .description {
+      font-size: 16px;
+    }
+    .input-wrapper {
+      input {
+        width: 400px;
+      }
+    }
+  }
+  @media screen and (max-width: 575.5px) {
+    padding-left: 8px;
+    padding-right: 8px;
+    .title {
+      font-size: 24px;
+    }
+    .description {
+      font-size: 14px;
+    }
+    .input-wrapper {
+      input {
+        max-width: 350px;
+      }
+    }
+  }
 `;
 
 export const FooterWrapper = styled.div`
@@ -451,21 +538,6 @@ export const FooterWrapper = styled.div`
   .top {
     background-color: var(--primary-color-dark);
     padding: 32px 0;
-    position: relative;
-    .logo-wrapper {
-      display: flex;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 160px;
-      height: 160px;
-      align-items: center;
-      left: 80px;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
     .ant-row {
       h4.ant-typography {
         font-size: 24px;
@@ -509,5 +581,19 @@ export const FooterWrapper = styled.div`
     background-color: var(--primary-color);
     font-size: 18px;
     color: var(--text-primary);
+  }
+  @media screen and (max-width: 767.5px) {
+    .top {
+      .ant-row {
+        .ant-col {
+          align-items: center;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 575.5px) {
+    .license {
+      font-size: 14px;
+    }
   }
 `;
