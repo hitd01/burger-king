@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore/lite';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBe4_VJmk6vrfn_tWzj2_INUFH6I2__PKg',
@@ -16,5 +17,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { analytics, db };
+if (window.location.hostname === 'localhost') {
+  db.useEmulator('localhost', '8080');
+  auth.useEmulator('http://localhost:9099');
+}
+
+export { analytics, db, auth };
