@@ -107,16 +107,17 @@ export const Header = styled.div`
       align-items: center;
       background: transparent;
       &-item {
-        margin: 0;
-        .ant-menu-title-content a {
-          font-size: 20px;
-          font-weight: 600;
-          text-transform: uppercase;
-          text-align: center;
-          color: var(--white-color);
-          &:hover {
-            color: var(--primary-color);
-          }
+        margin: 0 16px;
+        padding: 0;
+      }
+      &-title-content a {
+        font-size: 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-align: center;
+        color: var(--white-color);
+        &:hover {
+          color: var(--primary-color);
         }
       }
       &-item-selected {
@@ -143,8 +144,10 @@ export const Header = styled.div`
           line-height: 25px;
         }
       }
+      .icon {
+        margin-left: 32px;
+      }
       .anticon {
-        padding-left: 32px;
         font-size: 30px;
         color: var(--white-color);
         &-shopping {
@@ -156,6 +159,21 @@ export const Header = styled.div`
         }
         &-close {
           font-size: 36px;
+        }
+        &-search {
+          cursor: pointer;
+        }
+      }
+      .search-wrapper {
+        position: relative;
+        .ant-input {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          margin-top: 20px;
+          min-width: 50vw;
+          padding: 6px 12px;
+          font-size: 16px;
         }
       }
     }
@@ -179,11 +197,10 @@ export const Header = styled.div`
           padding: 0;
           height: auto;
           width: 100%;
-          .ant-menu-title-content a {
-            padding: 12px 0;
-            font-size: 24px;
-            display: block;
-          }
+        }
+        &-title-content a {
+          font-size: 24px;
+          display: block;
         }
       }
       .icon-wrapper {
@@ -195,6 +212,15 @@ export const Header = styled.div`
   }
   @media screen and (max-width: 575.5px) {
     padding: 0 20px;
+    .link-wrapper {
+      .icon-wrapper {
+        .search-wrapper {
+          .ant-input {
+            right: -100%;
+          }
+        }
+      }
+    }
   }
 `;
 

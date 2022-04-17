@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Menu, Row, Typography } from 'antd';
+import { Button, Col, Input, Menu, Row, Typography } from 'antd';
 import Logo from '../../assets/logo/burger-king-logo.png';
 import {
   BarsOutlined,
@@ -32,12 +32,13 @@ const { Paragraph, Title, Text } = Typography;
 
 export default function Home() {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
 
   return (
     <>
       <HeaderWrapper>
         {/* header */}
-        <Header toggleMenu={toggleMenu}>
+        <Header toggleMenu={toggleMenu} search={isSearch}>
           <Link to="/" className="logo-wrapper">
             <img src={Logo} alt="logo" />
           </Link>
@@ -60,18 +61,30 @@ export default function Home() {
               </Menu.Item>
             </Menu>
             <div className="icon-wrapper">
-              <Link className="cart-wrapper" to="cart">
+              <Link className="cart-wrapper icon" to="cart">
                 <ShoppingOutlined />
                 <span className="quantity">0</span>
               </Link>
-              <SearchOutlined />
-              <Link to="login">
+              <div className="search-wrapper">
+                <SearchOutlined
+                  className="icon"
+                  onClick={() => setIsSearch(!isSearch)}
+                />
+                {isSearch ? <Input placeholder="Nhập tên món ăn" /> : null}
+              </div>
+              <Link to="login" className="icon">
                 <UserOutlined />
               </Link>
               {toggleMenu ? (
-                <CloseOutlined onClick={() => setToggleMenu(!toggleMenu)} />
+                <CloseOutlined
+                  className="icon"
+                  onClick={() => setToggleMenu(!toggleMenu)}
+                />
               ) : (
-                <BarsOutlined onClick={() => setToggleMenu(!toggleMenu)} />
+                <BarsOutlined
+                  className="icon"
+                  onClick={() => setToggleMenu(!toggleMenu)}
+                />
               )}
             </div>
           </div>
