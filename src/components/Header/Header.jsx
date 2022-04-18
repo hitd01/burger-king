@@ -10,8 +10,11 @@ import {
 } from '@ant-design/icons';
 import { Input, Menu } from 'antd';
 import { HeaderWrapper } from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSlice } from '../Login/loginSlice';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
 
@@ -50,7 +53,13 @@ const Header = () => {
             />
             {isSearch ? <Input placeholder="Nhập tên món ăn" /> : null}
           </div>
-          <Link to="login" className="icon">
+          <Link
+            to="/login"
+            className="icon"
+            onClick={() =>
+              dispatch(loginSlice.actions.toggleHiddenLogin(false))
+            }
+          >
             <UserOutlined />
           </Link>
           {toggleMenu ? (

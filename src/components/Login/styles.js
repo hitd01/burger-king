@@ -3,8 +3,13 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
-  position: relative;
+  position: fixed;
   display: ${({ isHidden }) => (isHidden ? 'none' : 'block')};
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 export const Modal = styled.div`
@@ -14,7 +19,7 @@ export const Modal = styled.div`
   left: 0;
   bottom: 0;
   background-color: #95c5f7;
-  opacity: 0.3;
+  opacity: 0.5;
 `;
 
 export const FormWrapper = styled.div`
@@ -35,6 +40,7 @@ export const FormWrapper = styled.div`
       padding: 12px 8px;
       cursor: pointer;
       margin: 0;
+      border-bottom: 1px solid var(--primary-color-light);
     }
     .sign-in-title {
       background: ${({ signIn }) => (signIn ? '#244263' : '#95c5f7')};

@@ -2,29 +2,58 @@ import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Typography } from 'antd';
 import React, { useState } from 'react';
 import { FormWrapper, Wrapper, Modal } from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSlice } from './loginSlice';
+import { useNavigate } from 'react-router-dom';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../../firebase/config';
+import { addDocument } from '../../firebase/services';
 
 const { Title, Text } = Typography;
 
+const googleProvider = new GoogleAuthProvider();
+
 export default function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isSignIn, setIsSignIn] = useState(true);
-  const [isModalClick, setIsModalClick] = useState(false);
+
+  const { isHiddenLogin } = useSelector((state) => state.login);
+
+  // handle login with google
+  const handleLoginWithGoogle = async (provider) => {
+    const { user } = await signInWithPopup(auth, provider);
+    addDocument('users', {
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      uid: user.uid,
+      accessToken: user.accessToken,
+    });
+  };
+
   return (
-    <Wrapper isHidden={isModalClick}>
-      {/* sign in */}
-      <Modal onClick={() => setIsModalClick(true)} />
+    <Wrapper isHidden={isHiddenLogin}>
+      <Modal
+        onClick={() => {
+          dispatch(loginSlice.actions.toggleHiddenLogin(true));
+          navigate(-1);
+        }}
+      />
       <FormWrapper signIn={isSignIn}>
         <div className="title-wrapper">
           <Title
             className="sign-in-title"
             level={2}
-            onClick={() => setIsSignIn(!isSignIn)}
+            onClick={() => setIsSignIn(true)}
           >
             Đăng Nhập
           </Title>
           <Title
             className="sign-up-title"
             level={2}
-            onClick={() => setIsSignIn(!isSignIn)}
+            onClick={() => setIsSignIn(false)}
           >
             Đăng Ký
           </Title>
@@ -92,7 +121,7 @@ export default function Login() {
             </Form.Item>
 
             <Form.Item
-              name="password"
+              name="password-register"
               label="Mật khẩu"
               rules={[
                 {
@@ -108,7 +137,7 @@ export default function Login() {
             <Form.Item
               name="confirm"
               label="Nhập lại mật khẩu"
-              dependencies={['password']}
+              dependencies={['password-register']}
               hasFeedback
               rules={[
                 {
@@ -117,7 +146,10 @@ export default function Login() {
                 },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || getFieldValue('password') === value) {
+                    if (
+                      !value ||
+                      getFieldValue('passwopassword-registerrd2') === value
+                    ) {
                       return Promise.resolve();
                     }
                     return Promise.reject(
@@ -145,7 +177,11 @@ export default function Login() {
 
         <div className="other">
           <Text className="text-middle">Hoặc</Text>
-          <Button size="large" type="priamry">
+          <Button
+            size="large"
+            type="priamry"
+            onClick={() => handleLoginWithGoogle(googleProvider)}
+          >
             Đăng nhập bằng Google
           </Button>
         </div>

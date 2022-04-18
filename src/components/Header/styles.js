@@ -105,7 +105,7 @@ export const HeaderWrapper = styled.div`
         justify-content: flex-start;
         position: absolute;
         top: 110px;
-        right: ${({ toggleMenu }) => (toggleMenu ? 0 : '-110%')};
+        right: ${({ toggleMenu }) => (toggleMenu ? 0 : 'calc(-100% - 40px)')};
         opacity: 1;
         transition: all 0.5s ease;
         width: 100vw;

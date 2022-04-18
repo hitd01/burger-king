@@ -9,7 +9,7 @@ import {
   StarFilled,
   StarOutlined,
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import HamburgerBanner from '../../assets/images/hamburger-banner.jpg';
 import {
   BannerWrapper,
@@ -28,9 +28,7 @@ export default function Home() {
   return (
     <>
       <BannerWrapper>
-        {/* header */}
         <Header />
-        {/* banner */}
         <div className="banner">
           <LeftOutlined />
           <div className="content-wrapper">
@@ -436,6 +434,8 @@ export default function Home() {
           quyền
         </div>
       </FooterWrapper>
+
+      <Outlet />
     </>
   );
 }
