@@ -1,6 +1,25 @@
 {
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": "plugin:react/recommended",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
   "plugins": ["react"],
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "globals": {
+    "arguments": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "indent": [2, 2],
     "quotes": [2, "single"],
@@ -12,19 +31,5 @@
     "new-cap": 2,
     "no-case-declarations": 0,
     "curly": [2, "all"]
-  },
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "env": {
-    "browser": true,
-    "es6": true
-  },
-  "globals": {
-    "arguments": true
   }
 }

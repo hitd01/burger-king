@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import navbarReducer from '../components/navbar/navbarSlice';
+import headerReducer from '../components/Header/headerSlice';
 
 export const store = configureStore({
   reducer: {
-    navbar: navbarReducer,
+    header: headerReducer,
   },
 });

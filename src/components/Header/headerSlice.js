@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {};
 
-export const counterSlice = createSlice({
-  name: 'counter',
+export const headerSlice = createSlice({
+  name: 'header',
   initialState,
   reducers: {},
 });
 
 // Action creators are generated for each case reducer function
-// export const {  } = counterSlice.actions;
+// export const {  } = headerSlice.actions;
 
-export default counterSlice.reducer;
+export default headerSlice.reducer;
