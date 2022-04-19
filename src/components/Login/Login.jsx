@@ -23,9 +23,14 @@ export default function Login() {
 
   const [isSignIn, setIsSignIn] = useState(true);
 
-  const { isHiddenLogin } = useSelector((state) => state.login);
-
   const [form] = Form.useForm();
+
+  // handle hidden login form
+  const { isHiddenLogin } = useSelector((state) => state.login);
+  const handleHiddenLogin = () => {
+    dispatch(loginSlice.actions.toggleHiddenLogin(true));
+    navigate(-1);
+  };
 
   // handle login with google
   const handleLoginWithGoogle = async () => {
@@ -56,18 +61,26 @@ export default function Login() {
       .catch((error) => {
         console.log(error);
       });
+    handleHiddenLogin();
   };
 
   // handle register with email and password
   const handleRegister = async () => {
     const { confirm, email, passwordRegister } = form.getFieldValue();
-    if (confirm === passwordRegister) {
+    if (
+      confirm === passwordRegister &&
+      email != null &&
+      confirm != null &&
+      passwordRegister != null
+    ) {
       await createUserWithEmailAndPassword(auth, email, passwordRegister)
         .then((userCredential) => {
-          // Signed in
+          // create new user
           const user = userCredential.user;
           const payload = {
-            displayName: user.email?.charAt(0)?.toUpperCase(),
+            displayName: user.displayName
+              ? user.displayName
+              : user.email?.charAt(0)?.toUpperCase(),
             email: user.email,
             photoURL: user.photoURL,
             uid: user.uid,
@@ -79,13 +92,18 @@ export default function Login() {
           if (isNewUser) {
             addDocument('users', payload);
           }
+          alert('Đăng ký thành công!');
+          setIsSignIn(true);
         })
         .catch((error) => {
           // const errorCode = error.code;
           // const errorMessage = error.message;
           console.log(error);
         });
+    } else {
+      alert('Đăng ký không thành công!');
     }
+    form.resetFields();
   };
 
   // handle sign in with email
@@ -96,6 +114,8 @@ export default function Login() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+
+        handleHiddenLogin();
       })
       .catch((error) => {
         // const errorCode = error.code;
@@ -106,12 +126,7 @@ export default function Login() {
 
   return (
     <Wrapper isHidden={isHiddenLogin}>
-      <Modal
-        onClick={() => {
-          dispatch(loginSlice.actions.toggleHiddenLogin(true));
-          navigate(-1);
-        }}
-      />
+      <Modal onClick={handleHiddenLogin} />
       <FormWrapper signIn={isSignIn}>
         <div className="title-wrapper">
           <Title
