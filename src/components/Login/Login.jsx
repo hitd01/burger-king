@@ -9,6 +9,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   getAdditionalUserInfo,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import { addDocument } from '../../firebase/services';
@@ -22,6 +24,8 @@ export default function Login() {
   const [isSignIn, setIsSignIn] = useState(true);
 
   const { isHiddenLogin } = useSelector((state) => state.login);
+
+  const [form] = Form.useForm();
 
   // handle login with google
   const handleLoginWithGoogle = async () => {
@@ -54,6 +58,52 @@ export default function Login() {
       });
   };
 
+  // handle register with email and password
+  const handleRegister = async () => {
+    const { confirm, email, passwordRegister } = form.getFieldValue();
+    if (confirm === passwordRegister) {
+      await createUserWithEmailAndPassword(auth, email, passwordRegister)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          const payload = {
+            displayName: user.email?.charAt(0)?.toUpperCase(),
+            email: user.email,
+            photoURL: user.photoURL,
+            uid: user.uid,
+            accessToken: user.accessToken,
+          };
+
+          // check is new user
+          const { isNewUser } = getAdditionalUserInfo(userCredential);
+          if (isNewUser) {
+            addDocument('users', payload);
+          }
+        })
+        .catch((error) => {
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+          console.log(error);
+        });
+    }
+  };
+
+  // handle sign in with email
+  const handleSignInWithEmail = async () => {
+    const { username, password } = form.getFieldValue();
+    await signInWithEmailAndPassword(auth, username, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        console.log(error);
+      });
+  };
+
   return (
     <Wrapper isHidden={isHiddenLogin}>
       <Modal
@@ -82,6 +132,7 @@ export default function Login() {
 
         {isSignIn ? (
           <Form
+            form={form}
             name="normal_login"
             className="login-form"
             initialValues={{ remember: true }}
@@ -118,13 +169,19 @@ export default function Login() {
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
+                onClick={handleSignInWithEmail}
               >
                 Đăng Nhập
               </Button>
             </Form.Item>
           </Form>
         ) : (
-          <Form name="register" className="register-form" scrollToFirstError>
+          <Form
+            form={form}
+            name="register"
+            className="register-form"
+            scrollToFirstError
+          >
             <Form.Item
               name="email"
               label="E-mail"
@@ -143,7 +200,7 @@ export default function Login() {
             </Form.Item>
 
             <Form.Item
-              name="password-register"
+              name="passwordRegister"
               label="Mật khẩu"
               rules={[
                 {
@@ -159,7 +216,7 @@ export default function Login() {
             <Form.Item
               name="confirm"
               label="Nhập lại mật khẩu"
-              dependencies={['password-register']}
+              dependencies={['passwordRegister']}
               hasFeedback
               rules={[
                 {
@@ -168,10 +225,7 @@ export default function Login() {
                 },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (
-                      !value ||
-                      getFieldValue('passwopassword-registerrd2') === value
-                    ) {
+                    if (!value || getFieldValue('passwordRegister') === value) {
                       return Promise.resolve();
                     }
                     return Promise.reject(
@@ -190,6 +244,7 @@ export default function Login() {
                 type="primary"
                 htmlType="submit"
                 className="register-form-button"
+                onClick={handleRegister}
               >
                 Đăng Ký
               </Button>
