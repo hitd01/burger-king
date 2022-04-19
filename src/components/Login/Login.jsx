@@ -24,6 +24,7 @@ export default function Login() {
   // handle login with google
   const handleLoginWithGoogle = async (provider) => {
     const { user } = await signInWithPopup(auth, provider);
+    console.log(user);
     addDocument('users', {
       displayName: user.displayName,
       email: user.email,
@@ -58,6 +59,7 @@ export default function Login() {
             Đăng Ký
           </Title>
         </div>
+
         {isSignIn ? (
           <Form
             name="normal_login"
@@ -186,8 +188,6 @@ export default function Login() {
           </Button>
         </div>
       </FormWrapper>
-
-      {/* sign up */}
     </Wrapper>
   );
 }

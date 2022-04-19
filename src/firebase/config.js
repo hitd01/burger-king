@@ -1,9 +1,6 @@
 import { initializeApp } from 'firebase/app';
 // import { getAnalytics } from 'firebase/analytics';
-import {
-  connectFirestoreEmulator,
-  getFirestore,
-} from 'firebase/firestore/lite';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
