@@ -4,13 +4,13 @@ import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBe4_VJmk6vrfn_tWzj2_INUFH6I2__PKg',
-  authDomain: 'food-store-ft.firebaseapp.com',
-  projectId: 'food-store-ft',
-  storageBucket: 'food-store-ft.appspot.com',
-  messagingSenderId: '693520254440',
-  appId: '1:693520254440:web:3df2e644365e86a862105d',
-  measurementId: 'G-9KFGRDQNYR',
+  apiKey: 'AIzaSyBzwTyBewwf-PWF1ygYfjopUV5JzDy5T-k',
+  authDomain: 'burger-king-e997d.firebaseapp.com',
+  projectId: 'burger-king-e997d',
+  storageBucket: 'burger-king-e997d.appspot.com',
+  messagingSenderId: '124004559510',
+  appId: '1:124004559510:web:ac7db761f6f107f1c370b7',
+  measurementId: 'G-Y69WPHWQDW',
 };
 
 // Initialize Firebase

@@ -11,8 +11,6 @@ import { addDocument } from '../../firebase/services';
 
 const { Title, Text } = Typography;
 
-const googleProvider = new GoogleAuthProvider();
-
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,16 +20,30 @@ export default function Login() {
   const { isHiddenLogin } = useSelector((state) => state.login);
 
   // handle login with google
-  const handleLoginWithGoogle = async (provider) => {
-    const { user } = await signInWithPopup(auth, provider);
-    console.log(user);
-    addDocument('users', {
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-      uid: user.uid,
-      accessToken: user.accessToken,
-    });
+  const handleLoginWithGoogle = async () => {
+    const googleProvider = new GoogleAuthProvider();
+    await signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+
+        // The signed-in user info.
+        const user = result.user;
+
+        const payload = {
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          uid: user.uid,
+          accessToken: token,
+        };
+
+        addDocument('users', payload);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -179,11 +191,7 @@ export default function Login() {
 
         <div className="other">
           <Text className="text-middle">Hoặc</Text>
-          <Button
-            size="large"
-            type="priamry"
-            onClick={() => handleLoginWithGoogle(googleProvider)}
-          >
+          <Button size="large" type="priamry" onClick={handleLoginWithGoogle}>
             Đăng nhập bằng Google
           </Button>
         </div>
