@@ -5,7 +5,11 @@ import { FormWrapper, Wrapper, Modal } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSlice } from './loginSlice';
 import { useNavigate } from 'react-router-dom';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAdditionalUserInfo,
+} from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import { addDocument } from '../../firebase/services';
 
@@ -24,7 +28,7 @@ export default function Login() {
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API
+        // give Google Access Token
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
 
@@ -39,7 +43,11 @@ export default function Login() {
           accessToken: token,
         };
 
-        addDocument('users', payload);
+        // check is new user
+        const { isNewUser } = getAdditionalUserInfo(result);
+        if (isNewUser) {
+          addDocument('users', payload);
+        }
       })
       .catch((error) => {
         console.log(error);
