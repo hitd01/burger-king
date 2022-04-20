@@ -22,6 +22,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [isSignIn, setIsSignIn] = useState(true);
+  // const [authPasswordErrorCode, setAuthPasswordErrorCode] = useState('');
 
   const [form] = Form.useForm();
 
@@ -67,12 +68,7 @@ export default function Login() {
   // handle register with email and password
   const handleRegister = async () => {
     const { confirm, email, passwordRegister } = form.getFieldValue();
-    if (
-      confirm === passwordRegister &&
-      email != null &&
-      confirm != null &&
-      passwordRegister != null
-    ) {
+    if (confirm === passwordRegister && email && confirm && passwordRegister) {
       await createUserWithEmailAndPassword(auth, email, passwordRegister)
         .then((userCredential) => {
           // create new user
@@ -93,17 +89,22 @@ export default function Login() {
             addDocument('users', payload);
           }
           alert('Đăng ký thành công!');
+          form.resetFields();
+          setAuthPasswordErrorCode('');
           setIsSignIn(true);
         })
         .catch((error) => {
           // const errorCode = error.code;
           // const errorMessage = error.message;
-          console.log(error);
+          // console.log(error);
+          const errorCode = error.code;
+          if (errorCode === 'auth/email-already-in-use') {
+            alert('Email đã được sử dụng!');
+          }
         });
     } else {
       alert('Đăng ký không thành công!');
     }
-    form.resetFields();
   };
 
   // handle sign in with email
@@ -120,7 +121,13 @@ export default function Login() {
       .catch((error) => {
         // const errorCode = error.code;
         // const errorMessage = error.message;
-        console.log(error);
+        // console.log(error);
+        const errorCode = error.code;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Sai mật khẩu!');
+        } else if (errorCode === 'auth/user-not-found') {
+          alert('Tài khoản không tồn tại!');
+        }
       });
   };
 
@@ -209,6 +216,19 @@ export default function Login() {
                   required: true,
                   message: 'Vui lòng nhập trường này!',
                 },
+                // () => ({
+                //   validator(_, value) {
+                //     if (!value) {
+                //       return Promise.resolve();
+                //     }
+
+                //     if (authPasswordErrorCode === 'auth/email-already-in-use') {
+                //       return Promise.reject(new Error('Email đã được sử dụng'));
+                //     } else {
+                //       return Promise.resolve();
+                //     }
+                //   },
+                // }),
               ]}
             >
               <Input />
@@ -222,6 +242,26 @@ export default function Login() {
                   required: true,
                   message: 'Vui lòng nhập trường này!',
                 },
+                () => ({
+                  validator(_, value) {
+                    if (!value) {
+                      return Promise.resolve();
+                    }
+                    if (value.length < 6) {
+                      return Promise.reject(
+                        new Error('Mật khẩu phải có ít nhất 6 ký tự')
+                      );
+                    } else {
+                      return Promise.resolve();
+                    }
+
+                    // if (authPasswordErrorCode === 'auth/weak-password') {
+                    //   return Promise.reject(
+                    //     new Error('Mật khẩu phải có ít nhất 6 ký tự')
+                    //   );
+                    // }
+                  },
+                }),
               ]}
               hasFeedback
             >
@@ -269,7 +309,7 @@ export default function Login() {
 
         <div className="other">
           <Text className="text-middle">Hoặc</Text>
-          <Button size="large" type="priamry" onClick={handleLoginWithGoogle}>
+          <Button size="large" type="primary" onClick={handleLoginWithGoogle}>
             Đăng nhập bằng Google
           </Button>
         </div>
