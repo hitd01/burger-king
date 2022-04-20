@@ -106,7 +106,7 @@ project run on `localhost:3000`
 - [x] Install NPM packages
 - [x] Directory structure
 - [x] Add code convention
-- [] Home page
+- [ ] Home page
   - [x] Cut interface
   - [x] Responsive
   - [ ] Dump data
