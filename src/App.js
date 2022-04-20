@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { Home, WhatBK, Shop, Blog, Contact, Error } from './pages';
-import { Login } from './components';
+import { Login, ForgotPassword } from './components';
 
 export default function App() {
   return (
@@ -14,6 +14,7 @@ export default function App() {
       <Route path="products" element={<Shop />} />
       <Route path="blogs" element={<Blog />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="forgot-password" element={<ForgotPassword />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );

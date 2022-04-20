@@ -85,4 +85,24 @@ export const FormWrapper = styled.div`
       margin-bottom: 12px;
     }
   }
+  @media screen and (max-width: 575.5px) {
+    width: 380px;
+    .title-wrapper {
+      h2.ant-typography {
+        font-size: 20px;
+      }
+    }
+    .ant-form {
+      padding: 15px 15px 0 15px;
+      .ant-row.ant-form-item {
+        margin-bottom: 12px;
+      }
+    }
+    .other {
+      margin-bottom: 15px;
+      .text-middle {
+        margin-bottom: 8px;
+      }
+    }
+  }
 `;

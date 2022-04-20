@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { FormWrapper, Wrapper, Modal } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSlice } from './loginSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -22,12 +22,12 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [isSignIn, setIsSignIn] = useState(true);
-  // const [authPasswordErrorCode, setAuthPasswordErrorCode] = useState('');
 
   const [form] = Form.useForm();
 
   // handle hidden login form
   const { isHiddenLogin } = useSelector((state) => state.login);
+
   const handleHiddenLogin = () => {
     dispatch(loginSlice.actions.toggleHiddenLogin(true));
     navigate(-1);
@@ -60,7 +60,10 @@ export default function Login() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        const errorCode = error.code;
+        if (errorCode === 'auth/popup-closed-by-user') {
+          alert('Đã huỷ đăng nhập bằng Google');
+        }
       });
     handleHiddenLogin();
   };
@@ -69,6 +72,7 @@ export default function Login() {
   const handleRegister = async () => {
     const { confirm, email, passwordRegister } = form.getFieldValue();
     if (confirm === passwordRegister && email && confirm && passwordRegister) {
+      // create user with email real
       await createUserWithEmailAndPassword(auth, email, passwordRegister)
         .then((userCredential) => {
           // create new user
@@ -90,13 +94,9 @@ export default function Login() {
           }
           alert('Đăng ký thành công!');
           form.resetFields();
-          setAuthPasswordErrorCode('');
           setIsSignIn(true);
         })
         .catch((error) => {
-          // const errorCode = error.code;
-          // const errorMessage = error.message;
-          // console.log(error);
           const errorCode = error.code;
           if (errorCode === 'auth/email-already-in-use') {
             alert('Email đã được sử dụng!');
@@ -119,9 +119,6 @@ export default function Login() {
         handleHiddenLogin();
       })
       .catch((error) => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // console.log(error);
         const errorCode = error.code;
         if (errorCode === 'auth/wrong-password') {
           alert('Sai mật khẩu!');
@@ -181,9 +178,9 @@ export default function Login() {
             </Form.Item>
 
             <Form.Item>
-              <a className="login-form-forgot" href="">
+              <Link className="login-form-forgot" to="/forgot-password">
                 Quên mật khẩu?
-              </a>
+              </Link>
             </Form.Item>
             <Form.Item>
               <Button
