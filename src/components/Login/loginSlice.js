@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isHiddenLogin: false,
+  isLogged: false,
 };
 
 export const loginSlice = createSlice({
@@ -11,7 +12,12 @@ export const loginSlice = createSlice({
     toggleHiddenLogin: (state, action) => {
       state.isHiddenLogin = action.payload;
     },
+    checkLogged: (state, action) => {
+      state.isLogged = action.payload;
+    },
   },
 });
+
+export const { toggleHiddenLogin, checkLogged } = loginSlice.actions;
 
 export default loginSlice.reducer;

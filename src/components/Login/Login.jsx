@@ -3,7 +3,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import React, { useState } from 'react';
 import { FormWrapper, Wrapper, Modal } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSlice } from './loginSlice';
+import { toggleHiddenLogin, checkLogged } from './loginSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   GoogleAuthProvider,
@@ -29,7 +29,7 @@ export default function Login() {
   const { isHiddenLogin } = useSelector((state) => state.login);
 
   const handleHiddenLogin = () => {
-    dispatch(loginSlice.actions.toggleHiddenLogin(true));
+    dispatch(toggleHiddenLogin(true));
     navigate(-1);
   };
 
@@ -46,9 +46,10 @@ export default function Login() {
         const user = result.user;
 
         const payload = {
-          displayName: user.displayName,
+          name: user.displayName,
           email: user.email,
-          photoURL: user.photoURL,
+          avatar: user.photoURL,
+          address: '',
           uid: user.uid,
           accessToken: token,
         };
@@ -58,6 +59,7 @@ export default function Login() {
         if (isNewUser) {
           addDocument('users', payload);
         }
+        dispatch(checkLogged(true));
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -78,11 +80,12 @@ export default function Login() {
           // create new user
           const user = userCredential.user;
           const payload = {
-            displayName: user.displayName
+            name: user.displayName
               ? user.displayName
               : user.email?.charAt(0)?.toUpperCase(),
             email: user.email,
-            photoURL: user.photoURL,
+            avatar: user.photoURL,
+            address: '',
             uid: user.uid,
             accessToken: user.accessToken,
           };
@@ -93,6 +96,7 @@ export default function Login() {
             addDocument('users', payload);
           }
           alert('Đăng ký thành công!');
+          dispatch(checkLogged(false));
           form.resetFields();
           setIsSignIn(true);
         })
@@ -114,8 +118,7 @@ export default function Login() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
-
+        dispatch(checkLogged(true));
         handleHiddenLogin();
       })
       .catch((error) => {

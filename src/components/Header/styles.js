@@ -95,6 +95,9 @@ export const HeaderWrapper = styled.div`
           font-size: 16px;
         }
       }
+      .user-avatar {
+        margin-left: 32px;
+      }
     }
   }
   @media screen and (max-width: 991.5px) {
