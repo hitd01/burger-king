@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Col, Row, Typography, Spin } from 'antd';
 import {
   EyeOutlined,
@@ -21,39 +21,12 @@ import {
   ButtonStyled,
 } from './styles';
 import { Header } from '../../components';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase/config';
-import { useDispatch, useSelector } from 'react-redux';
-import { checkLogged } from '../../components/Login/loginSlice';
+import useLoading from '../../hooks/useLoading';
 
 const { Paragraph, Title, Text } = Typography;
 
 export default function Home() {
-  const dispatch = useDispatch();
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  const { isLogged } = useSelector((state) => state.login);
-
-  useEffect(() => {
-    const unsubscribed = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // const { name, email, avatar, address, uid, accessToken, createdAt } =
-        //   user;
-        if (!isLogged) {
-          setIsLoading(false);
-          dispatch(checkLogged(true));
-          return;
-        }
-        return;
-      }
-      setIsLoading(false);
-    });
-
-    return () => {
-      unsubscribed();
-    };
-  }, []);
+  const isLoading = useLoading();
 
   return (
     <div>

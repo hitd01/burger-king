@@ -31,5 +31,6 @@
     "new-cap": 2,
     "no-case-declarations": 0,
     "curly": [2, "all"]
+    // "react/prop-types": "off"
   }
 }
