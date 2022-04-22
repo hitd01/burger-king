@@ -32,20 +32,20 @@ const Header = () => {
             <Link to="/">TRANG CHỦ</Link>
           </Menu.Item>
           <Menu.Item key="whatBK">
-            <Link to="about">VỀ CHÚNG TÔI</Link>
+            <Link to="/about">VỀ CHÚNG TÔI</Link>
           </Menu.Item>
           <Menu.Item key="menu">
-            <Link to="products">THỰC ĐƠN</Link>
+            <Link to="/products">THỰC ĐƠN</Link>
           </Menu.Item>
           <Menu.Item key="blog">
-            <Link to="blogs">BÀI VIẾT</Link>
+            <Link to="/blogs">BÀI VIẾT</Link>
           </Menu.Item>
           <Menu.Item key="contact">
-            <Link to="contact">LIÊN HỆ</Link>
+            <Link to="/contact">LIÊN HỆ</Link>
           </Menu.Item>
         </Menu>
         <div className="icon-wrapper">
-          <Link className="cart-wrapper icon" to="cart">
+          <Link className="cart-wrapper icon" to="/cart">
             <ShoppingOutlined />
             <span className="quantity">0</span>
           </Link>

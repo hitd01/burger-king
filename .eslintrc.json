@@ -21,7 +21,7 @@
     }
   },
   "rules": {
-    "indent": [2, 2],
+    "indent": [1, 2],
     "quotes": [2, "single"],
     "jsx-quotes": [2, "prefer-double"],
     "semi": [2, "always"],
@@ -30,7 +30,7 @@
     "one-var-declaration-per-line": [2, "always"],
     "new-cap": 2,
     "no-case-declarations": 0,
-    "curly": [2, "all"]
-    // "react/prop-types": "off"
+    "curly": [2, "all"],
+    "react/prop-types": "off"
   }
 }

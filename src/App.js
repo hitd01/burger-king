@@ -10,12 +10,12 @@ export default function App() {
       <Route path="/" element={<Home />}>
         <Route path="login" element={<Login />} />
       </Route>
-      <Route path="/about" element={<WhatBK />} />
-      <Route path="/products" element={<Shop />} />
-      <Route path="/blogs" element={<Blog />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/profile/1" element={<Profile />} />
+      <Route path="about" element={<WhatBK />} />
+      <Route path="products" element={<Shop />} />
+      <Route path="blogs" element={<Blog />} />
+      <Route path="contact" element={<Contact />} />
+      <Route path="forgot-password" element={<ForgotPassword />} />
+      <Route path="profile/1" element={<Profile />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );
