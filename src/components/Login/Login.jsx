@@ -216,19 +216,6 @@ export default function Login() {
                   required: true,
                   message: 'Vui lòng nhập trường này!',
                 },
-                // () => ({
-                //   validator(_, value) {
-                //     if (!value) {
-                //       return Promise.resolve();
-                //     }
-
-                //     if (authPasswordErrorCode === 'auth/email-already-in-use') {
-                //       return Promise.reject(new Error('Email đã được sử dụng'));
-                //     } else {
-                //       return Promise.resolve();
-                //     }
-                //   },
-                // }),
               ]}
             >
               <Input />

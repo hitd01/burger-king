@@ -81,13 +81,15 @@ export const Wrapper = styled.div`
     background: var(--secondary-color-light);
     box-shadow: 1px 2px rgba(0, 0, 0, 0.2);
     padding: 8px 20px;
+    .title {
+      font-size: 28px;
+      color: var(--text-primary);
+      font-weight: 600;
+      border-bottom: 1px solid var(--text-gray);
+    }
     .ant-form {
-      .title {
-        font-size: 28px;
-        color: var(--text-primary);
-        font-weight: 600;
-      }
       .ant-row {
+        align-items: center;
         .ant-form-item-label {
           label {
             min-width: 150px;
@@ -113,6 +115,14 @@ export const Wrapper = styled.div`
           .save-button {
             min-width: 120px;
           }
+        }
+      }
+      .avatar-edit {
+        display: flex;
+        .upload-btn-wrapper {
+          position: relative;
+          top: 12px;
+          left: 20px;
         }
       }
     }
