@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   margin: 40px 40px 0;
   .sidebar {
     min-width: 240px;
-    padding: 8px 0;
+    padding: 8px 40px 8px 0;
     .top {
       display: flex;
       align-items: center;

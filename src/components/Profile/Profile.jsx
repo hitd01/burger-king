@@ -87,6 +87,7 @@ const Profile = () => {
             <Text>Đăng xuất</Text>
           </div>
         </Col>
+
         <Col className="content">
           {profileSelected ? (
             <>
