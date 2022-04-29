@@ -15,7 +15,7 @@ export default function App() {
       <Route path="blogs" element={<Blog />} />
       <Route path="contact" element={<Contact />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
-      <Route path="profile/1" element={<Profile />} />
+      <Route path="profile" element={<Profile />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );

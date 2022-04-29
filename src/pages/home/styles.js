@@ -28,6 +28,7 @@ export const BannerWrapper = styled.div`
         font-weight: bold;
         margin-bottom: 15px;
         color: var(--white-color);
+        text-align: center;
       }
       .content {
         max-width: 800px;

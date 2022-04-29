@@ -14,6 +14,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import { addDocument } from '../../firebase/services';
+import { getUsers } from '../Profile/profileSlice';
 
 const { Title, Text } = Typography;
 
@@ -38,11 +39,6 @@ export default function Login() {
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider)
       .then((result) => {
-        // give Google Access Token
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-
-        // The signed-in user info.
         const user = result.user;
 
         const payload = {
@@ -51,7 +47,7 @@ export default function Login() {
           avatar: user.photoURL,
           address: '',
           uid: user.uid,
-          accessToken: token,
+          accessToken: user.accessToken,
         };
 
         // check is new user
@@ -59,7 +55,7 @@ export default function Login() {
         if (isNewUser) {
           addDocument('users', payload);
         }
-        dispatch(checkLogged(true));
+        // dispatch(checkLogged(true));
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -117,7 +113,6 @@ export default function Login() {
     await signInWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
         dispatch(checkLogged(true));
         handleHiddenLogin();
       })
@@ -241,12 +236,6 @@ export default function Login() {
                     } else {
                       return Promise.resolve();
                     }
-
-                    // if (authPasswordErrorCode === 'auth/weak-password') {
-                    //   return Promise.reject(
-                    //     new Error('Mật khẩu phải có ít nhất 6 ký tự')
-                    //   );
-                    // }
                   },
                 }),
               ]}

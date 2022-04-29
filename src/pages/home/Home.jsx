@@ -20,12 +20,12 @@ import {
   ButtonStyled,
 } from './styles';
 import { Footer, Header } from '../../components';
-import useLoading from '../../hooks/useLoading';
+import useAuth from '../../hooks/useAuth';
 
 const { Paragraph, Title, Text } = Typography;
 
 export default function Home() {
-  const isLoading = useLoading();
+  const { isLoading } = useAuth();
 
   return (
     <>

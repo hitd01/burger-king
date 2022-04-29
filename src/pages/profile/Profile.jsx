@@ -1,17 +1,15 @@
 import React from 'react';
 import { Footer, Header, ProfileComponent } from '../../components';
 import { Wrapper } from './styles';
-import useLoading from '../../hooks/useLoading';
 import { Spin } from 'antd';
+import useAuth from '../../hooks/useAuth';
 
 const Profile = () => {
-  const isLoading = useLoading();
+  const { isLoading } = useAuth();
 
   return (
     <>
-      {isLoading ? (
-        <Spin />
-      ) : (
+      {!isLoading ? (
         <Wrapper>
           <div className="header-bg">
             <Header />
@@ -19,6 +17,8 @@ const Profile = () => {
           <ProfileComponent />
           <Footer />
         </Wrapper>
+      ) : (
+        <Spin />
       )}
     </>
   );

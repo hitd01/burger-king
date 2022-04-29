@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../../assets/logo/burger-king-logo.png';
 import { Link } from 'react-router-dom';
 import {
@@ -12,6 +12,7 @@ import { Avatar, Input, Menu } from 'antd';
 import { HeaderWrapper } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleHiddenLogin } from '../Login/loginSlice';
+import useAuth from '../../hooks/useAuth';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,9 @@ const Header = () => {
   const [isSearch, setIsSearch] = useState(false);
 
   const { isLogged } = useSelector((state) => state.login);
+
+  const { currentUser } = useAuth();
+  const { avatar, name } = currentUser;
 
   return (
     <HeaderWrapper toggleMenu={toggleMenu} search={isSearch}>
@@ -58,8 +62,10 @@ const Header = () => {
           </div>
 
           {isLogged ? (
-            <Link to="/profile/1" className="user-avatar">
-              <Avatar size="large">A</Avatar>
+            <Link to="/profile" className="user-avatar">
+              <Avatar size="large" src={avatar}>
+                {avatar ? '' : name?.charAt(0)?.toUpperCase()}
+              </Avatar>
             </Link>
           ) : (
             <Link
