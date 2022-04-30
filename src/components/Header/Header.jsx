@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Logo from '../../assets/logo/burger-king-logo.png';
 import { Link } from 'react-router-dom';
 import {
@@ -8,7 +8,7 @@ import {
   ShoppingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Avatar, Input, Menu } from 'antd';
+import { Avatar, Input, Menu, Spin } from 'antd';
 import { HeaderWrapper } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleHiddenLogin } from '../Login/loginSlice';
@@ -21,9 +21,14 @@ const Header = () => {
   const [isSearch, setIsSearch] = useState(false);
 
   const { isLogged } = useSelector((state) => state.login);
+  const { loading } = useSelector((state) => state.users);
 
-  const { currentUser } = useAuth();
-  const { avatar, name } = currentUser;
+  const { currentUserAuth } = useAuth();
+  const { photoURL, displayName } = currentUserAuth;
+
+  if (loading === 'pending') {
+    return <Spin />;
+  }
 
   return (
     <HeaderWrapper toggleMenu={toggleMenu} search={isSearch}>
@@ -63,8 +68,12 @@ const Header = () => {
 
           {isLogged ? (
             <Link to="/profile" className="user-avatar">
-              <Avatar size="large" src={avatar}>
-                {avatar ? '' : name?.charAt(0)?.toUpperCase()}
+              <Avatar size="large" src={photoURL}>
+                {photoURL
+                  ? ''
+                  : displayName
+                  ? displayName?.charAt(0)?.toUpperCase()
+                  : email?.charAt(0).toUpperCase()}
               </Avatar>
             </Link>
           ) : (

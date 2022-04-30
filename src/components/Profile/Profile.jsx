@@ -2,41 +2,35 @@ import {
   EditOutlined,
   LogoutOutlined,
   ShoppingOutlined,
-  UploadOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import {
-  Avatar,
-  Button,
-  Col,
-  Form,
-  Input,
-  Menu,
-  Row,
-  Typography,
-  Upload,
-  Spin,
-} from 'antd';
+import { Avatar, Col, Menu, Row, Typography, Spin } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Wrapper } from './styles';
 import { auth } from '../../firebase/config';
 import { signOut } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkLogged } from '../Login/loginSlice';
+import { getUsers } from '../Profile/profileSlice';
 import { useNavigate } from 'react-router-dom';
-import { getUsers } from './profileSlice';
 import useAuth from '../../hooks/useAuth';
+import EditProfile from './EditProfile/EditProfile';
+import ChangePassword from './ChangePassword/ChangePassword';
+import ShoppingHistory from './ShoppingHistory/ShoppingHistory';
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const [profileSelected, setProfileSelected] = useState(true);
+  const { currentUserAuth } = useAuth();
+  const { displayName, photoURL, email } = currentUserAuth;
 
-  const handleSaveEditProfile = () => {};
+  const { loading } = useSelector((state) => state.users);
+  const [profileSelected, setProfileSelected] = useState(true);
+  const [changePasswordSelected, setChangePasswordSelected] = useState(false);
+  const [shoppingHistorySelected, setShoppingHistorySelected] = useState(false);
 
   const handleLogout = () => {
     signOut(auth)
@@ -49,134 +43,93 @@ const Profile = () => {
       });
   };
 
-  const { loading } = useSelector((state) => state.users);
-
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-  const { currentUser } = useAuth();
-  const { name, address, avatar, email } = currentUser;
+
+  const handleProfileClick = () => {
+    setProfileSelected(true);
+    setChangePasswordSelected(false);
+    setShoppingHistorySelected(false);
+  };
+  const handleChangePasswordClick = () => {
+    setProfileSelected(false);
+    setChangePasswordSelected(true);
+    setShoppingHistorySelected(false);
+  };
+  const handleShoppingHistoryClick = () => {
+    setProfileSelected(false);
+    setChangePasswordSelected(false);
+    setShoppingHistorySelected(true);
+  };
+
+  if (loading === 'pending') {
+    return <Spin />;
+  }
 
   return (
-    <>
-      {loading === 'success' ? (
-        <Wrapper profileSelected={profileSelected}>
-          <Row>
-            <Col className="sidebar">
-              <div className="top">
-                <Avatar size="large" src={avatar}>
-                  {avatar ? '' : name?.charAt(0)?.toUpperCase()}
-                </Avatar>
-                <div className="name-wrapper">
-                  <Text>{name}</Text>
-                  <div
-                    className="edit-wrapper"
-                    onClick={() => setProfileSelected(true)}
-                  >
-                    <EditOutlined />
-                    Sửa hồ sơ
-                  </div>
-                </div>
+    <Wrapper
+      profileSelected={profileSelected}
+      changePasswordSelected={changePasswordSelected}
+    >
+      <Row>
+        <Col className="sidebar">
+          <div className="top">
+            <Avatar size="large" src={photoURL}>
+              {photoURL
+                ? ''
+                : displayName
+                ? displayName?.charAt(0)?.toUpperCase()
+                : email?.charAt(0).toUpperCase()}
+            </Avatar>
+            <div className="name-wrapper">
+              <Text>
+                {displayName ? displayName : email?.charAt(0).toUpperCase()}
+              </Text>
+              <div className="edit-wrapper" onClick={handleProfileClick}>
+                <EditOutlined />
+                Sửa hồ sơ
               </div>
+            </div>
+          </div>
 
-              <div className="profile" onClick={() => setProfileSelected(true)}>
-                <div className="title" onClick={() => setProfileSelected(true)}>
-                  <UserOutlined />
-                  <Text>Tài khoản của tôi</Text>
-                </div>
-                <Menu>
-                  <Menu.Item key="profile">
-                    <Text className="profile-info">Hồ sơ</Text>
-                  </Menu.Item>
-                  <Menu.Item key="change-password">
-                    <Text>Đổi mật khẩu</Text>
-                  </Menu.Item>
-                </Menu>
-              </div>
-              <div className="shopping-history">
-                <ShoppingOutlined />
-                <Text>Đơn mua</Text>
-              </div>
-              <div className="logout" onClick={handleLogout}>
-                <LogoutOutlined />
-                <Text>Đăng xuất</Text>
-              </div>
-            </Col>
+          <div className="profile">
+            <div className="title" onClick={handleProfileClick}>
+              <UserOutlined />
+              <Text>Tài khoản của tôi</Text>
+            </div>
+            <Menu>
+              <Menu.Item key="profile" onClick={handleProfileClick}>
+                <Text className="profile-info">Hồ sơ</Text>
+              </Menu.Item>
+              <Menu.Item
+                key="change-password"
+                onClick={handleChangePasswordClick}
+              >
+                <Text className="change-password-title">Đổi mật khẩu</Text>
+              </Menu.Item>
+            </Menu>
+          </div>
+          <div
+            className="shopping-history"
+            onClick={handleShoppingHistoryClick}
+          >
+            <ShoppingOutlined />
+            <Text>Đơn mua</Text>
+          </div>
+          <div className="logout" onClick={handleLogout}>
+            <LogoutOutlined />
+            <Text>Đăng xuất</Text>
+          </div>
+        </Col>
 
-            <Col className="content">
-              {profileSelected ? (
-                <>
-                  <Title className="title" level={2}>
-                    Hồ Sơ Của Tôi
-                  </Title>
-                  <div className="form-wrapper">
-                    <Form
-                      form={form}
-                      name="edit_profile_form"
-                      className="forgot-password-form"
-                      fields={[
-                        {
-                          name: ['username'],
-                          value: name,
-                        },
-                        {
-                          name: ['address'],
-                          value: address,
-                        },
-                        {
-                          name: ['avatar'],
-                          value: avatar ? '' : name?.charAt(0)?.toUpperCase(),
-                        },
-                      ]}
-                    >
-                      <Form.Item label="Email đăng nhập">
-                        <Text className="email-value">{email}</Text>
-                      </Form.Item>
-
-                      <Form.Item name="username" label="Tên">
-                        <Input />
-                      </Form.Item>
-
-                      <Form.Item name="address" label="Địa chỉ">
-                        <Input />
-                      </Form.Item>
-
-                      <div className="avatar-edit">
-                        <Form.Item name="avatar" label="Ảnh đại diện">
-                          <Avatar src={avatar} size={60}>
-                            {avatar ? '' : name?.charAt(0)?.toUpperCase()}
-                          </Avatar>
-                        </Form.Item>
-
-                        <Upload className="upload-btn-wrapper">
-                          <Button icon={<UploadOutlined />}>
-                            Tải lên ảnh đại diện
-                          </Button>
-                        </Upload>
-                      </div>
-
-                      <Form.Item>
-                        <Button
-                          size="large"
-                          type="primary"
-                          htmlType="submit"
-                          className="save-button"
-                          onClick={handleSaveEditProfile}
-                        >
-                          Lưu
-                        </Button>
-                      </Form.Item>
-                    </Form>
-                  </div>
-                </>
-              ) : null}
-            </Col>
-          </Row>
-        </Wrapper>
-      ) : (
-        <Spin />
-      )}
-    </>
+        <Col className="content">
+          {profileSelected ? <EditProfile /> : null}
+          {changePasswordSelected ? <ChangePassword /> : null}
+          {shoppingHistorySelected ? <ShoppingHistory /> : null}
+        </Col>
+      </Row>
+    </Wrapper>
   );
 };
 

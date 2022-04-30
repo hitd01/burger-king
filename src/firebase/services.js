@@ -5,13 +5,18 @@ import {
   query,
   where,
   getDocs,
+  doc,
+  getDoc,
 } from 'firebase/firestore';
-import { db } from './config';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { updateProfile } from 'firebase/auth';
+import { auth, db, storage } from './config';
 
 export const addDocument = async (collectionProp, data) => {
   await addDoc(collection(db, collectionProp), {
     ...data,
     createdAt: serverTimestamp(),
+    updatedAt: null,
   });
 };
 
@@ -34,4 +39,20 @@ export const getCollection = async (collectionName, condition) => {
     result.push({ id: doc.id, ...doc.data() });
   });
   return result;
+};
+
+export const uploadAvatar = async (file) => {
+  const currentUser = auth.currentUser;
+  const storageRef = ref(
+    storage,
+    `avatars/${currentUser.uid}.${file.type === 'image/png' ? 'png' : 'jpg'}`
+  );
+  await uploadBytes(storageRef, file);
+  const photoURL = await getDownloadURL(storageRef);
+  updateProfile(currentUser, { photoURL });
+};
+
+export const getOneDoc = async (collectionName, docId) => {
+  const docRef = doc(db, collectionName, docId);
+  return await getDoc(docRef);
 };

@@ -3,7 +3,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import React, { useState } from 'react';
 import { FormWrapper, Wrapper, Modal } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleHiddenLogin, checkLogged } from './loginSlice';
+import { toggleHiddenLogin, checkLogged, setProviderId } from './loginSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   GoogleAuthProvider,
@@ -14,7 +14,6 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import { addDocument } from '../../firebase/services';
-import { getUsers } from '../Profile/profileSlice';
 
 const { Title, Text } = Typography;
 
@@ -39,8 +38,8 @@ export default function Login() {
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider)
       .then((result) => {
+        dispatch(setProviderId(result.providerId));
         const user = result.user;
-
         const payload = {
           name: user.displayName,
           email: user.email,
@@ -74,6 +73,7 @@ export default function Login() {
       await createUserWithEmailAndPassword(auth, email, passwordRegister)
         .then((userCredential) => {
           // create new user
+          console.log(userCredential);
           const user = userCredential.user;
           const payload = {
             name: user.displayName
@@ -111,8 +111,9 @@ export default function Login() {
   const handleSignInWithEmail = async () => {
     const { username, password } = form.getFieldValue();
     await signInWithEmailAndPassword(auth, username, password)
-      .then((userCredential) => {
+      .then(() => {
         // Signed in
+        dispatch(setProviderId(null));
         dispatch(checkLogged(true));
         handleHiddenLogin();
       })

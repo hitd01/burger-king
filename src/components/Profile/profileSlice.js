@@ -22,14 +22,18 @@ const initialState = {
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+  },
   extraReducers: {
     [getUsers.pending]: (state) => {
       state.loading = 'pending';
     },
     [getUsers.fulfilled]: (state, action) => {
-      state.loading = 'success';
       state.users = action.payload;
+      state.loading = 'success';
     },
     [getUsers.rejected]: (state) => {
       state.loading = 'failed';
@@ -37,6 +41,6 @@ export const usersSlice = createSlice({
   },
 });
 
-// export const {  } = usersSlice.actions;
+export const { setLoading } = usersSlice.actions;
 
 export default usersSlice.reducer;

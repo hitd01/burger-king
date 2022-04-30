@@ -42,6 +42,9 @@ export const Wrapper = styled.div`
       .ant-menu {
         border: none;
         &-item {
+          &-selected {
+            background-color: transparent;
+          }
           .ant-typography {
             font-size: 18px;
             color: var(--text-gray);
@@ -49,6 +52,12 @@ export const Wrapper = styled.div`
           .ant-typography.profile-info {
             color: ${({ profileSelected }) =>
               profileSelected ? 'var(--primary-color)' : 'var(--text-gray)'};
+          }
+          .ant-typography.change-password-title {
+            color: ${({ changePasswordSelected }) =>
+              changePasswordSelected
+                ? 'var(--primary-color)'
+                : 'var(--text-gray)'};
           }
         }
       }
@@ -81,50 +90,5 @@ export const Wrapper = styled.div`
     background: var(--secondary-color-light);
     box-shadow: 1px 2px rgba(0, 0, 0, 0.2);
     padding: 8px 20px;
-    .title {
-      font-size: 28px;
-      color: var(--text-primary);
-      font-weight: 600;
-      border-bottom: 1px solid var(--text-gray);
-    }
-    .ant-form {
-      .ant-row {
-        align-items: center;
-        .ant-form-item-label {
-          label {
-            min-width: 150px;
-            font-size: 18px;
-            color: var(--text-primary);
-          }
-        }
-        .ant-form-item-control-input-content {
-          .email-value {
-            font-size: 16px;
-            color: var(--text-primary);
-          }
-          .ant-input {
-            color: var(--text-primary);
-          }
-        }
-      }
-      .ant-row:last-child {
-        margin: 0;
-        .ant-form-item-control-input-content {
-          display: flex;
-          justify-content: center;
-          .save-button {
-            min-width: 120px;
-          }
-        }
-      }
-      .avatar-edit {
-        display: flex;
-        .upload-btn-wrapper {
-          position: relative;
-          top: 12px;
-          left: 20px;
-        }
-      }
-    }
   }
 `;
