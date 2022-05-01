@@ -3,7 +3,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import React, { useState } from 'react';
 import { FormWrapper, Wrapper, Modal } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSlice } from './loginSlice';
+import { toggleHiddenLogin, checkLogged, setProviderId } from './loginSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   GoogleAuthProvider,
@@ -27,9 +27,8 @@ export default function Login() {
 
   // handle hidden login form
   const { isHiddenLogin } = useSelector((state) => state.login);
-
   const handleHiddenLogin = () => {
-    dispatch(loginSlice.actions.toggleHiddenLogin(true));
+    dispatch(toggleHiddenLogin(true));
     navigate(-1);
   };
 
@@ -38,19 +37,15 @@ export default function Login() {
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider)
       .then((result) => {
-        // give Google Access Token
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-
-        // The signed-in user info.
+        dispatch(setProviderId(result.providerId));
         const user = result.user;
-
         const payload = {
-          displayName: user.displayName,
+          name: user.displayName,
           email: user.email,
-          photoURL: user.photoURL,
+          avatar: user.photoURL,
+          address: '',
           uid: user.uid,
-          accessToken: token,
+          accessToken: user.accessToken,
         };
 
         // check is new user
@@ -58,14 +53,18 @@ export default function Login() {
         if (isNewUser) {
           addDocument('users', payload);
         }
+        dispatch(checkLogged(true));
+        handleHiddenLogin();
       })
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/popup-closed-by-user') {
           alert('Đã huỷ đăng nhập bằng Google');
         }
+        if (errorCode === 'auth/cancelled-popup-request') {
+          alert('Lỗi kết nối mạng dữ liệu!');
+        }
       });
-    handleHiddenLogin();
   };
 
   // handle register with email and password
@@ -78,11 +77,12 @@ export default function Login() {
           // create new user
           const user = userCredential.user;
           const payload = {
-            displayName: user.displayName
+            name: user.displayName
               ? user.displayName
               : user.email?.charAt(0)?.toUpperCase(),
             email: user.email,
-            photoURL: user.photoURL,
+            avatar: user.photoURL,
+            address: '',
             uid: user.uid,
             accessToken: user.accessToken,
           };
@@ -92,7 +92,10 @@ export default function Login() {
           if (isNewUser) {
             addDocument('users', payload);
           }
-          alert('Đăng ký thành công!');
+          alert(
+            'Đăng ký thành công! Tải lại trang để tự động đăng nhập hoặc đăng nhập thủ công'
+          );
+          dispatch(checkLogged(false));
           form.resetFields();
           setIsSignIn(true);
         })
@@ -111,11 +114,10 @@ export default function Login() {
   const handleSignInWithEmail = async () => {
     const { username, password } = form.getFieldValue();
     await signInWithEmailAndPassword(auth, username, password)
-      .then((userCredential) => {
+      .then(() => {
         // Signed in
-        const user = userCredential.user;
-        console.log(user);
-
+        dispatch(setProviderId(null));
+        dispatch(checkLogged(true));
         handleHiddenLogin();
       })
       .catch((error) => {
@@ -213,19 +215,6 @@ export default function Login() {
                   required: true,
                   message: 'Vui lòng nhập trường này!',
                 },
-                // () => ({
-                //   validator(_, value) {
-                //     if (!value) {
-                //       return Promise.resolve();
-                //     }
-
-                //     if (authPasswordErrorCode === 'auth/email-already-in-use') {
-                //       return Promise.reject(new Error('Email đã được sử dụng'));
-                //     } else {
-                //       return Promise.resolve();
-                //     }
-                //   },
-                // }),
               ]}
             >
               <Input />
@@ -251,12 +240,6 @@ export default function Login() {
                     } else {
                       return Promise.resolve();
                     }
-
-                    // if (authPasswordErrorCode === 'auth/weak-password') {
-                    //   return Promise.reject(
-                    //     new Error('Mật khẩu phải có ít nhất 6 ký tự')
-                    //   );
-                    // }
                   },
                 }),
               ]}

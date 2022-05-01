@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 // import { getAnalytics } from 'firebase/analytics';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBzwTyBewwf-PWF1ygYfjopUV5JzDy5T-k',
@@ -18,8 +19,10 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage();
 
 connectFirestoreEmulator(db, 'localhost', 8080);
 connectAuthEmulator(auth, 'http://localhost:9099');
+connectStorageEmulator(storage, 'localhost', 9199);
 
-export { db, auth };
+export { db, auth, storage };

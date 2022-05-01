@@ -43,14 +43,20 @@ export const FormWrapper = styled.div`
       border-bottom: 1px solid var(--primary-color-light);
     }
     .sign-in-title {
-      background: ${({ signIn }) => (signIn ? '#244263' : '#95c5f7')};
       border-top-left-radius: 20px;
-      color: ${({ signIn }) => (signIn ? '#ffffff' : '#244263')};
+      /* background: ${({ signIn }) => (signIn ? '#244263' : '#95c5f7')};
+      color: ${({ signIn }) => (signIn ? '#ffffff' : '#244263')}; */
+      background: ${({ signIn }) =>
+        signIn ? 'var(--primary-color-dark)' : 'var(--primary-color)'};
+      color: ${({ signIn }) =>
+        signIn ? '#ffffff' : 'var(--primary-color-dark)'};
     }
     .sign-up-title {
-      background: ${({ signIn }) => (signIn ? '#95c5f7' : '#244263')};
       border-top-right-radius: 20px;
-      color: ${({ signIn }) => (signIn ? '#244263' : '#ffffff')};
+      background: ${({ signIn }) =>
+        signIn ? 'var(--primary-color)' : 'var(--primary-color-dark)'};
+      color: ${({ signIn }) =>
+        signIn ? 'var(--primary-color-dark)' : '#ffffff'};
     }
   }
   .ant-form {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../../assets/logo/burger-king-logo.png';
 import { Link } from 'react-router-dom';
 import {
@@ -8,15 +8,37 @@ import {
   ShoppingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Input, Menu } from 'antd';
+import { Avatar, Input, Menu, Spin } from 'antd';
 import { HeaderWrapper } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSlice } from '../Login/loginSlice';
+import { toggleHiddenLogin } from '../Login/loginSlice';
+import useAuth from '../../hooks/useAuth';
 
 const Header = () => {
   const dispatch = useDispatch();
+
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+
+  const { isLogged } = useSelector((state) => state.login);
+  const { loading } = useSelector((state) => state.users);
+  const [name, setName] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [email, setEmail] = useState('');
+
+  const { currentUserAuth } = useAuth();
+  useEffect(() => {
+    if (isLogged) {
+      const { photoURL, displayName, email } = currentUserAuth;
+      setName(displayName);
+      setAvatar(photoURL);
+      setEmail(email);
+    }
+  }, []);
+
+  if (loading === 'pending') {
+    return <Spin />;
+  }
 
   return (
     <HeaderWrapper toggleMenu={toggleMenu} search={isSearch}>
@@ -29,20 +51,20 @@ const Header = () => {
             <Link to="/">TRANG CHỦ</Link>
           </Menu.Item>
           <Menu.Item key="whatBK">
-            <Link to="about">VỀ CHÚNG TÔI</Link>
+            <Link to="/about">VỀ CHÚNG TÔI</Link>
           </Menu.Item>
           <Menu.Item key="menu">
-            <Link to="products">THỰC ĐƠN</Link>
+            <Link to="/products">THỰC ĐƠN</Link>
           </Menu.Item>
           <Menu.Item key="blog">
-            <Link to="blogs">BÀI VIẾT</Link>
+            <Link to="/blogs">BÀI VIẾT</Link>
           </Menu.Item>
           <Menu.Item key="contact">
-            <Link to="contact">LIÊN HỆ</Link>
+            <Link to="/contact">LIÊN HỆ</Link>
           </Menu.Item>
         </Menu>
         <div className="icon-wrapper">
-          <Link className="cart-wrapper icon" to="cart">
+          <Link className="cart-wrapper icon" to="/cart">
             <ShoppingOutlined />
             <span className="quantity">0</span>
           </Link>
@@ -53,15 +75,34 @@ const Header = () => {
             />
             {isSearch ? <Input placeholder="Nhập tên món ăn" /> : null}
           </div>
-          <Link
-            to="/login"
-            className="icon"
-            onClick={() =>
-              dispatch(loginSlice.actions.toggleHiddenLogin(false))
-            }
-          >
-            <UserOutlined />
-          </Link>
+
+          {isLogged ? (
+            <Link to="/profile" className="user-avatar">
+              {/* <Avatar size="large" src={photoURL}>
+                {photoURL
+                  ? ''
+                  : displayName
+                  ? displayName?.charAt(0)?.toUpperCase()
+                  : email?.charAt(0).toUpperCase()}
+              </Avatar> */}
+              <Avatar size="large" src={avatar}>
+                {avatar
+                  ? ''
+                  : name
+                  ? name?.charAt(0)?.toUpperCase()
+                  : email?.charAt(0).toUpperCase()}
+              </Avatar>
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="icon"
+              onClick={() => dispatch(toggleHiddenLogin(false))}
+            >
+              <UserOutlined />
+            </Link>
+          )}
+
           {toggleMenu ? (
             <CloseOutlined
               className="icon"
