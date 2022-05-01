@@ -115,6 +115,7 @@ project run on `localhost:3000`
 - [x] Login feature
 - [x] Register feature
 - [x] Forgot password feature
+- [x] Sign out feature
 - [ ] Profile page
   - [x] Profile management
   - [ ] Change password
