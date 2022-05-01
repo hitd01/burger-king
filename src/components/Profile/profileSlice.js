@@ -23,7 +23,7 @@ export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setLoading: (state, action) => {
+    setLoadingProfile: (state, action) => {
       state.loading = action.payload;
     },
   },
@@ -41,6 +41,6 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { setLoading } = usersSlice.actions;
+export const { setLoadingProfile } = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from 'firebase/auth';
 import { db, storage } from '../../../firebase/config';
 import { Wrapper } from './styles';
-import { setLoading } from '../profileSlice';
+import { setLoadingProfile } from '../profileSlice';
 
 const { Title, Text } = Typography;
 
@@ -40,7 +40,7 @@ const EditProfile = () => {
     const { username, address } = form.getFieldValue();
     const userSelected = await users.find((user) => user.uid === uid);
     const userRef = doc(db, 'users', userSelected.id);
-    dispatch(setLoading('pending'));
+    dispatch(setLoadingProfile('pending'));
     if (photo) {
       await uploadAvatar(photo);
     }
@@ -69,7 +69,7 @@ const EditProfile = () => {
         });
       }
     }
-    dispatch(setLoading('success'));
+    dispatch(setLoadingProfile('success'));
   };
 
   // handle upload file

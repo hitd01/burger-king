@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../../assets/logo/burger-king-logo.png';
 import { Link } from 'react-router-dom';
 import {
@@ -22,9 +22,19 @@ const Header = () => {
 
   const { isLogged } = useSelector((state) => state.login);
   const { loading } = useSelector((state) => state.users);
+  const [name, setName] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [email, setEmail] = useState('');
 
   const { currentUserAuth } = useAuth();
-  const { photoURL, displayName } = currentUserAuth;
+  useEffect(() => {
+    if (isLogged) {
+      const { photoURL, displayName, email } = currentUserAuth;
+      setName(displayName);
+      setAvatar(photoURL);
+      setEmail(email);
+    }
+  }, []);
 
   if (loading === 'pending') {
     return <Spin />;
@@ -68,11 +78,18 @@ const Header = () => {
 
           {isLogged ? (
             <Link to="/profile" className="user-avatar">
-              <Avatar size="large" src={photoURL}>
+              {/* <Avatar size="large" src={photoURL}>
                 {photoURL
                   ? ''
                   : displayName
                   ? displayName?.charAt(0)?.toUpperCase()
+                  : email?.charAt(0).toUpperCase()}
+              </Avatar> */}
+              <Avatar size="large" src={avatar}>
+                {avatar
+                  ? ''
+                  : name
+                  ? name?.charAt(0)?.toUpperCase()
                   : email?.charAt(0).toUpperCase()}
               </Avatar>
             </Link>

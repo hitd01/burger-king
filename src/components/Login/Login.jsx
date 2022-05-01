@@ -27,7 +27,6 @@ export default function Login() {
 
   // handle hidden login form
   const { isHiddenLogin } = useSelector((state) => state.login);
-
   const handleHiddenLogin = () => {
     dispatch(toggleHiddenLogin(true));
     navigate(-1);
@@ -54,15 +53,18 @@ export default function Login() {
         if (isNewUser) {
           addDocument('users', payload);
         }
-        // dispatch(checkLogged(true));
+        dispatch(checkLogged(true));
+        handleHiddenLogin();
       })
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/popup-closed-by-user') {
           alert('Đã huỷ đăng nhập bằng Google');
         }
+        if (errorCode === 'auth/cancelled-popup-request') {
+          alert('Lỗi kết nối mạng dữ liệu!');
+        }
       });
-    handleHiddenLogin();
   };
 
   // handle register with email and password
@@ -73,7 +75,6 @@ export default function Login() {
       await createUserWithEmailAndPassword(auth, email, passwordRegister)
         .then((userCredential) => {
           // create new user
-          console.log(userCredential);
           const user = userCredential.user;
           const payload = {
             name: user.displayName
@@ -91,7 +92,9 @@ export default function Login() {
           if (isNewUser) {
             addDocument('users', payload);
           }
-          alert('Đăng ký thành công!');
+          alert(
+            'Đăng ký thành công! Tải lại trang để tự động đăng nhập hoặc đăng nhập thủ công'
+          );
           dispatch(checkLogged(false));
           form.resetFields();
           setIsSignIn(true);
