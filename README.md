@@ -111,13 +111,17 @@ project run on `localhost:3000`
 - [x] Login feature
 - [x] Register feature
 - [x] Forgot password feature
+- [ ] Profile page
+  - [x] Profile management
+  - [ ] Change password
+  - [ ] Shopping history
 - [ ] About page
-  - [ ] Cut interface
-  - [ ] Responsive
+  - [x] Cut interface
+  - [x] Responsive
   - [ ] Dump data
 - [ ] Menu page
-  - [ ] Cut interface
-  - [ ] Responsive
+  - [x] Cut interface
+  - [x] Responsive
   - [ ] Dump data
 - [ ] Product page
   - [ ] Cut interface
