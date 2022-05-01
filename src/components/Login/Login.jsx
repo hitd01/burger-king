@@ -37,7 +37,7 @@ export default function Login() {
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider)
       .then((result) => {
-        dispatch(setProviderId(result.providerId));
+        dispatch(setProviderId('google.com'));
         const user = result.user;
         const payload = {
           name: user.displayName,
@@ -116,7 +116,7 @@ export default function Login() {
     await signInWithEmailAndPassword(auth, username, password)
       .then(() => {
         // Signed in
-        dispatch(setProviderId(null));
+        dispatch(setProviderId('password'));
         dispatch(checkLogged(true));
         handleHiddenLogin();
       })

@@ -104,7 +104,7 @@ const Profile = () => {
               <Menu.Item key="profile" onClick={handleProfileClick}>
                 <Text className="profile-info">Hồ sơ</Text>
               </Menu.Item>
-              {!providerId ? (
+              {providerId === 'password' ? (
                 <Menu.Item
                   key="change-password"
                   onClick={handleChangePasswordClick}

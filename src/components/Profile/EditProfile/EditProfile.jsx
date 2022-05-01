@@ -27,7 +27,7 @@ const EditProfile = () => {
       const user = users?.find((user) => user.uid === uid);
       const userSnap = getOneDoc('users', user?.id);
       userSnap
-        .then((res) => setAddress(res.data().address))
+        .then((res) => setAddress(res?.data()?.address))
         .catch((err) => console.log(err));
     }
   }, []);

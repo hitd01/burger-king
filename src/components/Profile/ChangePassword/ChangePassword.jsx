@@ -14,8 +14,6 @@ const { Title } = Typography;
 const ChangePassword = () => {
   const [form] = Form.useForm();
 
-  const { providerId } = useSelector((state) => state.login);
-
   const [reauthenticate, setReauthenticate] = useState(true);
 
   const { currentUserAuth } = useAuth();
@@ -61,7 +59,7 @@ const ChangePassword = () => {
     }
   };
 
-  if (reauthenticate && !providerId) {
+  if (reauthenticate) {
     return (
       <Wrapper>
         <Title className="title" level={2}>
