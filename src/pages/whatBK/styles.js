@@ -30,7 +30,7 @@ export const BannerWrapper = styled.div`
       }
       .title {
         text-transform: uppercase;
-        font-size: 80px;
+        font-size: 68px;
         font-weight: bold;
         margin-bottom: 15px;
         color: var(--white-color);
@@ -56,7 +56,7 @@ export const BannerWrapper = styled.div`
   @media screen and (max-width: 991.5px) {
     .banner .content-wrapper {
       .title {
-        font-size: 60px;
+        font-size: 58px;
       }
       .content {
         max-width: 600px;
@@ -66,6 +66,9 @@ export const BannerWrapper = styled.div`
   }
   @media screen and (max-width: 767.5px) {
     .banner .content-wrapper {
+      .title {
+        font-size: 48px;
+      }
       .content {
         max-width: 500px;
         font-size: 18px;
@@ -78,11 +81,11 @@ export const BannerWrapper = styled.div`
       .content-wrapper {
         .home-about {
           a {
-            font-size: 15px;
+            font-size: 18px;
           }
         }
         .title {
-          font-size: 40px;
+          font-size: 38px;
         }
         .content {
           max-width: 350px;

@@ -32,7 +32,7 @@ export const BannerWrapper = styled.div`
       }
       .title {
         text-transform: uppercase;
-        font-size: 72px;
+        font-size: 68px;
         font-weight: bold;
         margin-bottom: 15px;
         color: var(--white-color);
@@ -55,18 +55,10 @@ export const BannerWrapper = styled.div`
       }
     }
   }
-  /* @media screen and (max-width: 1112.5px) {
-    .banner .content-wrapper {
-      .title {
-        font-size: 60px;
-      }
-    }
-  } */
   @media screen and (max-width: 991.5px) {
     .banner .content-wrapper {
       .title {
-        /* font-size: 45px; */
-        font-size: 60px;
+        font-size: 58px;
       }
       .content {
         max-width: 600px;
@@ -77,7 +69,7 @@ export const BannerWrapper = styled.div`
   @media screen and (max-width: 767.5px) {
     .banner .content-wrapper {
       .title {
-        /* font-size: 30px; */
+        font-size: 48px;
       }
       .content {
         max-width: 500px;
@@ -89,23 +81,18 @@ export const BannerWrapper = styled.div`
     .banner {
       padding: 0 20px;
       .content-wrapper {
+        .home-shop {
+          a {
+            color: white;
+            font-size: 18px;
+          }
+        }
         .title {
-          /* font-size: 29px; */
-          font-size: 40px;
+          font-size: 38px;
         }
         .content {
           max-width: 350px;
           font-size: 16px;
-        }
-      }
-    }
-  }
-  @media screen and (max-width: 575.5px) {
-    .banner {
-      padding: 0 20px;
-      .content-wrapper {
-        .title {
-          font-size: 21px;
         }
       }
     }
@@ -167,7 +154,6 @@ export const NewProductsWrapper = styled.div`
     h1 {
       color: white;
       font-size: 50px;
-      font-family: Nunito Sans;
       margin-top: 10px;
       margin-bottom: 5px;
     }
