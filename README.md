@@ -69,6 +69,10 @@ This is an example of how you get a local copy up and running follow these simpl
   ```sh
   npm install npm@latest -g
   ```
+- Firebase CLI
+  ```sh
+  npm install -g firebase-tools
+  ```
 
 ### Installation
 
