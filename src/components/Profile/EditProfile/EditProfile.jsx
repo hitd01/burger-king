@@ -24,8 +24,8 @@ const EditProfile = () => {
 
   useEffect(() => {
     if (loading === 'success') {
-      const user = users.find((user) => user.uid === uid);
-      const userSnap = getOneDoc('users', user.id);
+      const user = users?.find((user) => user.uid === uid);
+      const userSnap = getOneDoc('users', user?.id);
       userSnap
         .then((res) => setAddress(res.data().address))
         .catch((err) => console.log(err));
@@ -38,8 +38,8 @@ const EditProfile = () => {
 
   const handleSaveEditProfile = async () => {
     const { username, address } = form.getFieldValue();
-    const userSelected = await users.find((user) => user.uid === uid);
-    const userRef = doc(db, 'users', userSelected.id);
+    const userSelected = await users?.find((user) => user.uid === uid);
+    const userRef = doc(db, 'users', userSelected?.id);
     dispatch(setLoadingProfile('pending'));
     if (photo) {
       await uploadAvatar(photo);
@@ -56,15 +56,15 @@ const EditProfile = () => {
           )
         );
         await updateDoc(userRef, {
-          name: username.trim(),
-          address: address.trim(),
+          name: username?.trim(),
+          address: address?.trim(),
           avatar: photoURL,
           updatedAt: serverTimestamp(),
         });
       } else {
         await updateDoc(userRef, {
-          name: username.trim(),
-          address: address.trim(),
+          name: username?.trim(),
+          address: address?.trim(),
           updatedAt: serverTimestamp(),
         });
       }

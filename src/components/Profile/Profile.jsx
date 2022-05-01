@@ -24,10 +24,16 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
   const { currentUserAuth } = useAuth();
   const { displayName, photoURL, email } = currentUserAuth;
 
   const { loading } = useSelector((state) => state.users);
+  const { providerId } = useSelector((state) => state.login);
+
   const [profileSelected, setProfileSelected] = useState(true);
   const [changePasswordSelected, setChangePasswordSelected] = useState(false);
   const [shoppingHistorySelected, setShoppingHistorySelected] = useState(false);
@@ -42,10 +48,6 @@ const Profile = () => {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
 
   const handleProfileClick = () => {
     setProfileSelected(true);
@@ -102,12 +104,14 @@ const Profile = () => {
               <Menu.Item key="profile" onClick={handleProfileClick}>
                 <Text className="profile-info">Hồ sơ</Text>
               </Menu.Item>
-              <Menu.Item
-                key="change-password"
-                onClick={handleChangePasswordClick}
-              >
-                <Text className="change-password-title">Đổi mật khẩu</Text>
-              </Menu.Item>
+              {!providerId ? (
+                <Menu.Item
+                  key="change-password"
+                  onClick={handleChangePasswordClick}
+                >
+                  <Text className="change-password-title">Đổi mật khẩu</Text>
+                </Menu.Item>
+              ) : null}
             </Menu>
           </div>
           <div

@@ -89,6 +89,6 @@ export const Wrapper = styled.div`
     flex: 1;
     background: var(--secondary-color-light);
     box-shadow: 1px 2px rgba(0, 0, 0, 0.2);
-    padding: 8px 20px;
+    padding: 12px 20px;
   }
 `;

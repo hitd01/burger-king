@@ -53,7 +53,7 @@ export default function Login() {
         if (isNewUser) {
           addDocument('users', payload);
         }
-        dispatch(checkLogged(true));
+        // dispatch(checkLogged(true));
         handleHiddenLogin();
       })
       .catch((error) => {

@@ -20,8 +20,8 @@ const Header = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
 
-  const { isLogged } = useSelector((state) => state.login);
   const { loading } = useSelector((state) => state.users);
+  const { isLogged } = useSelector((state) => state.login);
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
@@ -35,6 +35,20 @@ const Header = () => {
       setEmail(email);
     }
   }, []);
+
+  // const { currentUser } = useAuth();
+  // console.log(currentUser);
+  // const [name, setName] = useState(currentUser?.displayName);
+  // const [avatar, setAvatar] = useState(currentUser?.photoURL);
+  // const [email, setEmail] = useState(currentUser?.email);
+
+  // useEffect(() => {
+  //   if (isLogged) {
+  //     setName(currentUser?.displayName);
+  //     setAvatar(currentUser?.photoURL);
+  //     setEmail(currentUser?.email);
+  //   }
+  // }, []);
 
   if (loading === 'pending') {
     return <Spin />;
