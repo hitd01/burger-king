@@ -26,6 +26,13 @@ export const BannerWrapper = styled.div`
         a {
           color: white;
           font-size: 25px;
+          &:hover {
+            color: var(--primary-color);
+          }
+        }
+        .ant-typography {
+          color: white;
+          font-size: 25px;
         }
       }
       .title {
@@ -73,6 +80,9 @@ export const BannerWrapper = styled.div`
       .content-wrapper {
         .home-about {
           a {
+            font-size: 18px;
+          }
+          .ant-typography {
             font-size: 18px;
           }
         }

@@ -144,13 +144,13 @@ export const NewProductsWrapper = styled.div`
         align-items: center;
         .rate {
           display: flex;
-          font-size: 22px;
+          font-size: 18px;
         }
         .icon-wrapper {
           display: flex;
           .icon {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -161,11 +161,11 @@ export const NewProductsWrapper = styled.div`
           }
           .shopping-cart {
             background-color: var(--primary-color-dark);
-            margin-right: 10px;
+            margin-right: 8px;
           }
           .eye {
             background-color: var(--primary-color);
-            margin-right: 10px;
+            margin-right: 8px;
           }
           .heart {
             background-color: var(--secondary-color);
