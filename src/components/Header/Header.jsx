@@ -22,6 +22,7 @@ const Header = () => {
 
   const { loading } = useSelector((state) => state.users);
   const { isLogged } = useSelector((state) => state.login);
+
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
@@ -34,21 +35,7 @@ const Header = () => {
       setAvatar(photoURL);
       setEmail(email);
     }
-  }, []);
-
-  // const { currentUser } = useAuth();
-  // console.log(currentUser);
-  // const [name, setName] = useState(currentUser?.displayName);
-  // const [avatar, setAvatar] = useState(currentUser?.photoURL);
-  // const [email, setEmail] = useState(currentUser?.email);
-
-  // useEffect(() => {
-  //   if (isLogged) {
-  //     setName(currentUser?.displayName);
-  //     setAvatar(currentUser?.photoURL);
-  //     setEmail(currentUser?.email);
-  //   }
-  // }, []);
+  }, [isLogged]);
 
   if (loading === 'pending') {
     return <Spin />;
@@ -92,13 +79,6 @@ const Header = () => {
 
           {isLogged ? (
             <Link to="/profile" className="user-avatar">
-              {/* <Avatar size="large" src={photoURL}>
-                {photoURL
-                  ? ''
-                  : displayName
-                  ? displayName?.charAt(0)?.toUpperCase()
-                  : email?.charAt(0).toUpperCase()}
-              </Avatar> */}
               <Avatar size="large" src={avatar}>
                 {avatar
                   ? ''

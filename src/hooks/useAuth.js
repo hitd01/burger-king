@@ -1,6 +1,6 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { checkLogged } from '../components/Login/loginSlice';
 import { auth } from '../firebase/config';
 
@@ -9,14 +9,10 @@ const useAuth = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const currentUserAuth = auth.currentUser;
-  const [currentUser, setCurrentUser] = useState(null);
-
-  const { isLogged } = useSelector((state) => state.login);
 
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      if (user && !isLogged) {
+      if (user) {
         dispatch(checkLogged(true));
         setIsLoading(false);
         return;
@@ -27,7 +23,7 @@ const useAuth = () => {
     return unsubscribed;
   }, [dispatch]);
 
-  return { isLoading, currentUserAuth, currentUser };
+  return { isLoading, currentUserAuth };
 };
 
 export default useAuth;
