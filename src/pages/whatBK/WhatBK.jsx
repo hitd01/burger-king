@@ -1,135 +1,143 @@
 import React from 'react';
-import Leftimage from '../../assets/images/left_img.png';
-import Steak from '../../assets/images/steak.png';
-import { Col, Row, Spin, Typography } from 'antd';
+import { Col, Row, Spin, Typography, Image } from 'antd';
 import { Link } from 'react-router-dom';
-import Tomato from '../../assets/images/tomato.png';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import {
   BannerWrapper,
-  NewProductsWrapper,
-  BlogsRecentlyWrapper,
+  SomethingAboutBKWrapper,
   ButtonStyled,
+  PhotoGalleryWrapper,
 } from './styles';
 import { Footer, Header } from '../../components';
-import useAuth from '../../hooks/useAuth';
+import { useSelector } from 'react-redux';
 
 const { Paragraph, Title, Text } = Typography;
 
 const WhatBK = () => {
-  const { isLoading } = useAuth();
+  const { loading } = useSelector((state) => state.users);
+
+  if (loading === 'pending') {
+    return <Spin />;
+  }
 
   return (
     <>
-      {isLoading ? (
-        <Spin />
-      ) : (
-        <>
-          <BannerWrapper>
-            <Header />
-            <div className="banner">
-              <LeftOutlined />
-              <div className="content-wrapper">
-                <div className="home-about">
-                  <Link to="/">Home</Link>
-                  <Link to="/about"> / About us</Link>
-                </div>
-                <Title level={1} className="title">
-                  About Us
-                </Title>
-                <Paragraph className="content">
-                  Diam ut venenatis tellus in metus vulputate eu. Placerat in
-                  egestas erat imperdiet. Velit euismod in pellentesque massa
-                  placerat duis ultricies lacus sed.
-                </Paragraph>
-              </div>
-              <RightOutlined />
+      <BannerWrapper>
+        <Header />
+        <div className="banner">
+          <div className="content-wrapper">
+            <div className="home-about">
+              <Link to="/">Trang chủ</Link>
+              <Link to="/about"> / Về chúng tôi</Link>
             </div>
-          </BannerWrapper>
-          <NewProductsWrapper>
-            <div className="container">
-              <Row gutter={[16, 32]}>
-                <Col xl={32} lg={32} md={48} sm={96} xs={96}>
-                  <div className="product-image-wrapper">
-                    <img src={Leftimage} alt="product" />
-                  </div>
-                  <div className="title-image">
-                    <div>
-                      <h1>SOMETHING ABOUT BURGOS</h1>
-                    </div>
-                    <div>
-                      <Text>
-                        Etiam blandit, orci id malesuada sollicitudin, felis
-                        ligula ornare enim, ac consectetur dui nunc ut eros.
-                        Quisque ut nunc ex. Mauris scelerisque lobortis urna, in
-                        tempus urna hendrerit non.
-                      </Text>
-                    </div>
-                    <br />
-                    <div>
-                      <Text>
-                        Sed feugiat justo at laoreet convallis. Maecenas ac
-                        aliquam turpis. Ut aliquet leo ut gravida auctor.
-                      </Text>
-                    </div>
-                    <div className="title-logo">
-                      <div className="logo">
-                        <img src={Steak} alt="icon-logo" />
-                      </div>
-                      <div className="name-logo">
-                        <h1>Always Fresh Products</h1>
-                      </div>
-                    </div>
-                    <Link to="products">
-                      <ButtonStyled size="middle">Xem thêm</ButtonStyled>
-                    </Link>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-          </NewProductsWrapper>
-          <BlogsRecentlyWrapper>
-            <div className="title-wrapper">
-              <Title level={4}>PHOTO GALLERY</Title>
-            </div>
-            <div className="container">
-              <Row gutter={[16, 32]}>
-                <Col xl={8} lg={8} md={12} sm={24} xs={24}>
-                  <div className="blog-image-wrapper">
-                    <img src={Tomato} alt="picture" />
-                  </div>
-                </Col>
-                <Col xl={8} lg={8} md={12} sm={24} xs={24}>
-                  <div className="blog-image-wrapper">
-                    <img src={Tomato} alt="picture" />
-                  </div>
-                </Col>
-                <Col xl={8} lg={8} md={12} sm={24} xs={24}>
-                  <div className="blog-image-wrapper">
-                    <img src={Tomato} alt="picture" />
-                  </div>
-                </Col>
-                <Col xl={8} lg={8} md={12} sm={24} xs={24}>
-                  <div className="blog-image-wrapper">
-                    <img src={Tomato} alt="picture" />
-                  </div>
-                </Col>
-                <Col xl={8} lg={8} md={12} sm={24} xs={24}>
-                  <div className="blog-image-wrapper">
-                    <img src={Tomato} alt="picture" />
-                  </div>
-                </Col>
-                <Col xl={8} lg={8} md={12} sm={24} xs={24}>
-                  <div className="blog-image-wrapper">
-                    <img src={Tomato} alt="picture" />
-                  </div>
-                </Col>
-              </Row>
-            </div>
-          </BlogsRecentlyWrapper>
-          <Footer />
-        </>
-      )}
+            <Title level={1} className="title">
+              Về chúng tôi
+            </Title>
+            <Paragraph className="content">
+              Bạn có dùng thức ăn nhanh? Có nhiều người phàn nàn về nó nhưng
+              thức ăn nhanh đúng là những món ăn ngon! Bởi chúng rất thuận tiện
+              và đáp ứng được ở mọi mọi.
+            </Paragraph>
+          </div>
+        </div>
+      </BannerWrapper>
+
+      <SomethingAboutBKWrapper>
+        <div className="container">
+          <Row gutter={[32, 32]}>
+            <Col xl={12} lg={12} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/7.png"
+                width="100%"
+              />
+            </Col>
+            <Col
+              xl={12}
+              lg={12}
+              md={12}
+              sm={24}
+              xs={24}
+              className="something-text"
+            >
+              <Title level={2}>đôi điều về chúng tôi</Title>
+              <Text>
+                Bạn thích ăn đồ ăn ngon hay món tráng miệng. Bất cứ thứ gì ngon
+                miệng? Chúng tôi có đồ ăn nhanh rẻ và ngon. Chúng tôi có những
+                suất ăn lớn và sắp đồ rất đầy đủ, đặc biệt là phô mai. Phô mai
+                rất ngon. Chúng tôi có khoai tây chiên kiểu Pháp rất ngon.
+              </Text>
+              <Link to="/products">
+                <ButtonStyled size="middle">Xem thực đơn</ButtonStyled>
+              </Link>
+            </Col>
+          </Row>
+        </div>
+      </SomethingAboutBKWrapper>
+
+      <PhotoGalleryWrapper>
+        <Title level={2}>thư viện hình ảnh</Title>
+        <div className="container">
+          <Row gutter={[16, 32]}>
+            <Col xl={6} lg={8} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/gal1.jpg"
+                width="100%"
+                height="420px"
+              />
+            </Col>
+            <Col xl={6} lg={8} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/gal1.jpg"
+                width="100%"
+                height="420px"
+              />
+            </Col>
+            <Col xl={6} lg={8} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/gal1.jpg"
+                width="100%"
+                height="420px"
+              />
+            </Col>
+            <Col xl={6} lg={8} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/gal1.jpg"
+                width="100%"
+                height="420px"
+              />
+            </Col>
+            <Col xl={6} lg={8} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/gal1.jpg"
+                width="100%"
+                height="420px"
+              />
+            </Col>
+            <Col xl={6} lg={8} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/gal1.jpg"
+                width="100%"
+                height="420px"
+              />
+            </Col>
+            <Col xl={6} lg={8} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/gal1.jpg"
+                width="100%"
+                height="420px"
+              />
+            </Col>
+            <Col xl={6} lg={8} md={12} sm={24} xs={24}>
+              <Image
+                src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/gal1.jpg"
+                width="100%"
+                height="420px"
+              />
+            </Col>
+          </Row>
+        </div>
+      </PhotoGalleryWrapper>
+
+      <Footer />
     </>
   );
 };

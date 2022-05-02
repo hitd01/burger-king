@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import AboutUsBanner from '../../assets/images/AboutUs-banner.jpg';
+import AboutBG from '../../assets/images/about-bg.jpg';
 import { Button } from 'antd';
 
 export const BannerWrapper = styled.div`
-  background: url(${AboutUsBanner}) no-repeat center;
+  background: url(${AboutBG}) no-repeat center;
   background-size: cover;
   height: 100vh;
   position: relative;
@@ -30,7 +30,7 @@ export const BannerWrapper = styled.div`
       }
       .title {
         text-transform: uppercase;
-        font-size: 80px;
+        font-size: 68px;
         font-weight: bold;
         margin-bottom: 15px;
         color: var(--white-color);
@@ -44,19 +44,11 @@ export const BannerWrapper = styled.div`
         color: var(--white-color);
       }
     }
-    .anticon {
-      font-size: 30px;
-      color: var(--white-color);
-      cursor: pointer;
-      &:hover {
-        color: var(--primary-color);
-      }
-    }
   }
   @media screen and (max-width: 991.5px) {
     .banner .content-wrapper {
       .title {
-        font-size: 60px;
+        font-size: 58px;
       }
       .content {
         max-width: 600px;
@@ -66,6 +58,9 @@ export const BannerWrapper = styled.div`
   }
   @media screen and (max-width: 767.5px) {
     .banner .content-wrapper {
+      .title {
+        font-size: 48px;
+      }
       .content {
         max-width: 500px;
         font-size: 18px;
@@ -78,11 +73,11 @@ export const BannerWrapper = styled.div`
       .content-wrapper {
         .home-about {
           a {
-            font-size: 15px;
+            font-size: 18px;
           }
         }
         .title {
-          font-size: 40px;
+          font-size: 38px;
         }
         .content {
           max-width: 350px;
@@ -107,127 +102,77 @@ export const ButtonStyled = styled(Button)`
     border-radius: 0;
   }
 `;
-export const NewProductsWrapper = styled.div`
+
+export const SomethingAboutBKWrapper = styled.div`
   padding-top: 150px;
-  .ant-col {
-    display: flex;
-    .product-image-wrapper {
-      height: 100%;
-      width: 100%;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+  .ant-row {
+    .ant-col {
+      .ant-image {
+        .ant-image-img {
+          object-fit: cover;
+          height: 400px;
+        }
       }
     }
-  }
-  .title-image {
-    h1 {
-      font-size: 60px;
-
-      width: 40%;
-    }
-    .title-logo {
+    .ant-col.something-text {
       display: flex;
-      .logo {
+      flex-direction: column;
+      align-items: center;
+      h2.ant-typography {
+        color: var(--text-primary);
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 48px;
       }
-      .name-logo {
-        h1 {
-          font-size: 24px;
+      span.ant-typography {
+        color: var(--text-gray);
+        text-align: justify;
+        font-size: 24px;
+        margin-bottom: 15px;
+        display: inline-block;
+      }
+    }
+  }
+  @media screen and (max-width: 991.5px) {
+    .ant-row {
+      .ant-col {
+        .ant-image {
+          .ant-image-img {
+            height: 500px;
+          }
         }
       }
     }
   }
-
-  @media screen and (max-width: 1088px) {
-    .product-image-wrapper {
-      width: 70%;
-      img {
-        width: 100%;
-      }
-    }
-    .title-image {
-      width: 40%;
-      height: 100%;
-      h1 {
-        font-size: 35px;
-
-        width: 40%;
-      }
-    }
-  }
-  @media screen and (max-width: 580px) {
-    .product-image-wrapper {
-      width: 70%;
-    }
-    .title-image {
-      width: 40%;
-      height: 100%;
-      h1 {
-        font-size: 25px;
-        width: 40%;
-      }
-      .ant-typography {
-        font-size: 12px;
-      }
-      .title-logo {
-        .logo {
-          img {
-            width: 100%;
-          }
+  @media screen and (max-width: 575.5px) {
+    .ant-row {
+      padding: 0 8px;
+      .ant-col.something-text {
+        h2.ant-typography {
+          font-size: 32px;
         }
-        .name-logo {
-          h1 {
-            font-size: 18px;
-          }
+        span.ant-typography {
+          font-size: 18px;
         }
       }
     }
   }
 `;
 
-export const BlogsRecentlyWrapper = styled.div`
-  padding: 150px;
-  .title-wrapper {
+export const PhotoGalleryWrapper = styled.div`
+  padding-top: 150px;
+  h2.ant-typography {
+    color: var(--text-primary);
+    text-transform: uppercase;
     text-align: center;
-    margin-bottom: 40px;
-    h4.ant-typography {
-      font-size: 60px;
-      color: var(--text-primary);
-      margin: 0;
-      text-transform: uppercase;
-    }
-    .ant-typography {
-      font-size: 20px;
-      color: var(--text-gray);
-    }
-  }
-  .ant-col {
-    .blog-image-wrapper {
-      height: 100%;
-      width: 100%;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      cursor: pointer;
-    }
-  }
-  @media screen and (max-width: 991.5px) {
-    .title-wrapper {
-      h4.ant-typography {
-        font-size: 52px;
-      }
-    }
+    font-size: 48px;
   }
   @media screen and (max-width: 575.5px) {
-    .title-wrapper {
-      padding-left: 8px;
-      padding-right: 8px;
-      h4.ant-typography {
-        font-size: 18px;
-      }
+    h2.ant-typography {
+      font-size: 32px;
+    }
+    .ant-row {
+      padding: 0 8px;
     }
   }
 `;

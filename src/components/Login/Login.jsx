@@ -3,7 +3,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import React, { useState } from 'react';
 import { FormWrapper, Wrapper, Modal } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleHiddenLogin, checkLogged, setProviderId } from './loginSlice';
+import { toggleHiddenLogin, setProviderId } from './loginSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   GoogleAuthProvider,
@@ -25,8 +25,9 @@ export default function Login() {
 
   const [form] = Form.useForm();
 
-  // handle hidden login form
   const { isHiddenLogin } = useSelector((state) => state.login);
+
+  // handle hidden login form
   const handleHiddenLogin = () => {
     dispatch(toggleHiddenLogin(true));
     navigate(-1);
@@ -37,7 +38,7 @@ export default function Login() {
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider)
       .then((result) => {
-        dispatch(setProviderId(result.providerId));
+        dispatch(setProviderId('google.com'));
         const user = result.user;
         const payload = {
           name: user.displayName,
@@ -53,7 +54,6 @@ export default function Login() {
         if (isNewUser) {
           addDocument('users', payload);
         }
-        dispatch(checkLogged(true));
         handleHiddenLogin();
       })
       .catch((error) => {
@@ -71,10 +71,8 @@ export default function Login() {
   const handleRegister = async () => {
     const { confirm, email, passwordRegister } = form.getFieldValue();
     if (confirm === passwordRegister && email && confirm && passwordRegister) {
-      // create user with email real
       await createUserWithEmailAndPassword(auth, email, passwordRegister)
         .then((userCredential) => {
-          // create new user
           const user = userCredential.user;
           const payload = {
             name: user.displayName
@@ -92,12 +90,9 @@ export default function Login() {
           if (isNewUser) {
             addDocument('users', payload);
           }
-          alert(
-            'Đăng ký thành công! Tải lại trang để tự động đăng nhập hoặc đăng nhập thủ công'
-          );
-          dispatch(checkLogged(false));
+          alert('Đăng ký thành công. Hệ thống sẽ tự động đăng nhập!');
           form.resetFields();
-          setIsSignIn(true);
+          handleHiddenLogin();
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -116,8 +111,7 @@ export default function Login() {
     await signInWithEmailAndPassword(auth, username, password)
       .then(() => {
         // Signed in
-        dispatch(setProviderId(null));
-        dispatch(checkLogged(true));
+        dispatch(setProviderId('password'));
         handleHiddenLogin();
       })
       .catch((error) => {

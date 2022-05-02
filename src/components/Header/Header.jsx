@@ -20,8 +20,9 @@ const Header = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
 
-  const { isLogged } = useSelector((state) => state.login);
   const { loading } = useSelector((state) => state.users);
+  const { isLogged } = useSelector((state) => state.login);
+
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
@@ -34,7 +35,7 @@ const Header = () => {
       setAvatar(photoURL);
       setEmail(email);
     }
-  }, []);
+  }, [isLogged]);
 
   if (loading === 'pending') {
     return <Spin />;
@@ -78,13 +79,6 @@ const Header = () => {
 
           {isLogged ? (
             <Link to="/profile" className="user-avatar">
-              {/* <Avatar size="large" src={photoURL}>
-                {photoURL
-                  ? ''
-                  : displayName
-                  ? displayName?.charAt(0)?.toUpperCase()
-                  : email?.charAt(0).toUpperCase()}
-              </Avatar> */}
               <Avatar size="large" src={avatar}>
                 {avatar
                   ? ''
