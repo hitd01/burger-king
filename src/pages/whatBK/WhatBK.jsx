@@ -8,14 +8,14 @@ import {
   PhotoGalleryWrapper,
 } from './styles';
 import { Footer, Header } from '../../components';
-import { useSelector } from 'react-redux';
+import useAuth from '../../hooks/useAuth';
 
 const { Paragraph, Title, Text } = Typography;
 
 const WhatBK = () => {
-  const { loading } = useSelector((state) => state.users);
+  const { isLoading } = useAuth();
 
-  if (loading === 'pending') {
+  if (isLoading) {
     return <Spin />;
   }
 
@@ -27,7 +27,7 @@ const WhatBK = () => {
           <div className="content-wrapper">
             <div className="home-about">
               <Link to="/">Trang chủ</Link>
-              <Link to="/about"> / Về chúng tôi</Link>
+              <Text> / Về chúng tôi</Text>
             </div>
             <Title level={1} className="title">
               Về chúng tôi
@@ -35,7 +35,7 @@ const WhatBK = () => {
             <Paragraph className="content">
               Bạn có dùng thức ăn nhanh? Có nhiều người phàn nàn về nó nhưng
               thức ăn nhanh đúng là những món ăn ngon! Bởi chúng rất thuận tiện
-              và đáp ứng được ở mọi mọi.
+              và đáp ứng được ở mọi nơi.
             </Paragraph>
           </div>
         </div>
