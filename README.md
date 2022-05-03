@@ -118,7 +118,7 @@ project run on `localhost:3000`
 - [x] Sign out feature
 - [ ] Profile page
   - [x] Profile management
-  - [ ] Change password
+  - [x] Change password
   - [ ] Shopping history
 - [ ] About page
   - [x] Cut interface

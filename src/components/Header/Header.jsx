@@ -29,19 +29,21 @@ const Header = () => {
 
   const { currentUserAuth } = useAuth();
 
-  const getCurrentUserValue = () => {
+  useEffect(() => {
     if (isLogged) {
       const { photoURL, displayName, email } = currentUserAuth;
       setName(displayName);
       setAvatar(photoURL);
       setEmail(email);
-      console.log(currentUserAuth);
     }
-  };
-  useEffect(() => {
-    getCurrentUserValue();
+
     return () => {
-      getCurrentUserValue();
+      if (isLogged) {
+        const { photoURL, displayName, email } = currentUserAuth;
+        setName(displayName);
+        setAvatar(photoURL);
+        setEmail(email);
+      }
     };
   }, [isLogged, loading]);
 
