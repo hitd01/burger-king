@@ -12,8 +12,8 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
 import { auth, db, storage } from './config';
 
-export const addDocument = async (collectionProp, data) => {
-  await addDoc(collection(db, collectionProp), {
+export const addDocument = async (collectionName, data) => {
+  await addDoc(collection(db, collectionName), {
     ...data,
     createdAt: serverTimestamp(),
     updatedAt: null,
@@ -45,7 +45,9 @@ export const uploadAvatar = async (file) => {
   const currentUser = auth.currentUser;
   const storageRef = ref(
     storage,
-    `avatars/${currentUser.uid}.${file.type === 'image/png' ? 'png' : 'jpg'}`
+    `user-avatars/${currentUser.uid}.${
+      file.type === 'image/png' ? 'png' : 'jpg'
+    }`
   );
   await uploadBytes(storageRef, file);
   const photoURL = await getDownloadURL(storageRef);
