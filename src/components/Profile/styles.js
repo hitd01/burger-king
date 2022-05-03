@@ -50,12 +50,14 @@ export const Wrapper = styled.div`
             color: var(--text-gray);
           }
           .ant-typography.profile-info {
-            color: ${({ profileSelected }) =>
-              profileSelected ? 'var(--primary-color)' : 'var(--text-gray)'};
+            color: ${({ selected }) =>
+              selected === 'profile'
+                ? 'var(--primary-color)'
+                : 'var(--text-gray)'};
           }
           .ant-typography.change-password-title {
-            color: ${({ changePasswordSelected }) =>
-              changePasswordSelected
+            color: ${({ selected }) =>
+              selected === 'change-password'
                 ? 'var(--primary-color)'
                 : 'var(--text-gray)'};
           }

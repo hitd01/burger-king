@@ -29,14 +29,28 @@ const Profile = () => {
   }, [dispatch]);
 
   const { currentUserAuth } = useAuth();
-  const { displayName, photoURL, email } = currentUserAuth;
+  const { displayName, photoURL, email, uid } = currentUserAuth;
 
-  const { loading } = useSelector((state) => state.users);
-  const { providerId } = useSelector((state) => state.login);
+  const { loading, users } = useSelector((state) => state.users);
+  const { isLogged } = useSelector((state) => state.login);
 
-  const [profileSelected, setProfileSelected] = useState(true);
-  const [changePasswordSelected, setChangePasswordSelected] = useState(false);
-  const [shoppingHistorySelected, setShoppingHistorySelected] = useState(false);
+  const [selected, setSelected] = useState('profile');
+  const [providerId, setProviderId] = useState(null);
+
+  useEffect(() => {
+    if (isLogged && loading === 'success') {
+      const currentUser = users.find((user) => user.uid === uid);
+      console.log(currentUser);
+      setProviderId(currentUser.providerId);
+    }
+
+    return () => {
+      if (isLogged && loading === 'success') {
+        const currentUser = users.find((user) => user.uid === uid);
+        setProviderId(currentUser.providerId);
+      }
+    };
+  }, [isLogged, loading]);
 
   const handleLogout = () => {
     signOut(auth)
@@ -49,31 +63,12 @@ const Profile = () => {
       });
   };
 
-  const handleProfileClick = () => {
-    setProfileSelected(true);
-    setChangePasswordSelected(false);
-    setShoppingHistorySelected(false);
-  };
-  const handleChangePasswordClick = () => {
-    setProfileSelected(false);
-    setChangePasswordSelected(true);
-    setShoppingHistorySelected(false);
-  };
-  const handleShoppingHistoryClick = () => {
-    setProfileSelected(false);
-    setChangePasswordSelected(false);
-    setShoppingHistorySelected(true);
-  };
-
   if (loading === 'pending') {
     return <Spin />;
   }
 
   return (
-    <Wrapper
-      profileSelected={profileSelected}
-      changePasswordSelected={changePasswordSelected}
-    >
+    <Wrapper selected={selected}>
       <Row>
         <Col className="sidebar">
           <div className="top">
@@ -88,7 +83,10 @@ const Profile = () => {
               <Text>
                 {displayName ? displayName : email?.charAt(0).toUpperCase()}
               </Text>
-              <div className="edit-wrapper" onClick={handleProfileClick}>
+              <div
+                className="edit-wrapper"
+                onClick={() => setSelected('profile')}
+              >
                 <EditOutlined />
                 Sửa hồ sơ
               </div>
@@ -96,18 +94,18 @@ const Profile = () => {
           </div>
 
           <div className="profile">
-            <div className="title" onClick={handleProfileClick}>
+            <div className="title" onClick={() => setSelected('profile')}>
               <UserOutlined />
               <Text>Tài khoản của tôi</Text>
             </div>
             <Menu>
-              <Menu.Item key="profile" onClick={handleProfileClick}>
+              <Menu.Item key="profile" onClick={() => setSelected('profile')}>
                 <Text className="profile-info">Hồ sơ</Text>
               </Menu.Item>
               {providerId === 'password' ? (
                 <Menu.Item
                   key="change-password"
-                  onClick={handleChangePasswordClick}
+                  onClick={() => setSelected('change-password')}
                 >
                   <Text className="change-password-title">Đổi mật khẩu</Text>
                 </Menu.Item>
@@ -116,7 +114,7 @@ const Profile = () => {
           </div>
           <div
             className="shopping-history"
-            onClick={handleShoppingHistoryClick}
+            onClick={() => setSelected('shopping-history')}
           >
             <ShoppingOutlined />
             <Text>Đơn mua</Text>
@@ -128,9 +126,9 @@ const Profile = () => {
         </Col>
 
         <Col className="content">
-          {profileSelected ? <EditProfile /> : null}
-          {changePasswordSelected ? <ChangePassword /> : null}
-          {shoppingHistorySelected ? <ShoppingHistory /> : null}
+          {(selected === 'profile' && <EditProfile />) ||
+            (selected === 'change-password' && <ChangePassword />) ||
+            (selected === 'shopping-history' && <ShoppingHistory />)}
         </Col>
       </Row>
     </Wrapper>

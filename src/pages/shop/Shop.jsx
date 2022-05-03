@@ -31,6 +31,7 @@ const Shop = () => {
     getMenuItem('Tất cả', 'all'),
     getMenuItem('Combo', 'combo'),
     getMenuItem('Burger', 'burger'),
+    getMenuItem('Gà rán', 'fried-chicken'),
     getMenuItem('Pizza', 'pizza'),
     getMenuItem('Khoai chiên', 'french-fries'),
   ]);
@@ -44,7 +45,17 @@ const Shop = () => {
     ]),
   ];
 
-  const countTest = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const countTest = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ];
+  const numEachPage = 8;
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(numEachPage);
+  const handlePaginationChange = (current) => {
+    setMin((current - 1) * numEachPage);
+    setMax(current * numEachPage);
+    console.log(current, min, max);
+  };
 
   if (isLoading) {
     return <Spin />;
@@ -90,46 +101,52 @@ const Shop = () => {
           </div>
 
           <Row gutter={[16, 32]}>
-            {countTest.map((item) => (
-              <Col key={item} xl={6} lg={8} md={12} sm={24} xs={24}>
-                <div className="product-image-wrapper">
-                  <img
-                    src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/product1b.png"
-                    alt="product"
-                  />
-                </div>
-                <div className="info-wrapper">
-                  <div className="info">
-                    <Text>Gà rán</Text>
-                    <Text>40.000đ</Text>
+            {countTest.length > 0 &&
+              countTest.slice(min, max).map((item) => (
+                <Col key={item} xl={6} lg={8} md={12} sm={24} xs={24}>
+                  <div className="product-image-wrapper">
+                    <img
+                      src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/product1b.png"
+                      alt="product"
+                    />
                   </div>
-                  <div className="footer">
-                    <div className="rate">
-                      <StarFilled />
-                      <StarFilled />
-                      <StarFilled />
-                      <StarFilled />
-                      <StarOutlined />
+                  <div className="info-wrapper">
+                    <div className="info">
+                      <Text>Gà rán</Text>
+                      <Text>40.000đ</Text>
                     </div>
-                    <div className="icon-wrapper">
-                      <div className="icon shopping-cart">
-                        <ShoppingCartOutlined />
+                    <div className="footer">
+                      <div className="rate">
+                        <StarFilled />
+                        <StarFilled />
+                        <StarFilled />
+                        <StarFilled />
+                        <StarOutlined />
                       </div>
-                      <Link to="/products/id" className="icon eye">
-                        <EyeOutlined />
-                      </Link>
-                      <div className="icon heart">
-                        <HeartOutlined />
+                      <div className="icon-wrapper">
+                        <div className="icon shopping-cart">
+                          <ShoppingCartOutlined />
+                        </div>
+                        <Link to="/products/id" className="icon eye">
+                          <EyeOutlined />
+                        </Link>
+                        <div className="icon heart">
+                          <HeartOutlined />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Col>
-            ))}
+                </Col>
+              ))}
           </Row>
 
           <div className="pagination">
-            <Pagination pageSize={9} defaultCurrent={1} total={50} />
+            <Pagination
+              pageSize={numEachPage}
+              defaultCurrent={1}
+              total={countTest.length}
+              onChange={handlePaginationChange}
+            />
           </div>
         </div>
       </ContainerWrapper>

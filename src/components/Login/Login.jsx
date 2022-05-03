@@ -3,7 +3,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import React, { useState } from 'react';
 import { FormWrapper, Wrapper, Modal } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleHiddenLogin, setProviderId } from './loginSlice';
+import { toggleHiddenLogin } from './loginSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   GoogleAuthProvider,
@@ -38,7 +38,7 @@ export default function Login() {
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider)
       .then((result) => {
-        dispatch(setProviderId('google.com'));
+        const { isNewUser, providerId } = getAdditionalUserInfo(result);
         const user = result.user;
         const payload = {
           name: user.displayName,
@@ -47,10 +47,10 @@ export default function Login() {
           address: '',
           uid: user.uid,
           accessToken: user.accessToken,
+          providerId,
         };
 
         // check is new user
-        const { isNewUser } = getAdditionalUserInfo(result);
         if (isNewUser) {
           addDocument('users', payload);
         }
@@ -73,6 +73,8 @@ export default function Login() {
     if (confirm === passwordRegister && email && confirm && passwordRegister) {
       await createUserWithEmailAndPassword(auth, email, passwordRegister)
         .then((userCredential) => {
+          const { isNewUser, providerId } =
+            getAdditionalUserInfo(userCredential);
           const user = userCredential.user;
           const payload = {
             name: user.displayName
@@ -83,10 +85,10 @@ export default function Login() {
             address: '',
             uid: user.uid,
             accessToken: user.accessToken,
+            providerId,
           };
 
           // check is new user
-          const { isNewUser } = getAdditionalUserInfo(userCredential);
           if (isNewUser) {
             addDocument('users', payload);
           }
@@ -111,7 +113,6 @@ export default function Login() {
     await signInWithEmailAndPassword(auth, username, password)
       .then(() => {
         // Signed in
-        dispatch(setProviderId('password'));
         handleHiddenLogin();
       })
       .catch((error) => {
