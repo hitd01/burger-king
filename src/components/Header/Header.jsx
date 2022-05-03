@@ -28,14 +28,22 @@ const Header = () => {
   const [email, setEmail] = useState('');
 
   const { currentUserAuth } = useAuth();
-  useEffect(() => {
+
+  const getCurrentUserValue = () => {
     if (isLogged) {
       const { photoURL, displayName, email } = currentUserAuth;
       setName(displayName);
       setAvatar(photoURL);
       setEmail(email);
+      console.log(currentUserAuth);
     }
-  }, [isLogged]);
+  };
+  useEffect(() => {
+    getCurrentUserValue();
+    return () => {
+      getCurrentUserValue();
+    };
+  }, [isLogged, loading]);
 
   if (loading === 'pending') {
     return <Spin />;
