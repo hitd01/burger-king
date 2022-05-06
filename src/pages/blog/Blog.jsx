@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export default function Blog() {
+const Blog = () => {
+  useEffect(() => {
+    document.title = 'Bài viết';
+  });
   return <div>Blog</div>;
-}
+};
+
+export default Blog;

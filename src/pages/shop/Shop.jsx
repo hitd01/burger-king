@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Menu, Pagination, Row, Typography, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { BannerWrapper, ContainerWrapper } from './styles';
@@ -14,6 +14,10 @@ import {
 const { Paragraph, Title, Text } = Typography;
 
 const Shop = () => {
+  useEffect(() => {
+    document.title = 'Thực đơn';
+  });
+
   const getMenuItem = (label, key, icon, children, type) => {
     return {
       label,
@@ -117,7 +121,7 @@ const Shop = () => {
                         <div className="icon shopping-cart">
                           <ShoppingCartOutlined />
                         </div>
-                        <Link to="/products/id" className="icon eye">
+                        <Link to="1" className="icon eye">
                           <EyeOutlined />
                         </Link>
                         <div className="icon heart">

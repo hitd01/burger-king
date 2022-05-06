@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getCollection } from '../../firebase/services';
 
 const initialState = {
-  loadingProduct: 'idle',
+  productLoading: 'idle',
   products: [
     {
       id: 'UkliQmFoWQrr6zm6FkjR',
@@ -36,11 +37,26 @@ const initialState = {
   ],
 };
 
+export const getProducts = createAsyncThunk('products', async () => {
+  return await getCollection('products');
+});
+
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {},
-  extraReducers: {},
+  extraReducers: {
+    [getProducts.pending]: (state) => {
+      state.productLoading = 'pending';
+    },
+    [getProducts.fulfilled]: (state, action) => {
+      state.productLoading = 'success';
+      state.products = action.payload;
+    },
+    [getProducts.rejected]: (state) => {
+      state.productLoading = 'failed';
+    },
+  },
 });
 
 export default productsSlice.reducer;

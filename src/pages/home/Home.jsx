@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Col, Row, Typography, Image } from 'antd';
 import {
   EyeOutlined,
@@ -23,6 +23,10 @@ import {
 const { Paragraph, Title, Text } = Typography;
 
 const Home = () => {
+  useEffect(() => {
+    document.title = 'Trang chủ';
+  });
+
   const productCountTest = [1, 2, 3, 4, 5, 6];
 
   return (
@@ -82,7 +86,7 @@ const Home = () => {
                       <div className="icon shopping-cart">
                         <ShoppingCartOutlined />
                       </div>
-                      <Link to="/products/id" className="icon eye">
+                      <Link to="/products/idProduct" className="icon eye">
                         <EyeOutlined />
                       </Link>
                       <div className="icon heart">

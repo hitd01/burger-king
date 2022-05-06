@@ -1,12 +1,16 @@
 import { Spin } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ProductComponent } from '../../components';
 
 const Product = () => {
-  const { loadingProduct } = useSelector((state) => state.products);
+  useEffect(() => {
+    document.title = 'Sản phẩm';
+  });
 
-  if (loadingProduct === 'pending') {
+  const { productLoading } = useSelector((state) => state.products);
+
+  if (productLoading === 'pending') {
     return <Spin />;
   }
 

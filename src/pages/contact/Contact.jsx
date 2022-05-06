@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export default function Contact() {
+const Contact = () => {
+  useEffect(() => {
+    document.title = 'Liên hệ';
+  });
+
   return <div>Contact</div>;
-}
+};
+
+export default Contact;

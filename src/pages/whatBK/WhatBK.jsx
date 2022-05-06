@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row, Typography, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import {
@@ -11,6 +11,10 @@ import {
 const { Paragraph, Title, Text } = Typography;
 
 const WhatBK = () => {
+  useEffect(() => {
+    document.title = 'Về chúng tôi';
+  });
+
   return (
     <>
       <BannerWrapper>
