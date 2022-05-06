@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { FormWrapper, Wrapper, Modal } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleHiddenLogin } from './loginSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -19,7 +19,6 @@ const { Title, Text } = Typography;
 
 export default function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [isSignIn, setIsSignIn] = useState(true);
 
@@ -30,7 +29,6 @@ export default function Login() {
   // handle hidden login form
   const handleHiddenLogin = () => {
     dispatch(toggleHiddenLogin(true));
-    navigate(-1);
   };
 
   // handle login with google

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../Header/Header';
 import { BannerWrapper, ProductInfo } from './styles';
 import { Col, Row, Typography, Image } from 'antd';
 
@@ -10,12 +9,12 @@ const Product = () => {
   return (
     <>
       <BannerWrapper>
-        <Header />
         <div className="banner">
           <div className="content-wrapper">
             <div className="home-shop">
               <Link to="/">Trang chủ</Link>
-              <Link to="/"> / Thực đơn</Link>
+              <Text> / </Text>
+              <Link to="/">Thực đơn</Link>
               <Text> / Chi tiết sản phẩm</Text>
             </div>
             <Title level={1} className="title">

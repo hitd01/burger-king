@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Row, Typography, Spin, Image } from 'antd';
+import { Button, Col, Row, Typography, Image } from 'antd';
 import {
   EyeOutlined,
   HeartOutlined,
@@ -9,7 +9,7 @@ import {
   StarFilled,
   StarOutlined,
 } from '@ant-design/icons';
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import HamburgerBanner from '../../assets/images/hamburger-banner.jpg';
 import {
   BannerWrapper,
@@ -19,24 +19,15 @@ import {
   FormContactWrapper,
   ButtonStyled,
 } from './styles';
-import { Footer, Header } from '../../components';
-import useAuth from '../../hooks/useAuth';
 
 const { Paragraph, Title, Text } = Typography;
 
-export default function Home() {
-  const { isLoading } = useAuth();
-
+const Home = () => {
   const productCountTest = [1, 2, 3, 4, 5, 6];
-
-  if (isLoading) {
-    return <Spin />;
-  }
 
   return (
     <>
       <BannerWrapper>
-        <Header />
         <div className="banner">
           <LeftOutlined />
           <div className="content-wrapper">
@@ -255,10 +246,8 @@ export default function Home() {
           <Button size="small">Gửi</Button>
         </div>
       </FormContactWrapper>
-
-      <Footer />
-
-      <Outlet />
     </>
   );
-}
+};
+
+export default Home;

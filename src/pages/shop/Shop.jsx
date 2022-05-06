@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Footer, Header } from '../../components';
-import { Col, Menu, Pagination, Row, Spin, Typography, Image } from 'antd';
+import { Col, Menu, Pagination, Row, Typography, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { BannerWrapper, ContainerWrapper } from './styles';
-import useAuth from '../../hooks/useAuth';
 import {
   EyeOutlined,
   FilterOutlined,
@@ -16,8 +14,6 @@ import {
 const { Paragraph, Title, Text } = Typography;
 
 const Shop = () => {
-  const { isLoading } = useAuth();
-
   const getMenuItem = (label, key, icon, children, type) => {
     return {
       label,
@@ -57,14 +53,9 @@ const Shop = () => {
     console.log(current, min, max);
   };
 
-  if (isLoading) {
-    return <Spin />;
-  }
-
   return (
     <>
       <BannerWrapper>
-        <Header />
         <div className="banner">
           <div className="content-wrapper">
             <div className="home-shop">
@@ -149,8 +140,6 @@ const Shop = () => {
           </div>
         </div>
       </ContainerWrapper>
-
-      <Footer />
     </>
   );
 };

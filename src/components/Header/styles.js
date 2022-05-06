@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 export const HeaderWrapper = styled.div`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   display: flex;
   height: 110px;
   padding: 0 40px;
@@ -28,6 +32,9 @@ export const HeaderWrapper = styled.div`
       &-item {
         margin: 0 16px;
         padding: 0;
+        &-selected {
+          background-color: transparent;
+        }
       }
       &-title-content a {
         font-size: 20px;
@@ -38,9 +45,6 @@ export const HeaderWrapper = styled.div`
         &:hover {
           color: var(--primary-color);
         }
-      }
-      &-item-selected {
-        background-color: transparent;
       }
     }
     .icon-wrapper {

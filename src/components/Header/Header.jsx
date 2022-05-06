@@ -36,16 +36,34 @@ const Header = () => {
       setAvatar(photoURL);
       setEmail(email);
     }
+  }, [isLogged, loading, currentUserAuth]);
 
-    return () => {
-      if (isLogged) {
-        const { photoURL, displayName, email } = currentUserAuth;
-        setName(displayName);
-        setAvatar(photoURL);
-        setEmail(email);
-      }
-    };
-  }, [isLogged, loading]);
+  const [pageCurrent, setPageCurrent] = useState('home');
+  const navItems = [
+    {
+      label: <Link to="/">TRANG CHỦ</Link>,
+      key: 'home',
+    },
+    {
+      label: <Link to="/about">VỀ CHÚNG TÔI</Link>,
+      key: 'whatBK',
+    },
+    {
+      label: <Link to="/products">THỰC ĐƠN</Link>,
+      key: 'menu',
+    },
+    {
+      label: <Link to="/blogs">BÀI VIẾT</Link>,
+      key: 'blog',
+    },
+    {
+      label: <Link to="/contact">LIÊN HỆ</Link>,
+      key: 'contact',
+    },
+  ];
+  const menuClick = (e) => {
+    setPageCurrent(e.key);
+  };
 
   if (loading === 'pending') {
     return <Spin />;
@@ -57,23 +75,11 @@ const Header = () => {
         <img src={Logo} alt="logo" />
       </Link>
       <div className="link-wrapper">
-        <Menu>
-          <Menu.Item key="home">
-            <Link to="/">TRANG CHỦ</Link>
-          </Menu.Item>
-          <Menu.Item key="whatBK">
-            <Link to="/about">VỀ CHÚNG TÔI</Link>
-          </Menu.Item>
-          <Menu.Item key="menu">
-            <Link to="/products">THỰC ĐƠN</Link>
-          </Menu.Item>
-          <Menu.Item key="blog">
-            <Link to="/blogs">BÀI VIẾT</Link>
-          </Menu.Item>
-          <Menu.Item key="contact">
-            <Link to="/contact">LIÊN HỆ</Link>
-          </Menu.Item>
-        </Menu>
+        <Menu
+          items={navItems}
+          selectedKeys={[pageCurrent]}
+          onClick={menuClick}
+        />
         <div className="icon-wrapper">
           <Link className="cart-wrapper icon" to="/cart">
             <ShoppingOutlined />
@@ -98,13 +104,19 @@ const Header = () => {
               </Avatar>
             </Link>
           ) : (
-            <Link
-              to="/login"
+            // <Link
+            //   to="/login"
+            //   className="icon"
+            //   onClick={() => dispatch(toggleHiddenLogin(false))}
+            // >
+            //   <UserOutlined
+            //     onClick={() => dispatch(toggleHiddenLogin(false))}
+            //   />
+            // </Link>
+            <UserOutlined
               className="icon"
               onClick={() => dispatch(toggleHiddenLogin(false))}
-            >
-              <UserOutlined />
-            </Link>
+            />
           )}
 
           {toggleMenu ? (

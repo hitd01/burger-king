@@ -1,7 +1,7 @@
 import { Spin } from 'antd';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Footer, Header, ProductComponent } from '../../components';
+import { ProductComponent } from '../../components';
 
 const Product = () => {
   const { loadingProduct } = useSelector((state) => state.products);
@@ -13,7 +13,6 @@ const Product = () => {
   return (
     <>
       <ProductComponent />
-      <Footer />
     </>
   );
 };

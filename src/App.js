@@ -1,32 +1,27 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import {
-  Home,
-  WhatBK,
-  Shop,
-  Blog,
-  Contact,
-  Error,
-  Profile,
-  Product,
-} from './pages';
-import { Login, ForgotPassword } from './components';
+import { Outlet } from 'react-router-dom';
+import { Footer, Header, Login } from './components';
+import useAuth from './hooks/useAuth';
+import { Spin } from 'antd';
 
-export default function App() {
+const App = () => {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return <Spin />;
+  }
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />}>
-        <Route path="login" element={<Login />} />
-      </Route>
-      <Route path="about" element={<WhatBK />} />
-      <Route path="products" element={<Shop />} />
-      <Route path="products/id" element={<Product />} />
-      <Route path="blogs" element={<Blog />} />
-      <Route path="contact" element={<Contact />} />
-      <Route path="forgot-password" element={<ForgotPassword />} />
-      <Route path="profile" element={<Profile />} />
-      <Route path="*" element={<Error />} />
-    </Routes>
+    <>
+      <Header />
+      <div>
+        <Outlet />
+        <Login />
+      </div>
+      <Footer />
+    </>
   );
-}
+};
+
+export default App;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Spin, Typography, Image } from 'antd';
+import { Col, Row, Typography, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import {
   BannerWrapper,
@@ -7,22 +7,13 @@ import {
   ButtonStyled,
   PhotoGalleryWrapper,
 } from './styles';
-import { Footer, Header } from '../../components';
-import useAuth from '../../hooks/useAuth';
 
 const { Paragraph, Title, Text } = Typography;
 
 const WhatBK = () => {
-  const { isLoading } = useAuth();
-
-  if (isLoading) {
-    return <Spin />;
-  }
-
   return (
     <>
       <BannerWrapper>
-        <Header />
         <div className="banner">
           <div className="content-wrapper">
             <div className="home-about">
@@ -136,8 +127,6 @@ const WhatBK = () => {
           </Row>
         </div>
       </PhotoGalleryWrapper>
-
-      <Footer />
     </>
   );
 };
