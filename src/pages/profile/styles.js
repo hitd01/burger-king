@@ -5,5 +5,7 @@ export const Wrapper = styled.div`
   height: 100%;
   .header-bg {
     background: var(--primary-color-dark);
+    position: relative;
+    height: 110px;
   }
 `;

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Footer, Header } from '../../components';
-import { Col, Menu, Pagination, Row, Spin, Typography } from 'antd';
+import { Col, Menu, Pagination, Row, Typography, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { BannerWrapper, ContainerWrapper } from './styles';
-import useAuth from '../../hooks/useAuth';
 import {
   EyeOutlined,
   FilterOutlined,
@@ -16,8 +14,6 @@ import {
 const { Paragraph, Title, Text } = Typography;
 
 const Shop = () => {
-  const { isLoading } = useAuth();
-
   const getMenuItem = (label, key, icon, children, type) => {
     return {
       label,
@@ -57,14 +53,9 @@ const Shop = () => {
     console.log(current, min, max);
   };
 
-  if (isLoading) {
-    return <Spin />;
-  }
-
   return (
     <>
       <BannerWrapper>
-        <Header />
         <div className="banner">
           <div className="content-wrapper">
             <div className="home-shop">
@@ -104,12 +95,11 @@ const Shop = () => {
             {countTest.length > 0 &&
               countTest.slice(min, max).map((item) => (
                 <Col key={item} xl={6} lg={8} md={12} sm={24} xs={24}>
-                  <div className="product-image-wrapper">
-                    <img
-                      src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/product1b.png"
-                      alt="product"
-                    />
-                  </div>
+                  <Image
+                    src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/product1b.png"
+                    width="100%"
+                    height="300px"
+                  />
                   <div className="info-wrapper">
                     <div className="info">
                       <Text>Gà rán</Text>
@@ -150,8 +140,6 @@ const Shop = () => {
           </div>
         </div>
       </ContainerWrapper>
-
-      <Footer />
     </>
   );
 };

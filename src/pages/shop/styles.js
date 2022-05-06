@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'antd';
 import ShopBG from '../../assets/images/shop-bg.png';
-import Banner from '../../assets/images/about-bg.jpg';
 
 export const BannerWrapper = styled.div`
   background: url(${ShopBG}) no-repeat center;
@@ -161,18 +160,9 @@ export const ContainerWrapper = styled.div`
   .ant-row {
     margin-bottom: 40px;
     .ant-col {
-      .product-image-wrapper {
-        height: 300px;
-        width: 100%;
-        img {
-          width: 100%;
-          height: 300px;
-          object-fit: cover;
-        }
-      }
       .info-wrapper {
         background-color: var(--secondary-color-light);
-        padding: 24px;
+        padding: 10px 10px 24px;
         .info {
           margin-top: 16px;
           display: flex;

@@ -40,17 +40,16 @@ const Profile = () => {
   useEffect(() => {
     if (isLogged && loading === 'success') {
       const currentUser = users.find((user) => user.uid === uid);
-      console.log(currentUser);
       setProviderId(currentUser.providerId);
     }
 
-    return () => {
-      if (isLogged && loading === 'success') {
-        const currentUser = users.find((user) => user.uid === uid);
-        setProviderId(currentUser.providerId);
-      }
-    };
-  }, [isLogged, loading]);
+    // return () => {
+    //   if (isLogged && loading === 'success') {
+    //     const currentUser = users.find((user) => user.uid === uid);
+    //     setProviderId(currentUser.providerId);
+    //   }
+    // };
+  }, [isLogged, loading, uid, users]);
 
   const handleLogout = () => {
     signOut(auth)

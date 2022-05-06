@@ -9,11 +9,15 @@ const useAuth = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const currentUserAuth = auth.currentUser;
+  const [currentUser, setCurrentUser] = useState(null);
 
   const { isLogged } = useSelector((state) => state.login);
 
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
       if (user && !isLogged) {
         dispatch(checkLogged(true));
         setIsLoading(false);
@@ -25,7 +29,7 @@ const useAuth = () => {
     return unsubscribed;
   }, [dispatch, isLogged]);
 
-  return { isLoading, currentUserAuth };
+  return { isLoading, currentUserAuth, currentUser };
 };
 
 export default useAuth;

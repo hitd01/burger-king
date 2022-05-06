@@ -44,8 +44,6 @@ export const FormWrapper = styled.div`
     }
     .sign-in-title {
       border-top-left-radius: 20px;
-      /* background: ${({ signIn }) => (signIn ? '#244263' : '#95c5f7')};
-      color: ${({ signIn }) => (signIn ? '#ffffff' : '#244263')}; */
       background: ${({ signIn }) =>
         signIn ? 'var(--primary-color-dark)' : 'var(--primary-color)'};
       color: ${({ signIn }) =>

@@ -7,20 +7,18 @@ import useAuth from '../../hooks/useAuth';
 const Profile = () => {
   const { isLoading } = useAuth();
 
+  if (isLoading) {
+    return <Spin />;
+  }
+
   return (
-    <>
-      {!isLoading ? (
-        <Wrapper>
-          <div className="header-bg">
-            <Header />
-          </div>
-          <ProfileComponent />
-          <Footer />
-        </Wrapper>
-      ) : (
-        <Spin />
-      )}
-    </>
+    <Wrapper>
+      <div className="header-bg">
+        <Header />
+      </div>
+      <ProfileComponent />
+      <Footer />
+    </Wrapper>
   );
 };
 
