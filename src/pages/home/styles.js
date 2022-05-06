@@ -117,18 +117,9 @@ export const NewProductsWrapper = styled.div`
     }
   }
   .ant-col {
-    .product-image-wrapper {
-      height: 300px;
-      width: 100%;
-      img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-      }
-    }
     .info-wrapper {
       background-color: var(--secondary-color-light);
-      padding: 24px;
+      padding: 10px 10px 24px;
       .info {
         margin-top: 16px;
         display: flex;

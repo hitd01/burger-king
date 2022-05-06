@@ -54,7 +54,7 @@ export const uploadAvatar = async (file) => {
   updateProfile(currentUser, { photoURL });
 };
 
-export const getOneDoc = async (collectionName, docId) => {
+export const getADoc = async (collectionName, docId) => {
   const docRef = doc(db, collectionName, docId);
   return await getDoc(docRef);
 };

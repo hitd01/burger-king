@@ -4,4 +4,5 @@ export { default as Shop } from './shop/Shop';
 export { default as Blog } from './blog/Blog';
 export { default as Contact } from './contact/Contact';
 export { default as Profile } from './profile/Profile';
+export { default as Product } from './product/Product';
 export { default as Error } from './error/Error';

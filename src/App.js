@@ -1,7 +1,16 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import { Home, WhatBK, Shop, Blog, Contact, Error, Profile } from './pages';
+import {
+  Home,
+  WhatBK,
+  Shop,
+  Blog,
+  Contact,
+  Error,
+  Profile,
+  Product,
+} from './pages';
 import { Login, ForgotPassword } from './components';
 
 export default function App() {
@@ -12,6 +21,7 @@ export default function App() {
       </Route>
       <Route path="about" element={<WhatBK />} />
       <Route path="products" element={<Shop />} />
+      <Route path="products/id" element={<Product />} />
       <Route path="blogs" element={<Blog />} />
       <Route path="contact" element={<Contact />} />
       <Route path="forgot-password" element={<ForgotPassword />} />

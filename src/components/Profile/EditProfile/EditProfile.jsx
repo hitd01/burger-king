@@ -1,7 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { Avatar, Button, Form, Input, Typography, Upload } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { getOneDoc, uploadAvatar } from '../../../firebase/services';
+import { getADoc, uploadAvatar } from '../../../firebase/services';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
 import useAuth from '../../../hooks/useAuth';
@@ -25,7 +25,7 @@ const EditProfile = () => {
   useEffect(() => {
     if (loading === 'success') {
       const user = users?.find((user) => user.uid === uid);
-      const userSnap = getOneDoc('users', user?.id);
+      const userSnap = getADoc('users', user?.id);
       userSnap
         .then((res) => setAddress(res?.data()?.address))
         .catch((err) => console.log(err));
@@ -33,7 +33,6 @@ const EditProfile = () => {
   }, []);
 
   const [address, setAddress] = useState('');
-
   const [photo, setPhoto] = useState(null);
 
   const handleSaveEditProfile = async () => {
@@ -52,7 +51,7 @@ const EditProfile = () => {
         const photoURL = await getDownloadURL(
           ref(
             storage,
-            `avatars/${uid}.${photo.type === 'image/png' ? 'png' : 'jpg'}`
+            `user-avatars/${uid}.${photo.type === 'image/png' ? 'png' : 'jpg'}`
           )
         );
         await updateDoc(userRef, {
