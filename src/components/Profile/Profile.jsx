@@ -29,7 +29,7 @@ const Profile = () => {
   }, [dispatch]);
 
   const { currentUserAuth } = useAuth();
-  const { displayName, email, photoURL, uid } = currentUserAuth;
+  // const { displayName, email, photoURL, uid } = currentUserAuth;
 
   const { loading, users } = useSelector((state) => state.users);
   const { isLogged } = useSelector((state) => state.login);
@@ -39,14 +39,14 @@ const Profile = () => {
 
   useEffect(() => {
     if (isLogged && loading === 'success') {
-      const user = users.find((user) => user.uid === uid);
+      const user = users.find((user) => user.uid === currentUserAuth?.uid);
       setProviderId(user.providerId);
     }
     if (!isLogged) {
-      navigate(-1);
+      navigate('/');
       dispatch(toggleHiddenLogin(false));
     }
-  }, [isLogged, loading, uid, users, navigate, dispatch]);
+  }, [isLogged, loading, currentUserAuth, users, navigate, dispatch]);
 
   const handleLogout = () => {
     signOut(auth)
@@ -59,7 +59,21 @@ const Profile = () => {
       });
   };
 
-  if (loading === 'pending') {
+  const navItems = [
+    {
+      label: <Text className="profile-info">Hồ sơ</Text>,
+      key: 'profile',
+    },
+    providerId === 'password' && {
+      label: <Text className="change-password-title">Đổi mật khẩu</Text>,
+      key: 'change-password',
+    },
+  ];
+  const handleNavbarClick = (e) => {
+    setSelected(e.key);
+  };
+
+  if (loading === 'pending' || !isLogged) {
     return <Spin />;
   }
 
@@ -68,16 +82,18 @@ const Profile = () => {
       <Row>
         <Col className="sidebar">
           <div className="top">
-            <Avatar size="large" src={photoURL}>
-              {photoURL
+            <Avatar size="large" src={currentUserAuth?.photoURL}>
+              {currentUserAuth?.photoURL
                 ? ''
-                : displayName
-                ? displayName?.charAt(0)?.toUpperCase()
-                : email?.charAt(0).toUpperCase()}
+                : currentUserAuth?.displayName
+                ? currentUserAuth?.displayName?.charAt(0)?.toUpperCase()
+                : currentUserAuth?.email?.charAt(0).toUpperCase()}
             </Avatar>
             <div className="name-wrapper">
               <Text>
-                {displayName ? displayName : email?.charAt(0).toUpperCase()}
+                {currentUserAuth?.displayName
+                  ? currentUserAuth?.displayName
+                  : currentUserAuth?.email?.charAt(0).toUpperCase()}
               </Text>
               <div
                 className="edit-wrapper"
@@ -94,19 +110,11 @@ const Profile = () => {
               <UserOutlined />
               <Text>Tài khoản của tôi</Text>
             </div>
-            <Menu>
-              <Menu.Item key="profile" onClick={() => setSelected('profile')}>
-                <Text className="profile-info">Hồ sơ</Text>
-              </Menu.Item>
-              {providerId === 'password' ? (
-                <Menu.Item
-                  key="change-password"
-                  onClick={() => setSelected('change-password')}
-                >
-                  <Text className="change-password-title">Đổi mật khẩu</Text>
-                </Menu.Item>
-              ) : null}
-            </Menu>
+            <Menu
+              items={navItems}
+              defaultSelectedKeys={['profile']}
+              onClick={handleNavbarClick}
+            />
           </div>
           <div
             className="shopping-history"
