@@ -152,9 +152,9 @@ project run on `localhost:3000`
 
 ### Admin
 
-- [ ] Login page
-  - [ ] Login feature
-- [ ] Sign out feature
+- [x] Login page
+  - [x] Login feature
+- [x] Sign out feature
 - [ ] Analytics page
   - [ ] Cut interface
   - [ ] Responsive

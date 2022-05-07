@@ -15,7 +15,7 @@ const { Paragraph, Title, Text } = Typography;
 const Shop = () => {
   useEffect(() => {
     document.title = 'Thực đơn';
-  });
+  }, []);
 
   const getMenuItem = (label, key, icon, children, type) => {
     return {

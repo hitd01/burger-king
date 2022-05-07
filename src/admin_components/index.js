@@ -1,0 +1,9 @@
+export { default as HeaderAdmin } from './Header/Header';
+export { default as FooterAdmin } from './Footer/Footer';
+export { default as NavbarAdmin } from './Navbar/Navbar';
+export { default as LoginComponentAdmin } from './Login/Login';
+export { default as UserAdmin } from './User/User';
+export { default as EditUserAdmin } from './User/EditUser/EditUser';
+export { default as ProductAdmin } from './Product/Product';
+export { default as AddProductAdmin } from './Product/AddProduct/AddProduct';
+export { default as EditProductAdmin } from './Product/EditProduct/EditProduct';

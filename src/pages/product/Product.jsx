@@ -6,7 +6,7 @@ import { ProductComponent } from '../../components';
 const Product = () => {
   useEffect(() => {
     document.title = 'Sản phẩm';
-  });
+  }, []);
 
   const { productLoading } = useSelector((state) => state.products);
   const { productReviewLoading } = useSelector((state) => state.productReviews);

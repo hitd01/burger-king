@@ -13,7 +13,7 @@ const { Paragraph, Title, Text } = Typography;
 const WhatBK = () => {
   useEffect(() => {
     document.title = 'Về chúng tôi';
-  });
+  }, []);
 
   return (
     <>

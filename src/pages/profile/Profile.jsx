@@ -8,8 +8,10 @@ const Profile = () => {
   const { isLoading, currentUser } = useAuth();
 
   useEffect(() => {
-    document.title = currentUser ? currentUser.displayName : 'Hồ sơ';
-  });
+    document.title = currentUser?.displayName
+      ? currentUser?.displayName
+      : 'Hồ sơ';
+  }, [currentUser]);
 
   if (isLoading) {
     return <Spin />;
