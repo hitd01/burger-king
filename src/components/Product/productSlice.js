@@ -29,9 +29,12 @@ const initialState = {
   ],
 };
 
-export const getProducts = createAsyncThunk('products', async () => {
-  return await getCollection('products');
-});
+export const getProducts = createAsyncThunk(
+  'products/getProducts',
+  async () => {
+    return await getCollection('products');
+  }
+);
 
 export const productsSlice = createSlice({
   name: 'products',
