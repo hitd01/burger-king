@@ -32,9 +32,9 @@ export const HeaderWrapper = styled.div`
       &-item {
         margin: 0 16px;
         padding: 0;
-        &-selected {
-          background-color: transparent;
-        }
+      }
+      .ant-menu-item.ant-menu-item-selected {
+        background-color: transparent;
       }
       &-title-content a {
         font-size: 20px;

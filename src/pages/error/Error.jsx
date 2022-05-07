@@ -12,7 +12,7 @@ const Error = () => {
 
   useEffect(() => {
     document.title = 'Lỗi';
-  });
+  }, []);
 
   const handleBackHome = () => {
     navigate('/');

@@ -10,7 +10,7 @@ import { Wrapper } from './styles';
 import { auth } from '../../firebase/config';
 import { signOut } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkLogged } from '../Login/loginSlice';
+import { checkLogged, toggleHiddenLogin } from '../Login/loginSlice';
 import { getUsers } from '../Profile/profileSlice';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -29,7 +29,7 @@ const Profile = () => {
   }, [dispatch]);
 
   const { currentUserAuth } = useAuth();
-  const { displayName, photoURL, email, uid } = currentUserAuth;
+  const { displayName, email, photoURL, uid } = currentUserAuth;
 
   const { loading, users } = useSelector((state) => state.users);
   const { isLogged } = useSelector((state) => state.login);
@@ -39,17 +39,14 @@ const Profile = () => {
 
   useEffect(() => {
     if (isLogged && loading === 'success') {
-      const currentUser = users.find((user) => user.uid === uid);
-      setProviderId(currentUser.providerId);
+      const user = users.find((user) => user.uid === uid);
+      setProviderId(user.providerId);
     }
-
-    // return () => {
-    //   if (isLogged && loading === 'success') {
-    //     const currentUser = users.find((user) => user.uid === uid);
-    //     setProviderId(currentUser.providerId);
-    //   }
-    // };
-  }, [isLogged, loading, uid, users]);
+    if (!isLogged) {
+      navigate(-1);
+      dispatch(toggleHiddenLogin(false));
+    }
+  }, [isLogged, loading, uid, users, navigate, dispatch]);
 
   const handleLogout = () => {
     signOut(auth)

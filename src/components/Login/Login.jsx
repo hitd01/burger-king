@@ -39,9 +39,9 @@ export default function Login() {
         const { isNewUser, providerId } = getAdditionalUserInfo(result);
         const user = result.user;
         const payload = {
-          name: user.displayName,
+          displayName: user.displayName,
           email: user.email,
-          avatar: user.photoURL,
+          photoURL: user.photoURL,
           address: '',
           uid: user.uid,
           accessToken: user.accessToken,
@@ -75,11 +75,11 @@ export default function Login() {
             getAdditionalUserInfo(userCredential);
           const user = userCredential.user;
           const payload = {
-            name: user.displayName
+            displayName: user.displayName
               ? user.displayName
               : user.email?.charAt(0)?.toUpperCase(),
             email: user.email,
-            avatar: user.photoURL,
+            photoURL: user.photoURL,
             address: '',
             uid: user.uid,
             accessToken: user.accessToken,
