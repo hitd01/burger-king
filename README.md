@@ -104,6 +104,8 @@ project run on `localhost:3000`
 
 ## Roadmap
 
+### Client
+
 - [x] Initialization project
 - [x] Install NPM packages
 - [x] Directory structure
@@ -129,8 +131,8 @@ project run on `localhost:3000`
   - [x] Responsive
   - [ ] Dump data
 - [ ] Product page
-  - [ ] Cut interface
-  - [ ] Responsive
+  - [x] Cut interface
+  - [x] Responsive
   - [ ] Dump data
 - [ ] Blog page
   - [ ] Cut interface
@@ -143,6 +145,44 @@ project run on `localhost:3000`
 - [ ] Contact page
   - [ ] Cut interface
   - [ ] Responsive
+- [ ] Cart page
+  - [ ] Cut interface
+  - [ ] Responsive
+  - [ ] Dump data
+
+### Admin
+
+- [ ] Login page
+  - [ ] Login feature
+- [ ] Sign out feature
+- [ ] Analytics page
+  - [ ] Cut interface
+  - [ ] Responsive
+  - [ ] Dump data
+- [ ] User list page
+  - [ ] Cut interface
+  - [ ] Responsive
+  - [ ] Dump data
+- [ ] Products page
+  - [ ] Cut interface
+  - [ ] Responsive
+  - [ ] Dump data
+- [ ] Product reviews page
+  - [ ] Cut interface
+  - [ ] Responsive
+  - [ ] Dump data
+- [ ] Blogs page
+  - [ ] Cut interface
+  - [ ] Responsive
+  - [ ] Dump data
+- [ ] Blog reviews page
+  - [ ] Cut interface
+  - [ ] Responsive
+  - [ ] Dump data
+- [ ] Cart page
+  - [ ] Cut interface
+  - [ ] Responsive
+  - [ ] Dump data
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

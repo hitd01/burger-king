@@ -30,7 +30,7 @@ const EditProfile = () => {
         .then((res) => setAddress(res?.data()?.address))
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [loading, users, uid]);
 
   const [address, setAddress] = useState('');
   const [photo, setPhoto] = useState(null);

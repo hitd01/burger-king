@@ -6,7 +6,6 @@ import {
   reauthenticateWithCredential,
   updatePassword,
 } from 'firebase/auth';
-import { useSelector } from 'react-redux';
 import useAuth from '../../../hooks/useAuth';
 
 const { Title } = Typography;
