@@ -4,6 +4,7 @@ const Blog = () => {
   useEffect(() => {
     document.title = 'Bài viết';
   }, []);
+
   return <div>Blog</div>;
 };
 

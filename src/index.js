@@ -8,7 +8,8 @@ import {
   Home,
   WhatBK,
   Shop,
-  Blog,
+  Blogs,
+  BlogSingle,
   Contact,
   Error,
   Profile,
@@ -40,7 +41,8 @@ root.render(
             <Route path="about" element={<WhatBK />} />
             <Route path="products/*" element={<Shop />} />
             <Route path="products/:id" element={<Product />} />
-            <Route path="blogs" element={<Blog />} />
+            <Route path="blogs" element={<Blogs />} />
+            <Route path="blogs/:id" element={<BlogSingle />} />
             <Route path="contact" element={<Contact />} />
             <Route path="cart" element={<Cart />} />
           </Route>
