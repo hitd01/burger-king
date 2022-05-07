@@ -19,31 +19,34 @@ const EditProfile = () => {
 
   const { currentUserAuth } = useAuth();
 
-  const { displayName, email, photoURL, uid } = currentUserAuth;
+  // const { displayName, email, photoURL, uid } = currentUserAuth;
   const { users, loading } = useSelector((state) => state.users);
 
+  const [address, setAddress] = useState('');
+
   useEffect(() => {
-    if (loading === 'success') {
-      const user = users?.find((user) => user.uid === uid);
+    if (loading === 'success' && users.length > 0) {
+      const user = users?.find((user) => user.uid === currentUserAuth?.uid);
       const userSnap = getADoc('users', user?.id);
       userSnap
         .then((res) => setAddress(res?.data()?.address))
         .catch((err) => console.log(err));
     }
-  }, [loading, users, uid]);
+  }, [loading, users, currentUserAuth]);
 
-  const [address, setAddress] = useState('');
   const [photo, setPhoto] = useState(null);
 
   const handleSaveEditProfile = async () => {
     const { username, address } = form.getFieldValue();
-    const userSelected = await users?.find((user) => user.uid === uid);
+    const userSelected = await users?.find(
+      (user) => user.uid === currentUserAuth?.uid
+    );
     const userRef = doc(db, 'users', userSelected?.id);
     dispatch(setLoadingProfile('pending'));
     if (photo) {
       await uploadAvatar(photo);
     }
-    if (username !== displayName) {
+    if (username !== currentUserAuth?.displayName) {
       updateProfile(currentUserAuth, { displayName: username });
     }
     if (userRef) {
@@ -51,7 +54,9 @@ const EditProfile = () => {
         const photoURL = await getDownloadURL(
           ref(
             storage,
-            `user-avatars/${uid}.${photo.type === 'image/png' ? 'png' : 'jpg'}`
+            `user-avatars/${currentUserAuth?.uid}.${
+              photo.type === 'image/png' ? 'png' : 'jpg'
+            }`
           )
         );
         await updateDoc(userRef, {
@@ -103,7 +108,9 @@ const EditProfile = () => {
           fields={[
             {
               name: ['username'],
-              value: displayName ? displayName : email?.charAt(0).toUpperCase(),
+              value: currentUserAuth?.displayName
+                ? currentUserAuth?.displayName
+                : currentUserAuth?.email?.charAt(0).toUpperCase(),
             },
             {
               name: ['address'],
@@ -112,7 +119,7 @@ const EditProfile = () => {
           ]}
         >
           <Form.Item label="Email đăng nhập">
-            <Text className="email-value">{email}</Text>
+            <Text className="email-value">{currentUserAuth?.email}</Text>
           </Form.Item>
 
           <Form.Item
@@ -143,12 +150,12 @@ const EditProfile = () => {
 
           <div className="avatar-edit">
             <Form.Item name="avatar" label="Ảnh đại diện">
-              <Avatar size={60} src={photoURL}>
-                {photoURL
+              <Avatar size={60} src={currentUserAuth?.photoURL}>
+                {currentUserAuth?.photoURL
                   ? ''
-                  : displayName
-                  ? displayName?.charAt(0)?.toUpperCase()
-                  : email?.charAt(0).toUpperCase()}
+                  : currentUserAuth?.displayName
+                  ? currentUserAuth?.displayName?.charAt(0)?.toUpperCase()
+                  : currentUserAuth?.email?.charAt(0).toUpperCase()}
               </Avatar>
             </Form.Item>
 
