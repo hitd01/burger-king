@@ -27,14 +27,6 @@ const initialState = {
       avgRating: 0,
     },
   ],
-  productReviews: [
-    {
-      userId: '0XZgnXYdfyiieQeF9QNGA4BVGXQ3',
-      productId: 'UkliQmFoWQrr6zm6FkjR',
-      rating: 0,
-      comments: ['great', 'wow'],
-    },
-  ],
 };
 
 export const getProducts = createAsyncThunk('products', async () => {

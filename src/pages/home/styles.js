@@ -133,10 +133,6 @@ export const NewProductsWrapper = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .rate {
-          display: flex;
-          font-size: 18px;
-        }
         .icon-wrapper {
           display: flex;
           .icon {

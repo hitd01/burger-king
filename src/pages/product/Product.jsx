@@ -9,8 +9,9 @@ const Product = () => {
   });
 
   const { productLoading } = useSelector((state) => state.products);
+  const { productReviewLoading } = useSelector((state) => state.productReviews);
 
-  if (productLoading === 'pending') {
+  if (productLoading === 'pending' || productReviewLoading === 'pending') {
     return <Spin />;
   }
 

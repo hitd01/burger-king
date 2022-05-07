@@ -9,6 +9,8 @@ const initialState = {
       productId: 'UkliQmFoWQrr6zm6FkjR',
       rating: 0,
       comments: ['great', 'wow'],
+      createdAt: null,
+      updatedAt: null,
     },
   ],
 };
