@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Footer, Header, ProfileComponent } from '../../components';
 import { Wrapper } from './styles';
 import { Spin } from 'antd';
 import useAuth from '../../hooks/useAuth';
 
 const Profile = () => {
-  const { isLoading } = useAuth();
+  const { isLoading, currentUser } = useAuth();
+
+  useEffect(() => {
+    document.title = currentUser ? currentUser.displayName : 'Hồ sơ';
+  });
 
   if (isLoading) {
     return <Spin />;

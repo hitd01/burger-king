@@ -15,7 +15,7 @@ import {
   Product,
   Cart,
 } from './pages';
-import { Login, ForgotPassword } from './components';
+import { ForgotPassword } from './components';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,14 +26,13 @@ root.render(
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
             <Route path="about" element={<WhatBK />} />
-            <Route path="products" element={<Shop />} />
-            <Route path="products/id" element={<Product />} />
+            <Route path="products/*" element={<Shop />} />
+            <Route path="products/:id" element={<Product />} />
             <Route path="blogs" element={<Blog />} />
             <Route path="contact" element={<Contact />} />
             <Route path="cart" element={<Cart />} />
           </Route>
           <Route path="forgot-password" element={<ForgotPassword />} />
-          {/* <Route path="login" element={<Login />} /> */}
           <Route path="profile" element={<Profile />} />
           <Route path="*" element={<Error />} />
         </Routes>

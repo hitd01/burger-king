@@ -1,9 +1,6 @@
 @import '~antd/dist/antd.css';
 
-/* @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap'); */
-
 :root {
-  /* --font-pt-san: 'PT Sans', sans-serif; */
   --primary-color: #95c5f7;
   --primary-color-light: #eaf5fe;
   --primary-color-dark: #244263;
@@ -13,6 +10,11 @@
   --text-gray: #867e7e;
   --white-color: #ffffff;
   --black-color: #000000;
+}
+
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 .container {
@@ -41,10 +43,4 @@
     max-width: 1140px;
     margin: 0 auto !important;
   }
-}
-
-body {
-  /* font-family: var(--font-pt-san); */
-  scroll-behavior: smooth;
-  overflow-x: hidden;
 }

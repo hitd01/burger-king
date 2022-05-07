@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Typography, Image, Button } from 'antd';
 import { Wrapper } from './styles';
 import Error404 from '../../assets/images/error404.png';
@@ -9,6 +9,11 @@ const { Title, Text } = Typography;
 
 const Error = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Lỗi';
+  });
+
   const handleBackHome = () => {
     navigate('/');
   };

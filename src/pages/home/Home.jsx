@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Col, Row, Typography, Image } from 'antd';
 import {
   EyeOutlined,
@@ -6,8 +6,6 @@ import {
   LeftOutlined,
   RightOutlined,
   ShoppingCartOutlined,
-  StarFilled,
-  StarOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import HamburgerBanner from '../../assets/images/hamburger-banner.jpg';
@@ -19,10 +17,15 @@ import {
   FormContactWrapper,
   ButtonStyled,
 } from './styles';
+import ReactStars from 'react-rating-stars-component';
 
 const { Paragraph, Title, Text } = Typography;
 
 const Home = () => {
+  useEffect(() => {
+    document.title = 'Trang chủ';
+  });
+
   const productCountTest = [1, 2, 3, 4, 5, 6];
 
   return (
@@ -67,22 +70,22 @@ const Home = () => {
                 />
                 <div className="info-wrapper">
                   <div className="info">
-                    <Text>Gà rán</Text>
-                    <Text>40.000đ</Text>
+                    <Text>Burger bò nướng whopper</Text>
+                    <Text>115.000đ</Text>
                   </div>
                   <div className="footer">
-                    <div className="rate">
-                      <StarFilled />
-                      <StarFilled />
-                      <StarFilled />
-                      <StarFilled />
-                      <StarOutlined />
-                    </div>
+                    <ReactStars
+                      count={5}
+                      size={25}
+                      activeColor="#ffa27e"
+                      value={4.5}
+                      edit={false}
+                    />
                     <div className="icon-wrapper">
                       <div className="icon shopping-cart">
                         <ShoppingCartOutlined />
                       </div>
-                      <Link to="/products/id" className="icon eye">
+                      <Link to="/products/idProduct" className="icon eye">
                         <EyeOutlined />
                       </Link>
                       <div className="icon heart">

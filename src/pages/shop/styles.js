@@ -176,10 +176,6 @@ export const ContainerWrapper = styled.div`
           display: flex;
           justify-content: space-between;
           align-items: center;
-          .rate {
-            display: flex;
-            font-size: 18px;
-          }
           .icon-wrapper {
             display: flex;
             .icon {
@@ -213,8 +209,6 @@ export const ContainerWrapper = styled.div`
   .pagination {
     display: flex;
     justify-content: center;
-    .ant-pagination {
-    }
   }
 
   @media screen and (max-width: 991.5px) {
@@ -228,6 +222,9 @@ export const ContainerWrapper = styled.div`
   @media screen and (max-width: 767.5px) {
   }
   @media screen and (max-width: 575.5px) {
+    .container {
+      padding: 0 8px;
+    }
     .filter-wrapper {
       .ant-menu.category-menu {
         .ant-menu-item {
@@ -252,10 +249,6 @@ export const ContainerWrapper = styled.div`
           }
         }
       }
-    }
-
-    .ant-row {
-      padding: 0 8px;
     }
   }
 `;
