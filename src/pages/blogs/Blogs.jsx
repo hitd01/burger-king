@@ -61,11 +61,24 @@ const Blogs = () => {
                     người thưởng thức
                   </Link>
                   <Text className="content_slice">
-                    Một chiếc burger tôm truyền thống đã làm những người thưởng
+                    {`Một chiếc burger tôm truyền thống đã làm những người thưởng
                     thức nó nao lòng. Vậy còn gì tuyệt hơn khi có sự kết hợp hai
                     tầng tôm trong cùng một chiếc bánh. Khám phá ngay chiếc
                     burger tôm hai tầng qua bài viết sau để giúp bạn có thêm lựa
-                    chọn thú vị trong mỗi bữa ăn của mình nào.
+                    chọn thú vị trong mỗi bữa ăn của mình nào.`.length < 200
+                      ? `Một chiếc burger tôm truyền thống đã làm những người thưởng
+                    thức nó nao lòng. Vậy còn gì tuyệt hơn khi có sự kết hợp hai
+                    tầng tôm trong cùng một chiếc bánh. Khám phá ngay chiếc
+                    burger tôm hai tầng qua bài viết sau để giúp bạn có thêm lựa
+                    chọn thú vị trong mỗi bữa ăn của mình nào.`
+                      : `Một chiếc burger tôm truyền thống đã làm những người thưởng
+                    thức nó nao lòng. Vậy còn gì tuyệt hơn khi có sự kết hợp hai
+                    tầng tôm trong cùng một chiếc bánh. Khám phá ngay chiếc
+                    burger tôm hai tầng qua bài viết sau để giúp bạn có thêm lựa
+                    chọn thú vị trong mỗi bữa ăn của mình nào.`.substring(
+                          0,
+                          200
+                        ) + '...'}
                   </Text>
                   <Link to="blog_id" className="read_more">
                     Xem thêm

@@ -60,7 +60,7 @@ const Product = () => {
       <BannerWrapper>
         <div className="banner">
           <div className="content-wrapper">
-            <div className="home-shop">
+            <div className="navigate">
               <Link to="/">Trang chủ</Link>
               <Text> / </Text>
               <Link to="/products">Thực đơn</Link>
@@ -100,7 +100,12 @@ const Product = () => {
                   />
                   <Text>(1 đánh giá)</Text>
                 </div>
-                <Text>115000đ</Text>
+                <Text>
+                  {(115000).toLocaleString('vi-vn', {
+                    style: 'currency',
+                    currency: 'VND',
+                  })}
+                </Text>
                 <div className="quantity-change-wrapper">
                   <div className="quantity-change">
                     <Text className="quantity">{quantity}</Text>
@@ -254,7 +259,12 @@ const Product = () => {
                   <div className="info-wrapper">
                     <div className="info">
                       <Text>Burger bò nướng whopper</Text>
-                      <Text>115.000đ</Text>
+                      <Text>
+                        {(115000).toLocaleString('vi-vn', {
+                          style: 'currency',
+                          currency: 'VND',
+                        })}
+                      </Text>
                     </div>
                     <div className="footer">
                       <ReactStars

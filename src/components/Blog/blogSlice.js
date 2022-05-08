@@ -18,6 +18,7 @@ const initialState = {
         'https://chianui.vn/wp-content/uploads/2019/08/hamburger-ga-2-tang-compressed.jpg',
         'https://chianui.vn/wp-content/uploads/2019/03/burger-tom-hai-tang-.png',
       ],
+      timeGroup: '07-2021',
       createdAt: null,
       updatedAt: null,
     },

@@ -105,7 +105,12 @@ const Shop = () => {
                   <div className="info-wrapper">
                     <div className="info">
                       <Text>Burger bò nướng whopper</Text>
-                      <Text>115.000đ</Text>
+                      <Text>
+                        {(115000).toLocaleString('vi-vn', {
+                          style: 'currency',
+                          currency: 'VND',
+                        })}
+                      </Text>
                     </div>
                     <div className="footer">
                       <ReactStars
