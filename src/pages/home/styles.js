@@ -16,6 +16,8 @@ export const BannerWrapper = styled.div`
     transform: translateY(-50%);
     width: 100%;
     padding: 0 40px;
+    background: rgba(0, 0, 0, 0.4);
+    height: 100vh;
     .content-wrapper {
       flex: 1;
       display: flex;

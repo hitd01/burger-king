@@ -11,6 +11,7 @@ const Profile = () => {
     document.title = currentUser?.displayName
       ? currentUser?.displayName
       : 'Hồ sơ';
+    window.scrollTo(0, 0);
   }, [currentUser]);
 
   if (isLoading) {

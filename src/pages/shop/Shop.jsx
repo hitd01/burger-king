@@ -15,6 +15,7 @@ const { Paragraph, Title, Text } = Typography;
 const Shop = () => {
   useEffect(() => {
     document.title = 'Thực đơn';
+    window.scrollTo(0, 0);
   }, []);
 
   const getMenuItem = (label, key, icon, children, type) => {
@@ -60,7 +61,7 @@ const Shop = () => {
       <BannerWrapper>
         <div className="banner">
           <div className="content-wrapper">
-            <div className="home-shop">
+            <div className="navigate">
               <Link to="/">Trang chủ</Link>
               <Text> / Thực đơn</Text>
             </div>
@@ -105,7 +106,12 @@ const Shop = () => {
                   <div className="info-wrapper">
                     <div className="info">
                       <Text>Burger bò nướng whopper</Text>
-                      <Text>115.000đ</Text>
+                      <Text>
+                        {(115000).toLocaleString('vi-vn', {
+                          style: 'currency',
+                          currency: 'VND',
+                        })}
+                      </Text>
                     </div>
                     <div className="footer">
                       <ReactStars

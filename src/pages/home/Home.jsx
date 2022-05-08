@@ -24,6 +24,7 @@ const { Paragraph, Title, Text } = Typography;
 const Home = () => {
   useEffect(() => {
     document.title = 'Burger King';
+    window.scrollTo(0, 0);
   }, []);
 
   const productCountTest = [1, 2, 3, 4, 5, 6];
@@ -71,7 +72,12 @@ const Home = () => {
                 <div className="info-wrapper">
                   <div className="info">
                     <Text>Burger bò nướng whopper</Text>
-                    <Text>115.000đ</Text>
+                    <Text>
+                      {(115000).toLocaleString('vi-vn', {
+                        style: 'currency',
+                        currency: 'VND',
+                      })}
+                    </Text>
                   </div>
                   <div className="footer">
                     <ReactStars

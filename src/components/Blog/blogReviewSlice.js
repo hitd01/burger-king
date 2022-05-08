@@ -3,7 +3,17 @@ import { getCollection } from '../../firebase/services';
 
 const initialState = {
   blogReviewLoading: 'idle',
-  blogReviews: [],
+  blogReviews: [
+    {
+      blogId: 'blog_id',
+      uid: 'user_id',
+      comments: [
+        'Vậy! Làm sao để bạn có thể đặt mua những chiếc burger tôm cho mình và gia đình một cách nhanh chóng nhất, với mức giá phù hợp nhất?',
+      ],
+      createdAt: null,
+      updatedAt: null,
+    },
+  ],
 };
 
 export const getBlogReviews = createAsyncThunk(
