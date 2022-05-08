@@ -15,13 +15,15 @@ export const BannerWrapper = styled.div`
     transform: translateY(-50%);
     width: 100%;
     padding: 0 40px;
+    background: rgba(0, 0, 0, 0.4);
+    height: 100vh;
     .content-wrapper {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      .home-shop {
+      .navigate {
         a {
           color: white;
           font-size: 25px;
@@ -77,7 +79,7 @@ export const BannerWrapper = styled.div`
     .banner {
       padding: 0 20px;
       .content-wrapper {
-        .home-shop {
+        .navigate {
           a {
             font-size: 18px;
           }

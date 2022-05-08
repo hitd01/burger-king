@@ -20,7 +20,7 @@ const WhatBK = () => {
       <BannerWrapper>
         <div className="banner">
           <div className="content-wrapper">
-            <div className="home-about">
+            <div className="navigate">
               <Link to="/">Trang chủ</Link>
               <Text> / Về chúng tôi</Text>
             </div>

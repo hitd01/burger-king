@@ -60,7 +60,7 @@ const Shop = () => {
       <BannerWrapper>
         <div className="banner">
           <div className="content-wrapper">
-            <div className="home-shop">
+            <div className="navigate">
               <Link to="/">Trang chủ</Link>
               <Text> / Thực đơn</Text>
             </div>

@@ -26,7 +26,7 @@ const Blogs = () => {
       <BannerWrapper>
         <div className="banner">
           <div className="content-wrapper">
-            <div className="home-shop">
+            <div className="navigate">
               <Link to="/">Trang chủ</Link>
               <Text> / Bài viết</Text>
             </div>

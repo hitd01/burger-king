@@ -135,8 +135,8 @@ project run on `localhost:3000`
   - [x] Responsive
   - [ ] Dump data
 - [ ] Blog page
-  - [ ] Cut interface
-  - [ ] Responsive
+  - [x] Cut interface
+  - [x] Responsive
   - [ ] Dump data
 - [ ] Blog single page
   - [ ] Cut interface
