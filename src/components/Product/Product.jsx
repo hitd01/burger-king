@@ -278,7 +278,7 @@ const Product = () => {
                         <div className="icon shopping-cart">
                           <ShoppingCartOutlined />
                         </div>
-                        <Link to="1" className="icon eye">
+                        <Link to="/products/2" className="icon eye">
                           <EyeOutlined />
                         </Link>
                         <div className="icon heart">

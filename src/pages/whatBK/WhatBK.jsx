@@ -13,6 +13,7 @@ const { Paragraph, Title, Text } = Typography;
 const WhatBK = () => {
   useEffect(() => {
     document.title = 'Về chúng tôi';
+    window.scrollTo(0, 0);
   }, []);
 
   return (

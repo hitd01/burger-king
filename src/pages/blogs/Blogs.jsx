@@ -8,6 +8,7 @@ const { Text, Title, Paragraph } = Typography;
 const Blogs = () => {
   useEffect(() => {
     document.title = 'Bài viết';
+    window.scrollTo(0, 0);
   }, []);
 
   const countTest = [

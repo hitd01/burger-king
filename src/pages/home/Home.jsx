@@ -24,6 +24,7 @@ const { Paragraph, Title, Text } = Typography;
 const Home = () => {
   useEffect(() => {
     document.title = 'Burger King';
+    window.scrollTo(0, 0);
   }, []);
 
   const productCountTest = [1, 2, 3, 4, 5, 6];

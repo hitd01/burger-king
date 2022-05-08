@@ -15,6 +15,7 @@ const { Paragraph, Title, Text } = Typography;
 const Shop = () => {
   useEffect(() => {
     document.title = 'Thực đơn';
+    window.scrollTo(0, 0);
   }, []);
 
   const getMenuItem = (label, key, icon, children, type) => {

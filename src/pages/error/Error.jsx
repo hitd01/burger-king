@@ -12,6 +12,7 @@ const Error = () => {
 
   useEffect(() => {
     document.title = 'Lỗi';
+    window.scrollTo(0, 0);
   }, []);
 
   const handleBackHome = () => {
