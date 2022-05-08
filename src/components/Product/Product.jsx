@@ -27,6 +27,7 @@ import {
   ShoppingCartOutlined,
 } from '@ant-design/icons';
 import ReactStars from 'react-rating-stars-component';
+import { useSelector } from 'react-redux';
 
 const { Text, Title, Paragraph } = Typography;
 
@@ -34,6 +35,8 @@ const Product = () => {
   const [form] = Form.useForm();
   const [quantity, setQuantity] = useState(1);
   const [rateStars, setRateStars] = useState(0);
+
+  const { isLogged } = useSelector((state) => state.login);
 
   // handle add review
   const addReviewSubmit = () => {};
@@ -190,43 +193,49 @@ const Product = () => {
       <AddReviewWrapper>
         <div className="container">
           <Title level={4}>Thêm đánh giá</Title>
-          <Form
-            form={form}
-            onFinish={addReviewSubmit}
-            name="add-review"
-            className="add-review-form"
-          >
-            <Form.Item label="Đánh giá của bạn">
-              <ReactStars
-                count={5}
-                size={25}
-                color2={'#ffa27e'}
-                value={rateStars}
-                onChange={handleChangeRating}
-              />
-            </Form.Item>
-            <Form.Item
-              name="review"
-              rules={[
-                {
-                  required: true,
-                  message: 'Vui lòng nhập trường này!',
-                },
-              ]}
+          {isLogged ? (
+            <Form
+              form={form}
+              onFinish={addReviewSubmit}
+              name="add-review"
+              className="add-review-form"
             >
-              <Input placeholder="Nhận xét" size="large" />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                size="large"
-                type="primary"
-                htmlType="submit"
-                className="add-review-btn"
+              <Form.Item label="Đánh giá của bạn">
+                <ReactStars
+                  count={5}
+                  size={25}
+                  color2={'#ffa27e'}
+                  value={rateStars}
+                  onChange={handleChangeRating}
+                />
+              </Form.Item>
+              <Form.Item
+                name="review"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập trường này!',
+                  },
+                ]}
               >
-                Đánh giá
-              </Button>
-            </Form.Item>
-          </Form>
+                <Input placeholder="Nhận xét" size="large" />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  size="large"
+                  type="primary"
+                  htmlType="submit"
+                  className="add-review-btn"
+                >
+                  Đánh giá
+                </Button>
+              </Form.Item>
+            </Form>
+          ) : (
+            <Text className="require-login">
+              Đăng nhập để thêm đánh của bạn
+            </Text>
+          )}
         </div>
       </AddReviewWrapper>
 

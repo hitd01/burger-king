@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Button } from 'antd';
 import ShopBG from '../../assets/images/shop-bg.png';
 
 export const BannerWrapper = styled.div`
@@ -95,23 +94,6 @@ export const BannerWrapper = styled.div`
         }
       }
     }
-  }
-`;
-
-export const ButtonStyled = styled(Button)`
-  font-size: 32px;
-  height: 60px;
-  width: 218px;
-  display: block;
-  line-height: 50px;
-  font-weight: bold;
-  background-color: #fbb731;
-  color: var(--white-color);
-
-  border-radius: 15px;
-  margin-top: 35px;
-  &-sm {
-    border-radius: 0;
   }
 `;
 
