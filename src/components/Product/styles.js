@@ -271,6 +271,10 @@ export const AddReviewWrapper = styled.div`
     padding: 8px 15px;
     max-width: 300px;
   }
+  .require-login {
+    color: var(--text-primary);
+    font-size: 20px;
+  }
   .ant-form {
     background: var(--primary-color-light);
     padding: 20px 12px;

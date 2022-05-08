@@ -16,7 +16,7 @@ const initialState = {
 };
 
 export const getProductReviews = createAsyncThunk(
-  'product-reviews',
+  'product-reviews/getProductReviews',
   async () => {
     return await getCollection('productReviews');
   }

@@ -5,6 +5,8 @@ import loginReducer from '../components/Login/loginSlice';
 import usersReducer from '../components/Profile/profileSlice';
 import productsReducer from '../components/Product/productSlice';
 import productReviewsReducer from '../components/Product/productReviewSlice';
+import blogsReducer from '../components/Blog/blogSlice';
+import blogReviewsReducer from '../components/Blog/blogReviewSlice';
 
 // admin
 import adminNavbarReducer from '../admin_components/Navbar/navbarSlice';
@@ -16,6 +18,8 @@ export const store = configureStore({
     users: usersReducer,
     products: productsReducer,
     productReviews: productReviewsReducer,
+    blogs: blogsReducer,
+    blogReviews: blogReviewsReducer,
 
     adminNavbar: adminNavbarReducer,
     adminLogin: adminLoginReducer,
