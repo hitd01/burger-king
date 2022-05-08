@@ -238,7 +238,7 @@ const Product = () => {
             </Form>
           ) : (
             <Text className="require-login">
-              Đăng nhập để thêm đánh của bạn
+              Đăng nhập để thêm đánh giá của bạn
             </Text>
           )}
         </div>

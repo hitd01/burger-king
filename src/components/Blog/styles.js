@@ -51,6 +51,26 @@ export const BannerWrapper = styled.div`
         font-size: 22px;
         color: var(--white-color);
       }
+      .ant-menu {
+        display: flex;
+        background: transparent;
+        border: none;
+        &-item {
+          .anticon {
+            color: var(--white-color);
+            font-size: 20px;
+          }
+          .ant-menu-title-content {
+            a {
+              font-size: 20px;
+              color: var(--white-color);
+            }
+          }
+        }
+        .ant-menu-item.ant-menu-item-selected {
+          background: transparent;
+        }
+      }
     }
   }
   @media screen and (max-width: 991.5px) {
@@ -95,6 +115,140 @@ export const BannerWrapper = styled.div`
           font-size: 16px;
         }
       }
+    }
+  }
+`;
+
+export const PostContentWrapper = styled.div`
+  padding-top: 100px;
+  .container {
+    .ant-typography {
+      color: rgba(0, 0, 0, 0.85);
+      overflow-wrap: break-word;
+      color: var(--text-primary);
+      font-size: 18px;
+      text-align: justify;
+      display: inline-block;
+    }
+    .ant-typography:not(:last-child) {
+      margin-bottom: 15px;
+    }
+    .images-wrapper {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      .ant-image {
+        display: inline-block;
+        width: 400px;
+        &-img {
+          height: 300px;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 575.5px) {
+    .container {
+      padding: 0 8px;
+    }
+  }
+`;
+
+export const ReviewWrapper = styled.div`
+  padding-top: 100px;
+  padding-top: 100px;
+  h4.ant-typography {
+    text-transform: uppercase;
+    color: var(--white-color);
+    font-size: 24px;
+    background: var(--primary-color-dark);
+    padding: 8px 15px;
+    max-width: 300px;
+  }
+  .review-wrapper {
+    display: flex;
+    margin-top: 15px;
+    .review {
+      margin-left: 40px;
+      flex: 1;
+      .ant-typography {
+        font-size: 18px;
+        color: var(--text-primary);
+      }
+      .top {
+        align-items: center;
+        display: flex;
+        .username {
+          margin-right: 15px;
+          font-size: 20px;
+        }
+      }
+      .comments {
+        display: flex;
+        margin-top: 10px;
+        flex-direction: column;
+      }
+    }
+  }
+  @media screen and (max-width: 575.5px) {
+    .container {
+      padding: 0 8px;
+      .review-wrapper {
+        .review {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+`;
+
+export const AddReviewWrapper = styled.div`
+  padding-top: 100px;
+  h4.ant-typography {
+    text-transform: uppercase;
+    color: var(--white-color);
+    font-size: 24px;
+    background: var(--primary-color-dark);
+    padding: 8px 15px;
+    max-width: 300px;
+  }
+  .require-login {
+    color: var(--text-primary);
+    font-size: 20px;
+  }
+  .ant-form {
+    background: var(--primary-color-light);
+    padding: 20px 12px;
+    &-item {
+      align-items: center;
+      &-label {
+        label {
+          color: var(--text-primary);
+          font-size: 18px;
+        }
+      }
+      &-control {
+        &-input {
+          &-content {
+            .rate {
+              display: flex;
+              align-items: center;
+              .anticon {
+                color: var(--secondary-color);
+                font-size: 20px;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 575.5px) {
+    .container {
+      padding: 0 8px;
     }
   }
 `;
