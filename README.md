@@ -11,7 +11,7 @@
   <p align="center">
     A project about an online food ordering application!
     <br />
-    <a href="">View Demo</a>
+    <a href="https://ttburgerking.firebaseapp.com/">View Demo</a>
   </p>
 </div>
 
