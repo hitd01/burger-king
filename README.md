@@ -110,79 +110,78 @@ project run on `localhost:3000`
 - [x] Install NPM packages
 - [x] Directory structure
 - [x] Add code convention
-- [ ] Home page
+- [x] Home page
   - [x] Cut interface
   - [x] Responsive
-  - [ ] Dump data
+  - [x] Dump data
 - [x] Login feature
 - [x] Register feature
 - [x] Forgot password feature
 - [x] Sign out feature
-- [ ] Profile page
+- [x] Search feature
+- [x] Add product review feature
+- [x] Add blog review feature
+- [x] Shopping feature
+- [x] Profile page
   - [x] Profile management
   - [x] Change password
-  - [ ] Shopping history
-- [ ] About page
+  - [x] Shopping history
+- [x] About page
   - [x] Cut interface
   - [x] Responsive
-  - [ ] Dump data
-- [ ] Menu page
+  - [x] Dump data
+- [x] Menu page
   - [x] Cut interface
   - [x] Responsive
-  - [ ] Dump data
-- [ ] Product page
+  - [x] Dump data
+- [x] Product page
   - [x] Cut interface
   - [x] Responsive
-  - [ ] Dump data
-- [ ] Blog page
+  - [x] Dump data
+- [x] Blog page
   - [x] Cut interface
   - [x] Responsive
-  - [ ] Dump data
-- [ ] Blog single page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
-- [ ] Contact page
-  - [ ] Cut interface
-  - [ ] Responsive
-- [ ] Cart page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
+  - [x] Dump data
+  - [x] Blog category page
+  - [x] Blog time group page
+- [x] Blog single page
+  - [x] Cut interface
+  - [x] Responsive
+  - [x] Dump data
+- [x] Contact page
+  - [x] Cut interface
+  - [x] Responsive
+- [x] Cart page
+  - [x] Cut interface
+  - [x] Responsive
+  - [x] Dump data
 
 ### Admin
 
 - [x] Login page
   - [x] Login feature
 - [x] Sign out feature
-- [ ] Analytics page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
-- [ ] User list page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
-- [ ] Products page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
-- [ ] Product reviews page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
-- [ ] Blogs page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
-- [ ] Blog reviews page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
-- [ ] Cart page
-  - [ ] Cut interface
-  - [ ] Responsive
-  - [ ] Dump data
+- [x] Analytics page
+  - [x] Cut interface
+  - [x] Dump data
+- [x] User list page
+  - [x] Cut interface
+  - [x] Dump data
+- [x] Products page
+  - [x] Cut interface
+  - [x] Dump data
+- [x] Product reviews page
+  - [x] Cut interface
+  - [x] Dump data
+- [x] Blogs page
+  - [x] Cut interface
+  - [x] Dump data
+- [x] Blog reviews page
+  - [x] Cut interface
+  - [x] Dump data
+- [x] Cart page
+  - [x] Cut interface
+  - [x] Dump data
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -192,6 +191,6 @@ project run on `localhost:3000`
 
 HITD01 - tranhuan.dev@gmail.com
 
-Project Link: [https://github.com/hitd01/burger-king.git](https://github.com/hitd01/burger-king.git)
+Project Link: [https://github.com/hitd01/burger-king](https://github.com/hitd01/burger-king)
 
 <p align="right">(<a href="#top">back to top</a>)</p>

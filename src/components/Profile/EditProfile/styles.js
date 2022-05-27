@@ -9,7 +9,6 @@ export const Wrapper = styled.div`
   }
   .ant-form {
     .ant-row {
-      align-items: center;
       .ant-form-item-label {
         label {
           min-width: 150px;

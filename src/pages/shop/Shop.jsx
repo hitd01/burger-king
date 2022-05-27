@@ -1,23 +1,423 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Menu, Pagination, Row, Typography, Image } from 'antd';
+import {
+  Col,
+  Menu,
+  Pagination,
+  Row,
+  Typography,
+  Image,
+  Select,
+  Spin,
+} from 'antd';
 import { Link } from 'react-router-dom';
 import { BannerWrapper, ContainerWrapper } from './styles';
-import {
-  EyeOutlined,
-  FilterOutlined,
-  HeartOutlined,
-  ShoppingCartOutlined,
-} from '@ant-design/icons';
+import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import ReactStars from 'react-rating-stars-component';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts } from '../../components/Product/productSlice';
+import { getProductReviews } from '../../components/Product/productReviewSlice';
+import { auth } from '../../firebase/config';
+import { addOrder } from '../../components/Cart/cartSlice';
+import { toggleHiddenLogin } from '../../components/Login/loginSlice';
 
 const { Paragraph, Title, Text } = Typography;
+const { Option } = Select;
 
 const Shop = () => {
   useEffect(() => {
-    document.title = 'Thực đơn';
+    document.title = 'Thực đơn - Burger King';
     window.scrollTo(0, 0);
   }, []);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(getProductReviews());
+  }, [dispatch]);
+
+  const { products, productLoading } = useSelector((state) => state.products);
+  const { productReviewLoading, productReviews } = useSelector(
+    (state) => state.productReviews
+  );
+  const { cartsLocalStorage } = useSelector((state) => state.carts);
+  const { isLogged } = useSelector((state) => state.login);
+
+  // states
+  const [productsPreview, setProductsPreview] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [sortFilter, setSortFilter] = useState('default');
+
+  useEffect(() => {
+    if (productLoading === 'success' && productReviewLoading === 'success') {
+      if (categoryFilter === 'all' && sortFilter !== 'default') {
+        switch (sortFilter) {
+        case 'price_desc':
+          setProductsPreview(
+            products
+              ?.filter((product) => product?.removed === false)
+              ?.map((product) => ({
+                ...product,
+                avgRating:
+                    productReviews?.length > 0 &&
+                    productReviews?.filter(
+                      (productReview) =>
+                        productReview.productId === product.productId
+                    )?.length > 0
+                      ? Math.round(
+                        productReviews
+                          ?.filter(
+                            (productReview) =>
+                              productReview.productId === product.productId
+                          )
+                          ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                            productReviews?.filter(
+                              (productReview) =>
+                                productReview.productId === product.productId
+                            )?.length
+                      )
+                      : 0,
+              }))
+              ?.sort(
+                (productFirst, productSecond) =>
+                  productSecond.price - productFirst.price
+              )
+              ?.map((product) => product)
+          );
+          break;
+
+        case 'price_increase':
+          setProductsPreview(
+            products
+              ?.filter((product) => product?.removed === false)
+              ?.map((product) => ({
+                ...product,
+                avgRating:
+                    productReviews?.length > 0 &&
+                    productReviews?.filter(
+                      (productReview) =>
+                        productReview.productId === product.productId
+                    )?.length > 0
+                      ? Math.round(
+                        productReviews
+                          ?.filter(
+                            (productReview) =>
+                              productReview.productId === product.productId
+                          )
+                          ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                            productReviews?.filter(
+                              (productReview) =>
+                                productReview.productId === product.productId
+                            )?.length
+                      )
+                      : 0,
+              }))
+              ?.sort(
+                (productFirst, productSecond) =>
+                  productFirst.price - productSecond.price
+              )
+              ?.map((product) => product)
+          );
+          break;
+
+        case 'rate_desc':
+          setProductsPreview(
+            products
+              ?.filter((product) => product?.removed === false)
+              ?.map((product) => ({
+                ...product,
+                avgRating:
+                    productReviews?.length > 0 &&
+                    productReviews?.filter(
+                      (productReview) =>
+                        productReview.productId === product.productId
+                    )?.length > 0
+                      ? Math.round(
+                        productReviews
+                          ?.filter(
+                            (productReview) =>
+                              productReview.productId === product.productId
+                          )
+                          ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                            productReviews?.filter(
+                              (productReview) =>
+                                productReview.productId === product.productId
+                            )?.length
+                      )
+                      : 0,
+              }))
+              ?.sort(
+                (productFirst, productSecond) =>
+                  productSecond.avgRating - productFirst.avgRating
+              )
+              ?.map((product) => product)
+          );
+          break;
+
+        case 'rate_increase':
+          setProductsPreview(
+            products
+              ?.filter((product) => product?.removed === false)
+              ?.map((product) => ({
+                ...product,
+                avgRating:
+                    productReviews?.length > 0 &&
+                    productReviews?.filter(
+                      (productReview) =>
+                        productReview.productId === product.productId
+                    )?.length > 0
+                      ? Math.round(
+                        productReviews
+                          ?.filter(
+                            (productReview) =>
+                              productReview.productId === product.productId
+                          )
+                          ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                            productReviews?.filter(
+                              (productReview) =>
+                                productReview.productId === product.productId
+                            )?.length
+                      )
+                      : 0,
+              }))
+              ?.sort(
+                (productFirst, productSecond) =>
+                  productFirst.avgRating - productSecond.avgRating
+              )
+              ?.map((product) => product)
+          );
+          break;
+
+        default:
+          break;
+        }
+      } else if (categoryFilter !== 'all' && sortFilter === 'default') {
+        setProductsPreview(
+          products
+            ?.filter(
+              (product) =>
+                product?.removed === false &&
+                product.category === categoryFilter
+            )
+            ?.map((product) => ({
+              ...product,
+              avgRating:
+                productReviews?.length > 0 &&
+                productReviews?.filter(
+                  (productReview) =>
+                    productReview.productId === product.productId
+                )?.length > 0
+                  ? Math.round(
+                    productReviews
+                      ?.filter(
+                        (productReview) =>
+                          productReview.productId === product.productId
+                      )
+                      ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                        productReviews?.filter(
+                          (productReview) =>
+                            productReview.productId === product.productId
+                        )?.length
+                  )
+                  : 0,
+            }))
+        );
+      } else if (categoryFilter !== 'all' && sortFilter !== 'default') {
+        switch (sortFilter) {
+        case 'price_desc':
+          setProductsPreview(
+            products
+              ?.filter(
+                (product) =>
+                  product?.removed === false &&
+                    product.category === categoryFilter
+              )
+              ?.map((product) => ({
+                ...product,
+                avgRating:
+                    productReviews?.length > 0 &&
+                    productReviews?.filter(
+                      (productReview) =>
+                        productReview.productId === product.productId
+                    )?.length > 0
+                      ? Math.round(
+                        productReviews
+                          ?.filter(
+                            (productReview) =>
+                              productReview.productId === product.productId
+                          )
+                          ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                            productReviews?.filter(
+                              (productReview) =>
+                                productReview.productId === product.productId
+                            )?.length
+                      )
+                      : 0,
+              }))
+              ?.sort(
+                (productFirst, productSecond) =>
+                  productSecond.price - productFirst.price
+              )
+              ?.map((product) => product)
+          );
+          break;
+
+        case 'price_increase':
+          setProductsPreview(
+            products
+              ?.filter(
+                (product) =>
+                  product?.removed === false &&
+                    product.category === categoryFilter
+              )
+              ?.map((product) => ({
+                ...product,
+                avgRating:
+                    productReviews?.length > 0 &&
+                    productReviews?.filter(
+                      (productReview) =>
+                        productReview.productId === product.productId
+                    )?.length > 0
+                      ? Math.round(
+                        productReviews
+                          ?.filter(
+                            (productReview) =>
+                              productReview.productId === product.productId
+                          )
+                          ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                            productReviews?.filter(
+                              (productReview) =>
+                                productReview.productId === product.productId
+                            )?.length
+                      )
+                      : 0,
+              }))
+              ?.sort(
+                (productFirst, productSecond) =>
+                  productFirst.price - productSecond.price
+              )
+              ?.map((product) => product)
+          );
+          break;
+
+        case 'rate_desc':
+          setProductsPreview(
+            products
+              ?.filter(
+                (product) =>
+                  product?.removed === false &&
+                    product.category === categoryFilter
+              )
+              ?.map((product) => ({
+                ...product,
+                avgRating:
+                    productReviews?.length > 0 &&
+                    productReviews?.filter(
+                      (productReview) =>
+                        productReview.productId === product.productId
+                    )?.length > 0
+                      ? Math.round(
+                        productReviews
+                          ?.filter(
+                            (productReview) =>
+                              productReview.productId === product.productId
+                          )
+                          ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                            productReviews?.filter(
+                              (productReview) =>
+                                productReview.productId === product.productId
+                            )?.length
+                      )
+                      : 0,
+              }))
+              ?.sort(
+                (productFirst, productSecond) =>
+                  productSecond.avgRating - productFirst.avgRating
+              )
+              ?.map((product) => product)
+          );
+          break;
+
+        case 'rate_increase':
+          setProductsPreview(
+            products
+              ?.filter(
+                (product) =>
+                  product?.removed === false &&
+                    product.category === categoryFilter
+              )
+              ?.map((product) => ({
+                ...product,
+                avgRating:
+                    productReviews?.length > 0 &&
+                    productReviews?.filter(
+                      (productReview) =>
+                        productReview.productId === product.productId
+                    )?.length > 0
+                      ? Math.round(
+                        productReviews
+                          ?.filter(
+                            (productReview) =>
+                              productReview.productId === product.productId
+                          )
+                          ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                            productReviews?.filter(
+                              (productReview) =>
+                                productReview.productId === product.productId
+                            )?.length
+                      )
+                      : 0,
+              }))
+              ?.sort(
+                (productFirst, productSecond) =>
+                  productFirst.avgRating - productSecond.avgRating
+              )
+              ?.map((product) => product)
+          );
+          break;
+
+        default:
+          break;
+        }
+      } else {
+        setProductsPreview(
+          products
+            ?.filter((product) => product?.removed === false)
+            ?.map((product) => ({
+              ...product,
+              avgRating:
+                productReviews?.length > 0 &&
+                productReviews?.filter(
+                  (productReview) =>
+                    productReview.productId === product.productId
+                )?.length > 0
+                  ? Math.round(
+                    productReviews
+                      ?.filter(
+                        (productReview) =>
+                          productReview.productId === product.productId
+                      )
+                      ?.reduce((pre, cur) => pre + cur.rating, 0) /
+                        productReviews?.filter(
+                          (productReview) =>
+                            productReview.productId === product.productId
+                        )?.length
+                  )
+                  : 0,
+            }))
+        );
+      }
+    }
+  }, [
+    products,
+    productLoading,
+    productReviewLoading,
+    productReviews,
+    categoryFilter,
+    sortFilter,
+  ]);
+
+  // config menu filter
   const getMenuItem = (label, key, icon, children, type) => {
     return {
       label,
@@ -27,33 +427,80 @@ const Shop = () => {
       type,
     };
   };
-  const [categoryItems, setCategoryItems] = useState([
+  const categoryItems = [
     getMenuItem('Tất cả', 'all'),
-    getMenuItem('Combo', 'combo'),
-    getMenuItem('Burger', 'burger'),
-    getMenuItem('Gà rán', 'fried-chicken'),
-    getMenuItem('Pizza', 'pizza'),
-    getMenuItem('Khoai chiên', 'french-fries'),
-  ]);
-  const sortItems = [
-    getMenuItem('Sắp xếp', 'sub', <FilterOutlined />, [
-      getMenuItem('Mặc định', '1'),
-      getMenuItem('Đánh giá giảm dần', '2'),
-      getMenuItem('Đánh giá tăng dần', '3'),
-      getMenuItem('Giá giảm dần', '4'),
-      getMenuItem('Giá tăng dần', '5'),
-    ]),
+    getMenuItem('Combo', 'Combo'),
+    getMenuItem('Burger', 'Burger'),
+    getMenuItem('Gà rán', 'Gà rán'),
+    getMenuItem('Pizza', 'Pizza'),
+    getMenuItem('Món phụ', 'Món phụ'),
   ];
 
-  const countTest = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  ];
+  // config products pagination
   const numEachPage = 8;
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(numEachPage);
   const handlePaginationChange = (current) => {
     setMin((current - 1) * numEachPage);
     setMax(current * numEachPage);
+  };
+
+  // handle filter products menu click
+  const handleFilterProductsMenuClick = (e) => {
+    setCategoryFilter(e.key);
+  };
+
+  // handle filter products select click
+  const handleFilterProductsSelectClick = (value) => {
+    setSortFilter(value);
+  };
+
+  // handle add product to cart
+  const handleAddProductToCart = (productId) => {
+    if (isLogged) {
+      try {
+        let carts = cartsLocalStorage;
+        if (
+          carts?.length > 0 &&
+          carts?.find((cart) => cart.productId === productId)
+        ) {
+          let currentCart = carts?.find((cart) => cart.productId === productId);
+          if (
+            currentCart?.quantity ===
+            products?.find((product) => product.productId === productId)
+              ?.quantityRemaining
+          ) {
+            alert('Số lượng còn không đủ');
+          } else {
+            carts = carts?.map((cart) => {
+              if (cart.productId === productId) {
+                return { ...cart, quantity: cart.quantity + 1 };
+              }
+              return cart;
+            });
+            localStorage.setItem('carts', JSON.stringify(carts));
+          }
+        } else {
+          carts = [
+            ...carts,
+            {
+              userId: auth.currentUser.uid,
+              productId,
+              quantity: 1,
+              paymentStatus: false,
+            },
+          ];
+          localStorage.setItem('carts', JSON.stringify(carts));
+        }
+        alert('Đã thêm món ăn vào giỏ hàng');
+        dispatch(addOrder(carts));
+      } catch (error) {
+        console.log(error);
+        alert(error);
+      }
+    } else {
+      dispatch(toggleHiddenLogin(false));
+    }
   };
 
   return (
@@ -76,78 +523,106 @@ const Shop = () => {
         </div>
       </BannerWrapper>
 
-      <ContainerWrapper>
-        <div className="container">
-          <div className="filter-wrapper">
-            <Menu
-              mode="horizontal"
-              items={categoryItems}
-              defaultSelectedKeys={['all']}
-              className="category-menu"
-            />
-            <Menu
-              mode="inline"
-              items={sortItems}
-              defaultSelectedKeys={['1']}
-              onClick={(e) => console.log(e)}
-              className="sort-menu"
-            />
-          </div>
+      {productLoading === 'success' && productReviewLoading === 'success' ? (
+        <>
+          <ContainerWrapper>
+            <div className="container">
+              <div className="filter-wrapper">
+                <Menu
+                  mode="horizontal"
+                  items={categoryItems}
+                  defaultSelectedKeys={['all']}
+                  className="category-menu"
+                  onClick={handleFilterProductsMenuClick}
+                />
+                <Select
+                  defaultValue="default"
+                  size="large"
+                  onChange={handleFilterProductsSelectClick}
+                >
+                  <Option value="default">Mặc định</Option>
+                  <Option value="price_desc">Giá giảm dần</Option>
+                  <Option value="price_increase">Giá tăng dần</Option>
+                  <Option value="rate_desc">Đánh giá giảm dần</Option>
+                  <Option value="rate_increase">Đánh giá tăng dần</Option>
+                </Select>
+              </div>
 
-          <Row gutter={[16, 32]}>
-            {countTest.length > 0 &&
-              countTest.slice(min, max).map((item) => (
-                <Col key={item} xl={6} lg={8} md={12} sm={24} xs={24}>
-                  <Image
-                    src="https://rayoflightthemes.com/htmltemplates/burgos_street_food_html5_template/burgos_html/images/product1b.png"
-                    width="100%"
-                    height="300px"
-                  />
-                  <div className="info-wrapper">
-                    <div className="info">
-                      <Text>Burger bò nướng whopper</Text>
-                      <Text>
-                        {(115000).toLocaleString('vi-vn', {
-                          style: 'currency',
-                          currency: 'VND',
-                        })}
-                      </Text>
-                    </div>
-                    <div className="footer">
-                      <ReactStars
-                        count={5}
-                        size={25}
-                        activeColor="#ffa27e"
-                        value={4.5}
-                        edit={false}
-                      />
-                      <div className="icon-wrapper">
-                        <div className="icon shopping-cart">
-                          <ShoppingCartOutlined />
-                        </div>
-                        <Link to="1" className="icon eye">
-                          <EyeOutlined />
-                        </Link>
-                        <div className="icon heart">
-                          <HeartOutlined />
+              <Row gutter={[16, 32]}>
+                {productsPreview?.length > 0 &&
+                  productsPreview?.slice(min, max)?.map((product) => (
+                    <Col
+                      key={product?.id}
+                      xl={6}
+                      lg={8}
+                      md={12}
+                      sm={24}
+                      xs={24}
+                    >
+                      <div className="product-wrapper">
+                        <Image
+                          src={product?.photoURL}
+                          width="100%"
+                          height="300px"
+                        />
+                        <div className="info-wrapper">
+                          <div className="info">
+                            <Text>
+                              {product?.name?.length < 10
+                                ? product?.name
+                                : product?.name?.substring(0, 10) + '...'}
+                            </Text>
+                            <Text>
+                              {product?.price?.toLocaleString('vi-vn', {
+                                style: 'currency',
+                                currency: 'VND',
+                              })}
+                            </Text>
+                          </div>
+                          <div className="footer">
+                            <ReactStars
+                              count={5}
+                              size={25}
+                              activeColor="#ffa27e"
+                              value={product?.avgRating}
+                              edit={false}
+                            />
+                            <div className="icon-wrapper">
+                              <div className="icon shopping-cart">
+                                <ShoppingCartOutlined
+                                  onClick={() =>
+                                    handleAddProductToCart(product?.productId)
+                                  }
+                                />
+                              </div>
+                              <Link to={`${product?.id}`} className="icon eye">
+                                <EyeOutlined />
+                              </Link>
+                              {/* <div className="icon heart">
+                            <HeartOutlined />
+                          </div> */}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </Col>
-              ))}
-          </Row>
+                    </Col>
+                  ))}
+              </Row>
 
-          <div className="pagination">
-            <Pagination
-              pageSize={numEachPage}
-              defaultCurrent={1}
-              total={countTest.length}
-              onChange={handlePaginationChange}
-            />
-          </div>
-        </div>
-      </ContainerWrapper>
+              <div className="pagination">
+                <Pagination
+                  pageSize={numEachPage}
+                  defaultCurrent={1}
+                  total={productsPreview.length}
+                  onChange={handlePaginationChange}
+                />
+              </div>
+            </div>
+          </ContainerWrapper>
+        </>
+      ) : (
+        <Spin />
+      )}
     </>
   );
 };

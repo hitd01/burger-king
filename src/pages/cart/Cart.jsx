@@ -1,12 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { CartComponent } from '../../components';
 
 const Cart = () => {
-  useEffect(() => {
-    document.title = 'Giỏ hàng';
-    window.scrollTo(0, 0);
-  }, []);
-
-  return <div>Cart</div>;
+  return <CartComponent />;
 };
 
 export default Cart;

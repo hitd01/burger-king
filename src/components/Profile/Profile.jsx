@@ -29,25 +29,30 @@ const Profile = () => {
   }, [dispatch]);
 
   const { currentUserAuth } = useAuth();
-  // const { displayName, email, photoURL, uid } = currentUserAuth;
 
-  const { loading, users } = useSelector((state) => state.users);
+  const { userLoading, users } = useSelector((state) => state.users);
   const { isLogged } = useSelector((state) => state.login);
 
+  // states
   const [selected, setSelected] = useState('profile');
-  const [providerId, setProviderId] = useState(null);
+  const [providerId, setProviderId] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    if (isLogged && loading === 'success') {
-      const user = users.find((user) => user.uid === currentUserAuth?.uid);
-      setProviderId(user.providerId);
+    if (userLoading === 'success' && users?.length > 0) {
+      setCurrentUser(users?.find((user) => user?.uid === currentUserAuth?.uid));
+      setProviderId(currentUser?.providerId);
     }
+  }, [userLoading, users, currentUser, currentUserAuth]);
+
+  useEffect(() => {
     if (!isLogged) {
       navigate('/');
       dispatch(toggleHiddenLogin(false));
     }
-  }, [isLogged, loading, currentUserAuth, users, navigate, dispatch]);
+  }, [isLogged, navigate, dispatch]);
 
+  // handle logout
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -59,6 +64,7 @@ const Profile = () => {
       });
   };
 
+  // config navbar
   const navItems = [
     {
       label: <Text className="profile-info">Hồ sơ</Text>,
@@ -73,7 +79,7 @@ const Profile = () => {
     setSelected(e.key);
   };
 
-  if (loading === 'pending' || !isLogged) {
+  if (userLoading === 'pending' || !isLogged) {
     return <Spin />;
   }
 
@@ -86,8 +92,8 @@ const Profile = () => {
               {currentUserAuth?.photoURL
                 ? ''
                 : currentUserAuth?.displayName
-                ? currentUserAuth?.displayName?.charAt(0)?.toUpperCase()
-                : currentUserAuth?.email?.charAt(0).toUpperCase()}
+                  ? currentUserAuth?.displayName?.charAt(0)?.toUpperCase()
+                  : currentUserAuth?.email?.charAt(0).toUpperCase()}
             </Avatar>
             <div className="name-wrapper">
               <Text>

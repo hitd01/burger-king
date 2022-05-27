@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import HamburgerBanner from '../../assets/images/hamburger-banner.jpg';
 import { Button } from 'antd';
 
 export const BannerWrapper = styled.div`
-  background: url(${HamburgerBanner}) no-repeat center;
+  background: ${({ photoURL }) => `url(${photoURL}) no-repeat center`};
   background-size: cover;
   height: 100vh;
   position: relative;
@@ -119,45 +118,59 @@ export const NewProductsWrapper = styled.div`
     }
   }
   .ant-col {
-    .info-wrapper {
-      background-color: var(--secondary-color-light);
-      padding: 10px 10px 24px;
-      .info {
-        margin-top: 16px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 24px;
-        color: var(--text-primary);
+    .product-wrapper {
+      box-shadow: 2px 4px 6px rgb(0 0 0 / 30%);
+      .ant-image {
+        &-img {
+          object-fit: cover;
+        }
       }
-      .footer {
-        margin-top: 16px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .icon-wrapper {
+      .info-wrapper {
+        background-color: var(--secondary-color-light);
+        padding: 10px 10px 24px;
+        .info {
+          margin-top: 16px;
           display: flex;
-          .icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
+          justify-content: space-between;
+          align-items: center;
+          .ant-typography {
+            font-size: 20px;
+            color: var(--text-primary);
+          }
+          .ant-typography:not(:last-child) {
+            margin-right: 12px;
+          }
+        }
+        .footer {
+          margin-top: 16px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .icon-wrapper {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--white-color);
-            font-size: 18px;
-            cursor: pointer;
-          }
-          .shopping-cart {
-            background-color: var(--primary-color-dark);
-            margin-right: 8px;
-          }
-          .eye {
-            background-color: var(--primary-color);
-            margin-right: 8px;
-          }
-          .heart {
-            background-color: var(--secondary-color);
+            .icon {
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: var(--white-color);
+              font-size: 18px;
+              cursor: pointer;
+            }
+            .icon:not(:last-child) {
+              margin-right: 8px;
+            }
+            .shopping-cart {
+              background-color: var(--primary-color-dark);
+            }
+            .eye {
+              background-color: var(--primary-color);
+            }
+            .heart {
+              background-color: var(--secondary-color);
+            }
           }
         }
       }
@@ -187,6 +200,9 @@ export const NewProductsWrapper = styled.div`
         font-size: 42px;
       }
     }
+    .container {
+      padding: 0 8px;
+    }
   }
 `;
 
@@ -207,9 +223,12 @@ export const MenuListWrapper = styled.div`
     }
   }
   .ant-col {
+    .product-wrapper {
+      box-shadow: 2px 4px 6px rgb(0 0 0 / 30%);
+    }
     position: relative;
     &:hover img {
-      opacity: 0.3;
+      opacity: 0.8;
     }
     &:hover .middle {
       opacity: 1;
@@ -221,6 +240,8 @@ export const MenuListWrapper = styled.div`
       height: auto;
       transition: 0.5s ease;
       backface-visibility: hidden;
+      max-height: 200px;
+      object-fit: cover;
     }
     .middle {
       transition: 0.5s ease;
@@ -234,9 +255,11 @@ export const MenuListWrapper = styled.div`
       align-items: center;
       .ant-typography {
         color: var(--text-primary);
-        font-size: 30px;
+        font-size: 42px;
         margin-bottom: 10px;
         font-weight: 600;
+        text-transform: uppercase;
+        text-shadow: 2px -4px 6px rgba(255, 255, 255, 0.6);
       }
     }
   }
@@ -257,6 +280,9 @@ export const MenuListWrapper = styled.div`
       h4.ant-typography {
         font-size: 42px;
       }
+    }
+    .container {
+      padding: 0 8px;
     }
   }
 `;
@@ -326,6 +352,9 @@ export const BlogsRecentlyWrapper = styled.div`
       h4.ant-typography {
         font-size: 42px;
       }
+    }
+    .container {
+      padding: 0 8px;
     }
   }
 `;

@@ -251,6 +251,14 @@ export const ReviewWrapper = styled.div`
       }
     }
   }
+  .no-preview {
+    font-size: 20px;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+  }
   @media screen and (max-width: 575.5px) {
     .container {
       padding: 0 8px;
@@ -276,6 +284,10 @@ export const AddReviewWrapper = styled.div`
   .require-login {
     color: var(--text-primary);
     font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    display: block;
+    font-weight: 600;
   }
   .ant-form {
     background: var(--primary-color-light);
@@ -299,6 +311,10 @@ export const AddReviewWrapper = styled.div`
                 font-size: 20px;
                 cursor: pointer;
               }
+            }
+            .ant-input {
+              font-size: 16px;
+              color: var(--text-primary);
             }
           }
         }
@@ -325,45 +341,54 @@ export const RelatedProductsWrapper = styled.div`
   .ant-row {
     margin-bottom: 40px;
     .ant-col {
-      .info-wrapper {
-        background-color: var(--secondary-color-light);
-        padding: 10px 10px 24px;
-        .info {
-          margin-top: 16px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 24px;
-          color: var(--text-primary);
+      .product-wrapper {
+        box-shadow: 2px 4px 6px rgb(0 0 0 / 30%);
+        .ant-image {
+          &-img {
+            object-fit: cover;
+          }
         }
-        .footer {
-          margin-top: 16px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .icon-wrapper {
+        .info-wrapper {
+          background-color: var(--secondary-color-light);
+          padding: 10px 10px 24px;
+          .info {
+            margin-top: 16px;
             display: flex;
-            .icon {
-              width: 35px;
-              height: 35px;
-              border-radius: 50%;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 24px;
+            color: var(--text-primary);
+          }
+          .footer {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .icon-wrapper {
               display: flex;
-              justify-content: center;
-              align-items: center;
-              color: var(--white-color);
-              font-size: 18px;
-              cursor: pointer;
-            }
-            .shopping-cart {
-              background-color: var(--primary-color-dark);
-              margin-right: 8px;
-            }
-            .eye {
-              background-color: var(--primary-color);
-              margin-right: 8px;
-            }
-            .heart {
-              background-color: var(--secondary-color);
+              .icon {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--white-color);
+                font-size: 18px;
+                cursor: pointer;
+              }
+              .icon:not(:last-child) {
+                margin-right: 8px;
+              }
+              .shopping-cart {
+                background-color: var(--primary-color-dark);
+              }
+              .eye {
+                background-color: var(--primary-color);
+              }
+              .heart {
+                background-color: var(--secondary-color);
+              }
             }
           }
         }
@@ -373,6 +398,13 @@ export const RelatedProductsWrapper = styled.div`
   .pagination {
     display: flex;
     justify-content: center;
+    .no-other-products {
+      font-size: 20px;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+    }
   }
   @media screen and (max-width: 575.5px) {
     .container {

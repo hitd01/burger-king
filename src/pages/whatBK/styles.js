@@ -121,8 +121,8 @@ export const SomethingAboutBKWrapper = styled.div`
     .ant-col {
       .ant-image {
         .ant-image-img {
-          object-fit: cover;
           height: 400px;
+          object-fit: cover;
         }
       }
     }
@@ -149,7 +149,7 @@ export const SomethingAboutBKWrapper = styled.div`
     .ant-row {
       .ant-col {
         .ant-image {
-          .ant-image-img {
+          &-img {
             height: 500px;
           }
         }
@@ -172,6 +172,13 @@ export const SomethingAboutBKWrapper = styled.div`
 `;
 
 export const PhotoGalleryWrapper = styled.div`
+  .ant-col {
+    .ant-image {
+      &-img {
+        object-fit: cover;
+      }
+    }
+  }
   padding-top: 150px;
   h2.ant-typography {
     color: var(--text-primary);
@@ -183,7 +190,7 @@ export const PhotoGalleryWrapper = styled.div`
     h2.ant-typography {
       font-size: 32px;
     }
-    .ant-row {
+    .container {
       padding: 0 8px;
     }
   }

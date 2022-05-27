@@ -104,8 +104,13 @@ export const ContainerWrapper = styled.div`
   .filter-wrapper {
     position: relative;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     .ant-menu {
       border: none;
+      flex-wrap: wrap;
     }
 
     .ant-menu.category-menu {
@@ -116,27 +121,16 @@ export const ContainerWrapper = styled.div`
         }
       }
     }
-
-    .ant-menu.sort-menu {
+    .ant-select {
       width: 250px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 10;
-      .ant-menu-submenu {
-        &-title {
-          .anticon,
-          .ant-menu-title-content {
-            font-size: 20px;
-            color: var(--text-primary);
-          }
+      &-selector {
+        .ant-select-selection-item {
+          font-size: 18px;
+          color: var(--text-primary);
         }
-        .ant-menu-sub {
-          .ant-menu-item {
-            font-size: 20px;
-            color: var(--text-primary);
-          }
-        }
+      }
+      &-arrow {
+        font-size: 16px;
       }
     }
   }
@@ -144,45 +138,59 @@ export const ContainerWrapper = styled.div`
   .ant-row {
     margin-bottom: 40px;
     .ant-col {
-      .info-wrapper {
-        background-color: var(--secondary-color-light);
-        padding: 10px 10px 24px;
-        .info {
-          margin-top: 16px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 24px;
-          color: var(--text-primary);
+      .product-wrapper {
+        box-shadow: 2px 4px 6px rgb(0 0 0 / 30%);
+        .ant-image {
+          &-img {
+            object-fit: cover;
+          }
         }
-        .footer {
-          margin-top: 16px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .icon-wrapper {
+        .info-wrapper {
+          background-color: var(--secondary-color-light);
+          padding: 10px 10px 24px;
+          .info {
+            margin-top: 16px;
             display: flex;
-            .icon {
-              width: 35px;
-              height: 35px;
-              border-radius: 50%;
+            justify-content: space-between;
+            align-items: center;
+            .ant-typography {
+              font-size: 20px;
+              color: var(--text-primary);
+            }
+            .ant-typography:not(:last-child) {
+              margin-right: 12px;
+            }
+          }
+          .footer {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .icon-wrapper {
               display: flex;
-              justify-content: center;
-              align-items: center;
-              color: var(--white-color);
-              font-size: 18px;
-              cursor: pointer;
-            }
-            .shopping-cart {
-              background-color: var(--primary-color-dark);
-              margin-right: 8px;
-            }
-            .eye {
-              background-color: var(--primary-color);
-              margin-right: 8px;
-            }
-            .heart {
-              background-color: var(--secondary-color);
+              .icon {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--white-color);
+                font-size: 18px;
+                cursor: pointer;
+              }
+              .icon:not(:last-child) {
+                margin-right: 8px;
+              }
+              .shopping-cart {
+                background-color: var(--primary-color-dark);
+              }
+              .eye {
+                background-color: var(--primary-color);
+              }
+              .heart {
+                background-color: var(--secondary-color);
+              }
             }
           }
         }
@@ -197,9 +205,8 @@ export const ContainerWrapper = styled.div`
 
   @media screen and (max-width: 991.5px) {
     .filter-wrapper {
-      .ant-menu.sort-menu {
-        position: relative;
-        margin-top: 10px;
+      .ant-select {
+        margin-top: 15px;
       }
     }
   }
@@ -214,22 +221,6 @@ export const ContainerWrapper = styled.div`
         .ant-menu-item {
           .ant-menu-title-content {
             font-size: 18px;
-          }
-        }
-      }
-
-      .ant-menu.sort-menu {
-        .ant-menu-submenu {
-          &-title {
-            .anticon,
-            .ant-menu-title-content {
-              font-size: 18px;
-            }
-          }
-          .ant-menu-sub {
-            .ant-menu-item {
-              font-size: 18px;
-            }
           }
         }
       }

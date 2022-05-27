@@ -7,6 +7,7 @@ import productsReducer from '../components/Product/productSlice';
 import productReviewsReducer from '../components/Product/productReviewSlice';
 import blogsReducer from '../components/Blog/blogSlice';
 import blogReviewsReducer from '../components/Blog/blogReviewSlice';
+import cartsReducer from '../components/Cart/cartSlice';
 
 // admin
 import adminNavbarReducer from '../admin_components/Navbar/navbarSlice';
@@ -20,6 +21,7 @@ export const store = configureStore({
     productReviews: productReviewsReducer,
     blogs: blogsReducer,
     blogReviews: blogReviewsReducer,
+    carts: cartsReducer,
 
     adminNavbar: adminNavbarReducer,
     adminLogin: adminLoginReducer,

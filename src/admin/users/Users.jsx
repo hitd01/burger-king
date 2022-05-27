@@ -1,24 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Wrapper } from './styles';
-import { Typography } from 'antd';
-import { UserAdmin, EditUserAdmin } from '../../admin_components';
-
-const { Title } = Typography;
+import { UserAdmin } from '../../admin_components';
+import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 const Users = () => {
-  const [selected, setSelected] = useState('user');
+  const { selected } = useSelector((state) => state.adminNavbar);
 
   return (
     <Wrapper>
-      {selected === 'user' ? (
-        <>
-          <div className="top-title">
-            <Title level={4}>Danh sách người dùng</Title>
-          </div>
-          <UserAdmin />
-        </>
-      ) : null}
-      {selected === 'edit-user' ? <EditUserAdmin /> : null}
+      {selected === 'users' && <UserAdmin />}
+      {selected !== 'users' && <Outlet />}
     </Wrapper>
   );
 };

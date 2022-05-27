@@ -26,7 +26,7 @@ const Footer = () => {
               </Text>
               <Text className="title">Địa chỉ</Text>
               <Text className="description">
-                Ngõ 66, Hồ Tùng Mậu, Cầu Giấy, Hà Nội
+                Ngõ 66 Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội
               </Text>
             </Col>
             <Col xl={8} lg={8} md={12} sm={24} xs={24} className="phone">

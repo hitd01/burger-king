@@ -1,38 +1,16 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Typography } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { Wrapper } from './styles';
-import {
-  ProductAdmin,
-  AddProductAdmin,
-  EditProductAdmin,
-} from '../../admin_components';
-
-const { Title } = Typography;
+import { ProductAdmin } from '../../admin_components';
+import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 const Products = () => {
-  const [selected, setSelected] = useState('products');
-
-  const addProductButtonClick = () => {
-    setSelected('add-product');
-  };
+  const { selected } = useSelector((state) => state.adminNavbar);
 
   return (
     <Wrapper>
-      {selected === 'products' ? (
-        <>
-          <div className="top-title">
-            <Title level={4}>Danh sách món ăn</Title>
-            <Button type="primary" size="large" onClick={addProductButtonClick}>
-              <PlusOutlined />
-              Thêm
-            </Button>
-          </div>
-          <ProductAdmin />
-        </>
-      ) : null}
-      {selected === 'add-product' ? <AddProductAdmin /> : null}
-      {selected === 'edit-product' ? <EditProductAdmin /> : null}
+      {selected === 'products' && <ProductAdmin />}
+      {selected !== 'products' && <Outlet />}
     </Wrapper>
   );
 };

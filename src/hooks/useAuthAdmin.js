@@ -17,7 +17,8 @@ const useAuthAdmin = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user?.email === 'foodapp.admin.tt@admin.com') {
-        setCurrentUser(user);
+        // setCurrentUser(user);
+        setCurrentUser(auth.currentUser);
       }
       if (user?.email === 'foodapp.admin.tt@admin.com' && !isLogged) {
         dispatch(setLogged(true));

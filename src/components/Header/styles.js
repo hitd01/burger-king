@@ -89,14 +89,49 @@ export const HeaderWrapper = styled.div`
       }
       .search-wrapper {
         position: relative;
-        .ant-input {
+        .search-result {
           position: absolute;
           top: 100%;
           right: 0;
           margin-top: 20px;
           min-width: 50vw;
-          padding: 6px 12px;
-          font-size: 16px;
+          background-color: var(--white-color);
+          box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
+          .ant-input {
+            padding: 6px 12px;
+            font-size: 16px;
+          }
+          .ant-table-wrapper {
+            padding: 0 12px;
+            th.ant-table-cell {
+              text-align: center;
+              font-size: 18px;
+              color: var(--text-primary);
+              background-color: transparent;
+            }
+            td.ant-table-cell {
+              .product_info {
+                display: flex;
+                align-items: center;
+                .ant-typography.product_name {
+                  font-size: 16px;
+                  color: var(--text-primary);
+                  margin-left: 12px;
+                }
+              }
+            }
+            .ant-table-pagination {
+              .ant-pagination-prev,
+              .ant-pagination-next {
+                .ant-pagination-item-link {
+                  .anticon {
+                    color: rgba(0, 0, 0, 0.25);
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+          }
         }
       }
       .user-avatar {

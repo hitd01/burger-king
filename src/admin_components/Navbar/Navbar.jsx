@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AreaChartOutlined,
   CoffeeOutlined,
@@ -9,10 +9,12 @@ import {
   IdcardOutlined,
   ShoppingOutlined,
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Wrapper } from './styles';
+import { setSelected } from './navbarSlice';
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const { collapsed } = useSelector((state) => state.adminNavbar);
 
   const getItem = (label, key, icon, children, type) => {
@@ -24,11 +26,21 @@ const Navbar = () => {
       type,
     };
   };
+
   const [pageCurrent, setPageCurrent] = useState('analytics');
+
+  let location = useLocation();
+  useEffect(() => {
+    const params = location?.pathname?.split('/');
+    params[3] ? setPageCurrent(params[3]) : setPageCurrent(params[2]);
+    // setPageCurrent(params[3]);
+    dispatch(setSelected(params[params.length - 1]));
+  }, [location, dispatch]);
+
   const navItems = [
     getItem(
       <Link to="/app/admin">Thống kê</Link>,
-      'analytics',
+      'admin',
       <AreaChartOutlined />
     ),
     getItem(
@@ -57,8 +69,8 @@ const Navbar = () => {
       <FileDoneOutlined />
     ),
     getItem(
-      <Link to="/app/admin/cart">Đơn hàng</Link>,
-      'cart',
+      <Link to="/app/admin/carts">Đơn hàng</Link>,
+      'carts',
       <ShoppingOutlined />
     ),
   ];
@@ -67,7 +79,7 @@ const Navbar = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper collapsed={collapsed}>
       <Menu
         mode="inline"
         inlineCollapsed={collapsed}

@@ -51,15 +51,15 @@ export const Wrapper = styled.div`
           }
           .ant-typography.profile-info {
             color: ${({ selected }) =>
-              selected === 'profile'
-                ? 'var(--primary-color)'
-                : 'var(--text-gray)'};
+    selected === 'profile'
+      ? 'var(--primary-color)'
+      : 'var(--text-gray)'};
           }
           .ant-typography.change-password-title {
             color: ${({ selected }) =>
-              selected === 'change-password'
-                ? 'var(--primary-color)'
-                : 'var(--text-gray)'};
+    selected === 'change-password'
+      ? 'var(--primary-color)'
+      : 'var(--text-gray)'};
           }
         }
       }

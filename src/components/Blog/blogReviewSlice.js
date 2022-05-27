@@ -3,42 +3,53 @@ import { getCollection } from '../../firebase/services';
 
 const initialState = {
   blogReviewLoading: 'idle',
-  blogReviews: [
-    {
-      blogId: 'blog_id',
-      uid: 'user_id',
-      comments: [
-        'Vậy! Làm sao để bạn có thể đặt mua những chiếc burger tôm cho mình và gia đình một cách nhanh chóng nhất, với mức giá phù hợp nhất?',
-      ],
-      createdAt: null,
-      updatedAt: null,
-    },
-  ],
+  blogReviews: [],
 };
 
 export const getBlogReviews = createAsyncThunk(
   'blog-reviews/getBlogReviews',
   async () => {
-    return await getCollection('blogReviews');
+    return getCollection('blogReviews');
   }
 );
 
 export const blogReviewsSlice = createSlice({
   name: 'blog-reviews',
   initialState,
-  reducers: {},
+  reducers: {
+    setBlogReviewLoading: (state, action) => {
+      state.blogReviewLoading = action.payload;
+    },
+    setRemoveBlogReviewStatus: (state, action) => {
+      const blogReviewSelected = state.blogReviews.find(
+        (blogReview) => blogReview.id === action.payload.id
+      );
+      blogReviewSelected.removed = action.payload.status;
+    },
+    deleteBlogReviewById: (state, action) => {
+      state.blogReviews = state.blogReviews.filter(
+        (blogReview) => blogReview.id !== action.payload
+      );
+    },
+  },
   extraReducers: {
     [getBlogReviews.pending]: (state) => {
       state.blogReviewLoading = 'pending';
     },
     [getBlogReviews.fulfilled]: (state, action) => {
+      state.blogReviews = action.payload;
       state.blogReviewLoading = 'success';
-      state.blogs = action.payload;
     },
     [getBlogReviews.rejected]: (state) => {
       state.blogReviewLoading = 'failed';
     },
   },
 });
+
+export const {
+  setBlogReviewLoading,
+  setRemoveBlogReviewStatus,
+  deleteBlogReviewById,
+} = blogReviewsSlice.actions;
 
 export default blogReviewsSlice.reducer;

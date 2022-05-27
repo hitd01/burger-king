@@ -6,4 +6,4 @@ export { default as ProductsAdmin } from './products/Products';
 export { default as ProductReviewsAdmin } from './productReviews/ProductReviews';
 export { default as BlogsAdmin } from './blogs/Blogs';
 export { default as BlogReviewsAdmin } from './blogReviews/BlogReviews';
-export { default as CartAdmin } from './cart/Cart';
+export { default as CartsAdmin } from './carts/Carts';

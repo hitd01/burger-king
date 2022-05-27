@@ -46,6 +46,8 @@ export default function Login() {
           uid: user.uid,
           accessToken: user.accessToken,
           providerId,
+          phoneNumber: '',
+          roles: 'customer',
         };
 
         // check is new user
@@ -84,6 +86,8 @@ export default function Login() {
             uid: user.uid,
             accessToken: user.accessToken,
             providerId,
+            phoneNumber: '',
+            roles: 'customer',
           };
 
           // check is new user
@@ -108,19 +112,23 @@ export default function Login() {
   // handle sign in with email
   const handleSignInWithEmail = async () => {
     const { username, password } = form.getFieldValue();
-    await signInWithEmailAndPassword(auth, username, password)
-      .then(() => {
-        // Signed in
-        handleHiddenLogin();
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        if (errorCode === 'auth/wrong-password') {
-          alert('Sai mật khẩu!');
-        } else if (errorCode === 'auth/user-not-found') {
-          alert('Tài khoản không tồn tại!');
-        }
-      });
+    if (username !== 'foodapp.admin.tt@admin.com') {
+      await signInWithEmailAndPassword(auth, username, password)
+        .then(() => {
+          // Signed in
+          handleHiddenLogin();
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          if (errorCode === 'auth/wrong-password') {
+            alert('Sai mật khẩu!');
+          } else if (errorCode === 'auth/user-not-found') {
+            alert('Tài khoản không tồn tại!');
+          }
+        });
+    } else {
+      alert('Tài khoản không tồn tại!');
+    }
   };
 
   return (

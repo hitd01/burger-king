@@ -192,6 +192,14 @@ export const ReviewWrapper = styled.div`
       }
     }
   }
+  .no-preview {
+    font-size: 20px;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+  }
   @media screen and (max-width: 575.5px) {
     .container {
       padding: 0 8px;
@@ -240,6 +248,10 @@ export const AddReviewWrapper = styled.div`
                 font-size: 20px;
                 cursor: pointer;
               }
+            }
+            .ant-input {
+              font-size: 16px;
+              color: var(--text-primary);
             }
           }
         }

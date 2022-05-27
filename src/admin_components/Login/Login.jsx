@@ -22,7 +22,6 @@ const Login = () => {
   const { isLogged } = useSelector((state) => state.adminLogin);
 
   useEffect(() => {
-    document.title = 'Đăng nhập Admin';
     if (isLogged) {
       navigate('/app/admin');
     }
@@ -30,7 +29,7 @@ const Login = () => {
 
   const handleSignInWithEmail = async () => {
     const { email, password } = form.getFieldValue();
-    if (email === 'foodapp.admin.tt@admin.com' && password === '111111') {
+    if (email === 'foodapp.admin.tt@admin.com') {
       setPersistence(auth, browserSessionPersistence)
         .then(() => {
           return signInWithEmailAndPassword(auth, email, password);
@@ -58,7 +57,8 @@ const Login = () => {
   return (
     <Wrapper>
       <div className="container-wrapper">
-        <Title level={1}>Admin đăng nhập</Title>
+        <Title level={1}>Đăng nhập quản trị</Title>
+
         <Form
           form={form}
           name="normal_login"

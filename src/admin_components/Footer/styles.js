@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  margin-top: 40px;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,8 +9,4 @@ export const Wrapper = styled.div`
   font-size: 16px;
   color: var(--text-primary);
   border-top: 1px solid #ccc;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
 `;

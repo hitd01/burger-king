@@ -45,16 +45,16 @@ export const FormWrapper = styled.div`
     .sign-in-title {
       border-top-left-radius: 20px;
       background: ${({ signIn }) =>
-        signIn ? 'var(--primary-color-dark)' : 'var(--primary-color)'};
+    signIn ? 'var(--primary-color-dark)' : 'var(--primary-color)'};
       color: ${({ signIn }) =>
-        signIn ? '#ffffff' : 'var(--primary-color-dark)'};
+    signIn ? '#ffffff' : 'var(--primary-color-dark)'};
     }
     .sign-up-title {
       border-top-right-radius: 20px;
       background: ${({ signIn }) =>
-        signIn ? 'var(--primary-color)' : 'var(--primary-color-dark)'};
+    signIn ? 'var(--primary-color)' : 'var(--primary-color-dark)'};
       color: ${({ signIn }) =>
-        signIn ? 'var(--primary-color-dark)' : '#ffffff'};
+    signIn ? 'var(--primary-color-dark)' : '#ffffff'};
     }
   }
   .ant-form {

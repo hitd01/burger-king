@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  overflow-x: hidden;
   height: 80px;
   padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
+  position: relative;
   .avatar-wrapper {
     position: relative;
     .ant-avatar {

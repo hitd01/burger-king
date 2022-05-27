@@ -24,6 +24,8 @@ export const Wrapper = styled.div`
     h1.ant-typography {
       text-transform: uppercase;
       color: var(--text-primary);
+      font-size: 32px;
+      text-align: center;
     }
 
     .ant-form {

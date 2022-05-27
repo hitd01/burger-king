@@ -17,6 +17,10 @@ const Login = () => {
     }
   }, [isLogged, navigate]);
 
+  useEffect(() => {
+    document.title = 'Đăng nhập quản trị Food App';
+  }, []);
+
   if (loading) {
     return <Spin />;
   }
