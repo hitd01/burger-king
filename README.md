@@ -41,7 +41,7 @@
 
 ## About The Project
 
-[![Burger King][product-screenshot]](https://ttburgerking.firebaseapp.com/)
+[![Burger King][/src/assets/screenshot]](https://ttburgerking.firebaseapp.com/)
 
 The product is the result of researching and understanding ReactJS technology.
 
