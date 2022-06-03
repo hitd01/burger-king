@@ -77,8 +77,10 @@ const Header = () => {
   }, [location]);
 
   useEffect(() => {
-    setQuantityOrder(cartsLocalStorage?.length);
-  }, [cartsLocalStorage]);
+    if (isLogged) {
+      setQuantityOrder(cartsLocalStorage?.length);
+    }
+  }, [cartsLocalStorage, isLogged]);
 
   // menu config
   const [pageCurrent, setPageCurrent] = useState('home');

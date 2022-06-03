@@ -142,13 +142,14 @@ export const HeaderWrapper = styled.div`
   @media screen and (max-width: 991.5px) {
     .link-wrapper {
       .ant-menu {
-        display: flex;
+        /* display: flex; */
+        display: ${({ toggleMenu }) => (toggleMenu ? 'flex' : 'none')};
         flex-direction: column;
         justify-content: flex-start;
         position: absolute;
         top: 110px;
-        right: ${({ toggleMenu }) => (toggleMenu ? 0 : 'calc(-100% - 40px)')};
-        opacity: 1;
+        right: ${({ toggleMenu }) => (toggleMenu ? 0 : '-100%')};
+        opacity: ${({ toggleMenu }) => (toggleMenu ? 1 : 0)};
         transition: all 0.5s ease;
         width: 100vw;
         height: auto;

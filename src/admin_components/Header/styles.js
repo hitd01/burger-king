@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  overflow-x: hidden;
   height: 80px;
   padding: 0 40px;
   display: flex;

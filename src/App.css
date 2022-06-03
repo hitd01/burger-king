@@ -17,6 +17,10 @@ body {
   overflow-x: hidden;
 }
 
+#root {
+  overflow-x: hidden;
+}
+
 .container {
   margin: 0 auto;
 }

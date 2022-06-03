@@ -35,6 +35,7 @@ const Cart = () => {
   const { productLoading, products } = useSelector((state) => state.products);
   const { cartsLocalStorage } = useSelector((state) => state.carts);
   const { users, userLoading } = useSelector((state) => state.users);
+  const { isLogged } = useSelector((state) => state.login);
 
   // states
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -45,7 +46,7 @@ const Cart = () => {
   const [formFields, setFormFields] = useState([]);
 
   useEffect(() => {
-    if (productLoading === 'success') {
+    if (productLoading === 'success' && isLogged) {
       setCartsPreview(
         cartsLocalStorage
           ?.filter(
@@ -70,7 +71,7 @@ const Cart = () => {
           }))
       );
     }
-  }, [products, productLoading, cartsLocalStorage]);
+  }, [products, productLoading, cartsLocalStorage, isLogged]);
 
   useEffect(() => {
     setTotal(
@@ -358,7 +359,7 @@ const Cart = () => {
 
       <CartWrapper isModalVisible={isModalVisible}>
         <div className="container">
-          {cartsPreview.length > 0 ? (
+          {cartsPreview.length > 0 && isLogged ? (
             <div className="exist">
               <div className="action">
                 <Button
