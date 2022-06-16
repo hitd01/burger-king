@@ -414,6 +414,7 @@ const Cart = () => {
                       name="confirm-payment"
                       form={form}
                       fields={formFields}
+                      onFinish={handleOk}
                     >
                       <Form.Item
                         label="Địa chỉ"
@@ -471,7 +472,7 @@ const Cart = () => {
                             type="primary"
                             htmlType="submit"
                             className="confirm-btn"
-                            onClick={handleOk}
+                            // onClick={handleOk}
                           >
                             Xác nhận
                           </Button>
