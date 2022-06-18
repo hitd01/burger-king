@@ -231,7 +231,7 @@ const Product = () => {
             ...currentPreviews,
             {
               ...payload,
-              createdAt: { seconds: Date.now() },
+              createdAt: moment(Date.now()).format('DD-MM-YYYY'),
               username: users?.find((user) => user.uid === payload.userId)
                 ?.displayName,
               avatar: users?.find((user) => user.uid === payload.userId)
@@ -482,9 +482,11 @@ const Product = () => {
                         <div className="top">
                           <Text className="username">{preview?.username}</Text>
                           <Text className="time">
-                            {moment(preview?.createdAt?.seconds * 1000).format(
-                              'DD-MM-YYYY'
-                            )}
+                            {preview?.createdAt?.seconds
+                              ? moment(preview?.createdAt?.seconds * 1000).format(
+                                'DD-MM-YYYY'
+                              )
+                              : preview?.createdAt}
                           </Text>
                         </div>
                         <ReactStars
